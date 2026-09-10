@@ -1,6 +1,9 @@
 'use strict';
-const dayKey=new URLSearchParams(location.search).get('day');
-const day=window.DAYS?.['day'+dayKey];
+const params=new URLSearchParams(location.search);
+const dayKey=params.get('day');
+const selectedCrew=Number(params.get('crew'))===2?2:1;
+const decks={1:window.DAYS,2:window.CREW2};
+const day=decks[selectedCrew]?.['day'+dayKey];
 const slides=day?day.slides:window.TRAINING;
 const $=id=>document.getElementById(id);
 let current=0,phase=0,lastFocus=null,toastTimer;
@@ -29,6 +32,6 @@ $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenEle
 document.addEventListener('fullscreenchange',()=>$('fullscreen').setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen'));
 document.addEventListener('keydown',e=>{if(panel.open||e.altKey||e.ctrlKey||e.metaKey||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.closest('[role=tablist]'))return;if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(current+1);}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current-1);}if(e.key==='Home'){e.preventDefault();go(0);}if(e.key==='End'){e.preventDefault();go(slides.length-1);}});
 $('day-guide').href=day?day.guideUrl:'https://github.com/RyanLisse/aetherlink-training-template';
-$('presentations').textContent=day?'Session '+dayKey+' · Change':'Choose session';
-$('presentations').addEventListener('click',()=>{const list=node('nav','chapter-list');list.setAttribute('aria-label','Training presentations');const options=[['','Daily framework · reusable'],...Object.entries(window.DAYS||{}).map(([key,value])=>[key.replace('day',''),value.title])];for(const [key,label] of options){if(key&&!window.DAYS?.['day'+key])continue;const a=node('a','chapter-link',label);a.href=key?'?day='+key+'#1':'./#1';if((key&&key===dayKey)||(!key&&!day))a.setAttribute('aria-current','page');list.append(a);}openPanel('Choose a presentation',list);});
+$('presentations').textContent=day?'Crew '+selectedCrew+' · Day '+dayKey+' · Change':'Choose session';
+$('presentations').addEventListener('click',()=>{const list=node('nav','chapter-list');list.setAttribute('aria-label','Training presentations');const options=[[null,null,'Daily framework · reusable'],[1,'3','Wave 2 · Crew 1 · Day 3'],[1,'4','Wave 2 · Crew 1 · Day 4'],[1,'5','Wave 2 · Crew 1 · Day 5'],[1,'1','Crew 1 · Day 1 · Reference'],[1,'2','Crew 1 · Day 2 · Reference'],...['1','2','3','4','5'].map(key=>[2,key,'Crew 2 · New training · Day '+key])];for(const [crew,key,label] of options){const a=node('a','chapter-link',label);a.href=crew?'?crew='+crew+'&day='+key+'#1':'./#1';if((crew===selectedCrew&&key===dayKey)||(!crew&&!day))a.setAttribute('aria-current','page');list.append(a);}openPanel('Choose a presentation',list);});
 window.addEventListener('hashchange',fromHash);fromHash();
