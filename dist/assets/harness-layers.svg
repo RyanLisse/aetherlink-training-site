@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">The harness is 80 percent</title><desc id="desc">A bar split 20 percent model and 80 percent harness; the harness part is five stacked layers: loop and state, MCP tools, skills, sandbox, production layer.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker><marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker><marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker>
+  <filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter></defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">THE MODEL IS 20% · THE HARNESS IS 80%</text>
+  <text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">why 'we use ChatGPT' and 'we run agents' are not the same thing</text>
+<rect x="80" y="110" width="168" height="56" rx="12" fill="#ff7a1a"/>
+<text x="164" y="144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#1f1e2e">MODEL · 20%</text>
+<rect x="256" y="110" width="664" height="56" rx="12" fill="#5b3fff"/>
+<text x="588" y="144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#fff">HARNESS · 80%</text>
+<text x="164" y="190" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">reasons and predicts</text>
+<text x="588" y="190" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">turns language into reliable work</text>
+<rect x="256" y="215" width="220" height="40" rx="20.0" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
+<text x="366.0" y="240.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#fff">LOOP + STATE</text>
+<text x="492" y="240" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="13"  fill="#1f1e2e">gather → act → verify · context and memory carried between turns</text>
+<rect x="256" y="277" width="220" height="40" rx="20.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="366.0" y="302.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#413380">MCP · TOOLS</text>
+<text x="492" y="302" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="13"  fill="#1f1e2e">one plug for every tool, no driver per device</text>
+<rect x="256" y="339" width="220" height="40" rx="20.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="366.0" y="364.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#413380">SKILLS</text>
+<text x="492" y="364" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="13"  fill="#1f1e2e">loaded only when relevant; advisory, versioned like code</text>
+<rect x="256" y="401" width="220" height="40" rx="20.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="366.0" y="426.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#413380">SANDBOX</text>
+<text x="492" y="426" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="13"  fill="#1f1e2e">worktree, permissions, hooks: what it may touch</text>
+<rect x="256" y="463" width="220" height="40" rx="20.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="366.0" y="488.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#413380">PRODUCTION LAYER</text>
+<text x="492" y="488" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="13"  fill="#1f1e2e">subagents, approvals, observability, evals</text>
+<path d="M248 130C230 330 230 480 256 520" fill="none" stroke="#dedbea" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">SWAP THE MODEL AND LITTLE CHANGES · SWAP THE HARNESS AND EVERYTHING DOES</text>
+</svg>
