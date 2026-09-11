@@ -19,5 +19,7 @@ window.GLOSSARY = [
   {term:'Subagent', definition:'An agent another agent delegates to, with its own context and a narrower task.'},
   {term:'Checkpoint', definition:'The observable condition on a slide that must be true before the group moves on. Marked passed by a human, never assumed.'},
   {term:'Holdout scenario', definition:'An end-to-end user story kept outside the codebase agents work in, never shown to them, scored as the fraction of runs that satisfied the user.'},
-  {term:'Constant', definition:'What stays fixed between two runs (prompt, sequence, harness) so that one change can be measured; without it no run is comparable.'}
+  {term:'Constant', definition:'What stays fixed between two runs (prompt, sequence, harness) so that one change can be measured; without it no run is comparable.'},
+  {term:'Framework', definition:'A library of abstractions for building agent logic (LangChain, Agents SDK): the blueprint. It fails on logic errors.'},
+  {term:'Runtime', definition:'The infrastructure layer that runs agents durably: state that survives a crash, streaming, human-in-the-loop interrupts (LangGraph, Temporal).'}
 ];
