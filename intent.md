@@ -22,12 +22,18 @@ Every concept ships as three slides, in this order: **definition** (what it is, 
 | Concept | Visual | Squad 1 | Squad 2 |
 | --- | --- | --- | --- |
 | intent.md | `intent-md.svg` | Day 1 | Day 1 |
-| Evidence rule | `evidence-rule.svg` | Day 1, 2, 3 | Day 2 |
-| MOB programming | `mob-programming.svg` | Day 1, 3 | Day 5 |
+| Evidence rule | `evidence-rule.svg` | Day 1, 2 | Day 2 |
+| MOB programming | `mob-programming.svg` | Day 1 | Day 5 |
 | AI-native SDLC | `ai-native-sdlc-line-and-loop.png` | Day 3 | Day 1 |
-| Agentic loop | `agentic-loop.svg` (+ interactive widget on days 4 and 5) | Day 3, 4, 5 | Day 3 |
+| Agentic loop | `agentic-loop.svg` (+ interactive widget) | Day 4 | Day 3 |
 | One contract, two platforms | `one-contract-two-platforms.svg` | Day 4, 5 | Day 4 |
 | Human gate | `human-gate.svg` | Day 4 | Day 5 |
+| Hooks | `hooks-guardrails.svg` | Day 5 | Day 4 |
+| Subagents | `parallel-sessions-subagents.svg` | Day 5 | Day 4 |
+| Holdout scenarios | `holdout-scenarios.svg` | Day 5 | Day 5 |
+| Measure the loop | `measure-loop.svg` | Day 5 | Day 5 |
+
+The word "harness" is deliberately absent from participant material: the decks say "platform" (n8n, Claude Code). Keep it that way.
 
 ## Boundary
 

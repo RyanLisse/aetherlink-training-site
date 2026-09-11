@@ -18,7 +18,7 @@
 <text x="316" y="268" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10"  fill="#625d73">p5</text>
 <rect x="350" y="195" width="28" height="55" rx="6" fill="#dedbea"/>
 <text x="364" y="268" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10"  fill="#625d73">p6</text>
-<text x="250" y="290" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">different prompt, model or harness each time</text>
+<text x="250" y="290" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">different prompt, model or platform each time</text>
 <text x="730" y="110" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#5b3fff">ALIGNED · a constant to hill-climb</text>
 <rect x="590" y="180" width="28" height="70" rx="6" fill="#5b3fff"/>
 <text x="604" y="268" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10"  fill="#625d73">run 1</text>
@@ -37,7 +37,7 @@
 <rect x="120" y="352" width="230" height="40" rx="20.0" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
 <text x="235.0" y="377.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#fff">TOKENS + TOOL CALLS</text>
 <text x="370" y="377" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="14"  fill="#1f1e2e">per completed task</text>
-<text x="620" y="377" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">one harness: 32 calls · another: 19 · same answer</text>
+<text x="620" y="377" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">one platform: 32 calls · another: 19 · same answer</text>
 <rect x="120" y="414" width="230" height="40" rx="20.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
 <text x="235.0" y="439.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#413380">REVIEW ITERATIONS</text>
 <text x="370" y="439" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="14"  fill="#1f1e2e">per pull request</text>

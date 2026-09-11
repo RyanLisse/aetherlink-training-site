@@ -17,7 +17,7 @@
 <path d="M570 200L730 250" fill="none" stroke="#ff7a1a" stroke-width="3" marker-end="url(#ao)"/>
 <g filter="url(#sh)"><path d="M70 258h400v96a14 14 0 0 1-14 14h-372a14 14 0 0 1-14-14z" fill="#ffffff"/></g>
 <rect x="70" y="258" width="400" height="3" fill="#5b3fff"/>
-<text x="92" y="292" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1" fill="#1f1e2e">N8N · VISUAL HARNESS · MORNING</text>
+<text x="92" y="292" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1" fill="#1f1e2e">N8N · VISUAL BUILDER · MORNING</text>
 <text x="92" y="320" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#1f1e2e">Set node → AI Agent → Calculator tool</text>
 <text x="92" y="344" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#1f1e2e">adapter: system message · model · access</text>
 <g filter="url(#sh)"><path d="M530 258h400v96a14 14 0 0 1-14 14h-372a14 14 0 0 1-14-14z" fill="#ffffff"/></g>
@@ -29,5 +29,5 @@
 <path d="M730 372L560 462" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
 <rect x="360" y="470" width="280" height="52" rx="26.0" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
 <text x="500.0" y="501.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">SAME CHECKER</text>
-<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">ONE CONTRACT · TWO HARNESSES · NO CAUSAL CLAIM FROM ONE PAIR</text>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">ONE CONTRACT · TWO PLATFORMS · NO CAUSAL CLAIM FROM ONE PAIR</text>
 </svg>

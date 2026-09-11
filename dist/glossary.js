@@ -4,8 +4,7 @@ window.GLOSSARY = [
   {term:'Chat', definition:'A model with a conversation and context, usually waiting for your next message.'},
   {term:'Agent', definition:'A model in a loop with a goal, tools, feedback and a boundary.'},
   {term:'Agentic loop', definition:'Gather context → take action → verify results → repeat or stop at a human gate.'},
-  {term:'Tool', definition:'A capability the harness exposes, such as reading a file, calculating or checking.'},
-  {term:'Harness', definition:'The system around the model that supplies context, tools, permissions and feedback.'},
+  {term:'Tool', definition:'A capability the platform exposes, such as reading a file, calculating or checking.'},
   {term:'Human gate', definition:'A deliberate pause where a person accepts, revises, parks or redirects the work.'},
   {term:'Trace', definition:'A record of observed lifecycle and successful tool events; it does not prove correctness.'},
   {term:'Hook', definition:'A deterministic rule at a lifecycle point, for example blocking a Write before it happens.'},
@@ -19,7 +18,5 @@ window.GLOSSARY = [
   {term:'Subagent', definition:'An agent another agent delegates to, with its own context and a narrower task.'},
   {term:'Checkpoint', definition:'The observable condition on a slide that must be true before the group moves on. Marked passed by a human, never assumed.'},
   {term:'Holdout scenario', definition:'An end-to-end user story kept outside the codebase agents work in, never shown to them, scored as the fraction of runs that satisfied the user.'},
-  {term:'Constant', definition:'What stays fixed between two runs (prompt, sequence, harness) so that one change can be measured; without it no run is comparable.'},
-  {term:'Framework', definition:'A library of abstractions for building agent logic (LangChain, Agents SDK): the blueprint. It fails on logic errors.'},
-  {term:'Runtime', definition:'The infrastructure layer that runs agents durably: state that survives a crash, streaming, human-in-the-loop interrupts (LangGraph, Temporal).'}
+  {term:'Constant', definition:'What stays fixed between two runs (prompt, sequence, platform) so that one change can be measured; without it no run is comparable.'},
 ];
