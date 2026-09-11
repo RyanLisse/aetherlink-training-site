@@ -12,7 +12,7 @@ A participant who opens any day deck can see, on one screen, what the concept is
 - [x] Steps are checkable and remembered for the tab session; the checkpoint has a "Mark passed" state.
 - [x] The footer shows the day as typed segments (practice, concept, review, recap, break, context); each segment jumps to its slide.
 - [x] All slide text that participants see is English. Facilitator `notes` may stay Dutch.
-- [ ] Every concept slide follows the cadence **definition → visual → how we use it** (see the concept register below).
+- [x] Every concept slide follows the cadence **definition → visual → how we use it** (see the concept register below). Squad 2 decks still `OPEN`.
 - [x] `check_site_dom.cjs` (jsdom, 139 renders) and `check_routes.cjs` pass before every publish.
 
 ## Concept register
@@ -21,13 +21,15 @@ Each concept a squad meets needs three things: a definition slide, a diagram or 
 
 | Concept | Definition slide | Visual | How we use it |
 | --- | --- | --- | --- |
-| intent.md | Day 1 · "What is intent.md?" | `robot.png` (mascot, not a diagram) — `OPEN`: replace with a what/why/boundaries diagram | Day 1 · Exercise 1 · capture intent |
-| AI-native SDLC | Day 3 · "What is an AI-native SDLC?" | `ai-native-sdlc-loop.svg` | Day 3 · "Point at the loop. Place your ticket." → Exercise 3 · plan the slice |
-| Agentic loop | Day 4/5 · "The agentic loop" | interactive widget `agentic-loop` | Day 4 · Individual · n8n ticket 101 |
-| One contract, two platforms | Day 4/5 · Concept 2 | `OPEN` — no diagram; compare layout only | Day 4 · same-input comparison |
-| MOB programming | Day 1/3 · "MOB programming, made concrete" | `OPEN` | Day 1 · every MOB exercise |
-| Human gate | glossary + Day 4 · "Human gate · n8n baseline" | `OPEN` | every gate slide |
-| Evidence rule | Day 3 · "Scenario and evidence rule" | `OPEN` | Day 3 · Exercise 4 · reconcile and test |
+| intent.md | Day 1 · "What is intent.md?" | Day 1 · "Intent.md in one picture" (`intent-md.svg`) | Day 1 · Exercise 1 · capture intent |
+| Evidence rule | Day 1 / Day 3 · "Scenario and evidence rule" | Day 1 / Day 3 · "Evidence rule · see the ladder" (`evidence-rule.svg`) | Day 3 · Exercise 4 · reconcile and test |
+| MOB programming | Day 1 / Day 3 · "MOB programming, made concrete" | Day 1 / Day 3 · "MOB programming · see the roles" (`mob-programming.svg`) | Day 1 · every MOB exercise |
+| AI-native SDLC | Day 3 · "What is an AI-native SDLC?" | Day 3 · "AI-native SDLC · see the loop" (`ai-native-sdlc-loop.svg`) | Day 3 · "Point at the loop. Place your ticket." → Exercise 3 · plan the slice |
+| Agentic loop | Day 4 / Day 5 · "The agentic loop" | interactive widget `agentic-loop` | Day 4 · Individual · n8n ticket 101 |
+| One contract, two platforms | Day 4 / Day 5 · Concept 2 | Day 4 / Day 5 · "One contract, two platforms · see the split" (`one-contract-two-platforms.svg`) | Day 4 · same-input comparison |
+| Human gate | glossary + Day 4 · "Human gate · n8n baseline" | Day 4 · "Human gate · see the decision" (`human-gate.svg`) | every gate slide |
+
+Squad 2 decks reuse these concepts but carry no visual slides yet: `OPEN`.
 
 ## Boundary
 

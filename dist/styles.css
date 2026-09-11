@@ -189,6 +189,6 @@ body.dark .mascot{mix-blend-mode:screen}
 /* refinements after first visual pass */
 .with-side .cards.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(min-width:1101px){.with-side .cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.with-side .concept-figure{padding:.9rem}.with-side .concept-figure img{max-height:300px}
+.with-side .concept-figure{padding:.9rem}.with-side .concept-figure img{max-height:380px}
 .mascot{height:70px;top:.7rem;filter:none;opacity:.92}
 .recap-item.hidden-item .recap-text{background:var(--line);opacity:.45;height:1em;max-width:52%;align-self:center}
