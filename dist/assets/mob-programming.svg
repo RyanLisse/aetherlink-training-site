@@ -1,27 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
-  <title id="title">MOB programming</title><desc id="desc">One laptop, one driver typing what the navigator says, the rest in a rotating role; rotate every five to seven minutes.</desc>
-  <rect width="1000" height="620" rx="36" fill="#f4f1e8"/>
-  <text x="500" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#161616">MOB PROGRAMMING</text>
-  <text x="500" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">one laptop · one screen · everyone in a role</text>
-  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#6b675f"/></marker>
-  <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#df7a55"/></marker></defs>
-<circle cx="500" cy="360" r="150" fill="none" stroke="#df7a55" stroke-width="16" stroke-dasharray="60 22" stroke-linecap="round"/>
-<rect x="430" y="315" width="140" height="90" rx="12" fill="#161616"/><rect x="420" y="405" width="160" height="10" rx="4" fill="#161616"/>
-<text x="500" y="368" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#fff">ONE LAPTOP</text>
-<rect x="405" y="135" width="190" height="70" rx="35" fill="#df7a55"/>
-<text x="500.0" y="164.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">DRIVER</text>
-<text x="500.0" y="190.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">types what is said</text>
-<rect x="705" y="384.75" width="190" height="70" rx="35" fill="#161616"/>
-<text x="800.0" y="413.75" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">NAVIGATOR</text>
-<text x="800.0" y="439.75" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">thinks out loud</text>
-<rect x="105" y="384.75" width="190" height="70" rx="35" fill="#161616"/>
-<text x="200.0" y="413.75" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">RESEARCHER</text>
-<text x="200.0" y="439.75" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">brings the outside view</text>
-<rect x="405" y="480" width="190" height="70" rx="35" fill="#161616"/>
-<text x="500.0" y="509.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">TESTER</text>
-<text x="500.0" y="535.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">checks the evidence</text>
-<path d="M640 270A160 160 0 0 1 640 450" fill="none" stroke="#161616" stroke-width="4" marker-end="url(#a)"/>
-<text x="715" y="362" text-anchor="start" font-family="Arial,sans-serif" font-size="15" fill="#161616">rotate</text>
-<text x="715" y="382" text-anchor="start" font-family="Arial,sans-serif" font-size="15" fill="#161616">every 5–7 min</text>
-<text x="500" y="590" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">"Pause" is a signal to re-name the source, the assumption or the evidence. A human decides at every gate.</text>
+  <title id="title">MOB programming</title><desc id="desc">Four rotating roles on one chain: driver, navigator, researcher, tester, around one laptop.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter>
+  </defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+<text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">MOB PROGRAMMING</text>
+<text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">one laptop · one screen · everyone in a role</text>
+<rect x="94.0" y="120" width="192.0" height="30" rx="10" fill="#1f1e2e" stroke="#ff7a1a" stroke-width="2"/>
+<text x="190" y="140" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#fff">ROTATE EVERY 5–7 MIN</text>
+<text x="190" y="166" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#ff7a1a">▼</text>
+<rect x="120" y="235" width="760" height="10" rx="5" fill="#5b3fff" opacity=".18"/>
+<circle cx="190" cy="240" r="32" fill="#fff1e6" stroke="#ff7a1a" stroke-width="3"/>
+<text x="190" y="249" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#aa4300">1</text>
+<text x="190" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#aa4300">DRIVER</text>
+<text x="190" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">types what the navigator says</text>
+<circle cx="396" cy="240" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
+<text x="396" y="249" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">2</text>
+<text x="396" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">NAVIGATOR</text>
+<text x="396" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">thinks out loud</text>
+<circle cx="602" cy="240" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
+<text x="602" y="249" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">3</text>
+<text x="602" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">RESEARCHER</text>
+<text x="602" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">brings the outside view</text>
+<circle cx="808" cy="240" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
+<text x="808" y="249" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">4</text>
+<text x="808" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">TESTER</text>
+<text x="808" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">checks the evidence</text>
+<rect x="300" y="400" width="400" height="64" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="500.0" y="428.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="600" fill="#1f1e2e">One laptop · one screen</text>
+<text x="500.0" y="450.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">the shared source of truth in the room</text>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">"PAUSE" = RE-NAME THE SOURCE, THE ASSUMPTION OR THE EVIDENCE</text>
 </svg>

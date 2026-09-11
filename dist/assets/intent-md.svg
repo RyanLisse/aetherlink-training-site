@@ -1,37 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
-  <title id="title">intent.md</title><desc id="desc">The human starting brief: what, why and within which boundaries, written before design or build.</desc>
-  <rect width="1000" height="620" rx="36" fill="#f4f1e8"/>
-  <text x="500" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#161616">INTENT.MD</text>
-  <text x="500" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">the human starting brief · written before design or build</text>
-  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#6b675f"/></marker>
-  <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#df7a55"/></marker></defs>
-<rect x="90" y="130" width="400" height="400" rx="24" fill="#fff" stroke="#161616" stroke-width="3"/>
-<text x="290" y="168" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#161616">intent.md</text>
-<rect x="120" y="190" width="340" height="86" rx="18" fill="#df7a55"/>
-<text x="290.0" y="227.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">WHAT</text>
-<text x="290.0" y="253.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">the desired result in plain words</text>
-<rect x="120" y="296" width="340" height="86" rx="18" fill="#161616"/>
-<text x="290.0" y="333.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">WHY</text>
-<text x="290.0" y="359.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">the reason, and who is affected</text>
-<rect x="120" y="402" width="340" height="86" rx="18" fill="#161616"/>
-<text x="290.0" y="439.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">BOUNDARIES</text>
-<text x="290.0" y="465.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">constraints · non-goals · OPEN questions</text>
-<path d="M500 330L600 330" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)" />
-<rect x="610" y="150" width="290" height="86" rx="18" fill="#f4f1e8"/>
-<text x="755.0" y="187.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#161616">DESIGN</text>
-<text x="755.0" y="213.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#161616" opacity=".85">the spec</text>
-<rect x="610" y="150" width="290" height="86" rx="18" fill="none" stroke="#161616" stroke-width="3"/>
-<rect x="610" y="287" width="290" height="86" rx="18" fill="#f4f1e8"/>
-<text x="755.0" y="324.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#161616">BUILD</text>
-<text x="755.0" y="350.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#161616" opacity=".85">one bounded slice</text>
-<rect x="610" y="287" width="290" height="86" rx="18" fill="none" stroke="#161616" stroke-width="3"/>
-<rect x="610" y="424" width="290" height="86" rx="18" fill="#f4f1e8"/>
-<text x="755.0" y="461.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#161616">REVIEW</text>
-<text x="755.0" y="487.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#161616" opacity=".85">against the brief, not the memory</text>
-<rect x="610" y="424" width="290" height="86" rx="18" fill="none" stroke="#161616" stroke-width="3"/>
-<path d="M755 236L755 285" fill="none" stroke="#6b675f" stroke-width="4" marker-end="url(#a)" />
-<path d="M755 373L755 422" fill="none" stroke="#6b675f" stroke-width="4" marker-end="url(#a)" />
-<path d="M905 467C960 467 960 193 905 193" fill="none" stroke="#df7a55" stroke-width="4" stroke-dasharray="8 8" marker-end="url(#ao)"/>
-<text x="965" y="335" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#df7a55">revisit</text>
-<text x="500" y="590" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">Three words always visible. Change the brief before you change the plan.</text>
+  <title id="title">intent.md</title><desc id="desc">The human starting brief: what, why and boundaries, feeding design, build and review with a revisit loop.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter>
+  </defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+<text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">INTENT.MD · THE HUMAN STARTING BRIEF</text>
+<text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">written before design or build</text>
+<rect x="70" y="110" width="400" height="392" rx="16" fill="#fbfafc" stroke="#dedbea" stroke-width="1.5" stroke-dasharray="7 6"/>
+<text x="92" y="140" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#5b3fff">INTENT.MD</text>
+<g filter="url(#sh)"><path d="M92 158h356v82a14 14 0 0 1-14 14h-328a14 14 0 0 1-14-14z" fill="#ffffff"/></g>
+<rect x="92" y="158" width="356" height="3" fill="#ff7a1a"/>
+<text x="114" y="192" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1" fill="#1f1e2e">WHAT</text>
+<text x="114" y="220" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#1f1e2e">The desired result in plain words.</text>
+<g filter="url(#sh)"><path d="M92 270h356v82a14 14 0 0 1-14 14h-328a14 14 0 0 1-14-14z" fill="#ffffff"/></g>
+<rect x="92" y="270" width="356" height="3" fill="#5b3fff"/>
+<text x="114" y="304" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1" fill="#1f1e2e">WHY</text>
+<text x="114" y="332" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#1f1e2e">The reason, and who is affected.</text>
+<g filter="url(#sh)"><path d="M92 382h356v82a14 14 0 0 1-14 14h-328a14 14 0 0 1-14-14z" fill="#ffffff"/></g>
+<rect x="92" y="382" width="356" height="3" fill="#ff7a1a"/>
+<text x="114" y="416" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1" fill="#1f1e2e">BOUNDARIES</text>
+<text x="114" y="444" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#1f1e2e">Constraints · non-goals · OPEN questions.</text>
+<path d="M478 306L560 306" fill="none" stroke="#ff7a1a" stroke-width="3" marker-end="url(#ao)"/>
+<rect x="580" y="150" width="300" height="54" rx="27.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="730.0" y="182.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#413380">DESIGN · THE SPEC</text>
+<rect x="580" y="279" width="300" height="54" rx="27.0" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
+<text x="730.0" y="311.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">BUILD · ONE BOUNDED SLICE</text>
+<rect x="580" y="408" width="300" height="54" rx="27.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="730.0" y="440.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#413380">REVIEW · AGAINST THE BRIEF</text>
+<path d="M730 204L730 277" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M730 333L730 406" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M885 435C960 435 960 177 885 177" fill="none" stroke="#ff7a1a" stroke-width="2.5" stroke-dasharray="6 6" marker-end="url(#ao)"/>
+<text x="962" y="312" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#aa4300">REVISIT</text>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">WHAT · WHY · BOUNDARIES · CHANGE THE BRIEF BEFORE THE PLAN</text>
 </svg>

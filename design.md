@@ -67,3 +67,16 @@ Order of precedence: `layout: exercise` → practice; `layout: recap` → recap;
 ## Evidence
 
 Every UI change ships with screenshots at 1440×900 and 390×844 from the local server, plus `node work/bundle-update/check_site_dom.cjs` and `node work/feedback-followup/check_routes.cjs` output.
+
+## Diagrams (`dist/assets/*.svg`)
+
+Concept diagrams are built from the same primitives as the slides, so a diagram never looks like it came from another tool:
+
+- **Card**: white, 3px top border in `--purple` or `--orange`, rounded bottom corners, small uppercase heading (13px, letter-spacing 1) and 17px body. Same as `.card`.
+- **Step**: 64px circle, 3px `--purple` border with a purple number; the active step uses `--orange` with the `#aa4300` accent text. Steps sit on the 10px purple-tinted chain bar. Same as `.step-circle` and `.steps-chain`.
+- **Pill**: full-radius tab with the light purple border `#c9c0f7`; the selected pill is solid `--purple` with white text. Same as `.phase-tab`.
+- **Tint box**: purple 12% tint with `--line` border for agent/system nodes; orange tint with `--orange` border for the human node. Same as the agentic-loop widget.
+- **Callout**: ink pill with a 2px orange border, white uppercase text and a `▼`. Same as `.step-callout`.
+- **Eyebrow and tagline**: purple uppercase letter-spaced title at the top; `#aa4300` uppercase tagline at the bottom.
+- **Loop**: ink nodes, orange core with ink text, orange dashed ring. Same as the SDLC widget.
+- Background is plain white so the SVG sits inside `.concept-figure` without a second frame. Arial only, no shadows heavier than the card shadow. `robot.png` (mascot) and `adoption.png` (Anthropic source image) are third-party rasters and stay as they are.

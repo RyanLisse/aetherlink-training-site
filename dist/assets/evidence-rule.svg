@@ -1,29 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
-  <title id="title">Evidence rule</title><desc id="desc">A claim only counts when it names a source row, a reproducible calculation or command, and a reviewer; anything else stays a hypothesis.</desc>
-  <rect width="1000" height="620" rx="36" fill="#f4f1e8"/>
-  <text x="500" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#161616">EVIDENCE RULE</text>
-  <text x="500" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">claim → source → reproduced check → reviewer · otherwise it is a hypothesis</text>
-  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#6b675f"/></marker>
-  <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#df7a55"/></marker></defs>
-<rect x="50" y="230" width="210" height="110" rx="18" fill="#161616"/>
-<text x="155.0" y="279.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#fff">CLAIM</text>
-<text x="155.0" y="305.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">what you say happened</text>
-<path d="M260 285L290 285" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)" />
-<rect x="290" y="230" width="210" height="110" rx="18" fill="#161616"/>
-<text x="395.0" y="279.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#fff">SOURCE</text>
-<text x="395.0" y="305.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">row id · file · cutoff</text>
-<path d="M500 285L530 285" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)" />
-<rect x="530" y="230" width="210" height="110" rx="18" fill="#161616"/>
-<text x="635.0" y="279.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#fff">REPRODUCED CHECK</text>
-<text x="635.0" y="305.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">command · calculation · sheet</text>
-<path d="M740 285L770 285" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)" />
-<rect x="770" y="230" width="210" height="110" rx="18" fill="#df7a55"/>
-<text x="875.0" y="279.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#fff">REVIEWER</text>
-<text x="875.0" y="305.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">someone else reran it</text>
-<rect x="120" y="400" width="760" height="70" rx="18" fill="#fff" stroke="#6b675f" stroke-width="3" stroke-dasharray="10 8"/>
-<text x="500" y="430" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">HYPOTHESIS</text>
-<text x="500" y="455" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#6b675f">a claim without source, check and reviewer stays OPEN — say so, do not soften it</text>
-<rect x="700" y="130" width="250" height="52" rx="10" fill="#161616"/>
-<text x="825" y="163" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff">cutoff 2026-09-10 12:00</text>
-<text x="500" y="590" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">Point at the row, show the command, name the reviewer. Feelings are not evidence.</text>
+  <title id="title">Evidence rule</title><desc id="desc">Claim, source, reproduced check, reviewer; anything short of that is a hypothesis and stays OPEN.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter>
+  </defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+<text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">EVIDENCE RULE</text>
+<text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">a claim only counts with a source, a reproduced check and a reviewer</text>
+<rect x="790" y="88" width="198.79999999999998" height="26" rx="13" fill="#1f1e2e"/>
+<text x="889.4" y="105" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#fff">CUTOFF 2026-09-10 12:00</text>
+<rect x="120" y="220" width="760" height="10" rx="5" fill="#5b3fff" opacity=".18"/>
+<circle cx="190" cy="225" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
+<text x="190" y="234" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">1</text>
+<text x="190" y="287" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">CLAIM</text>
+<text x="190" y="309" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">what you say happened</text>
+<circle cx="396" cy="225" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
+<text x="396" y="234" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">2</text>
+<text x="396" y="287" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">SOURCE</text>
+<text x="396" y="309" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">row id · file · cutoff</text>
+<circle cx="602" cy="225" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
+<text x="602" y="234" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">3</text>
+<text x="602" y="287" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">REPRODUCED CHECK</text>
+<text x="602" y="309" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">command · calculation · sheet</text>
+<circle cx="808" cy="225" r="32" fill="#fff1e6" stroke="#ff7a1a" stroke-width="3"/>
+<text x="808" y="234" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#aa4300">4</text>
+<text x="808" y="287" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#aa4300">REVIEWER</text>
+<text x="808" y="309" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">someone else reran it</text>
+<rect x="150" y="380" width="700" height="80" rx="14" fill="#fbfafc" stroke="#dedbea" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="500" y="412" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#625d73">HYPOTHESIS</text>
+<text x="500" y="440" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#1f1e2e">a claim without source, check and reviewer stays OPEN — say so, do not soften it</text>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">POINT AT THE ROW · SHOW THE COMMAND · NAME THE REVIEWER</text>
 </svg>
