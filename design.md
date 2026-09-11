@@ -80,3 +80,12 @@ Concept diagrams are built from the same primitives as the slides, so a diagram 
 - **Eyebrow and tagline**: purple uppercase letter-spaced title at the top; `#aa4300` uppercase tagline at the bottom.
 - **Loop**: ink nodes, orange core with ink text, orange dashed ring. Same as the SDLC widget.
 - Background is plain white so the SVG sits inside `.concept-figure` without a second frame. Arial only, no shadows heavier than the card shadow. `robot.png` (mascot) and `adoption.png` (Anthropic source image) are third-party rasters and stay as they are.
+
+## Cards are visual by default
+
+`renderCard()` in `dist/app.js` decorates every card without per-slide artwork:
+
+- **Icon** per card title, chosen by keyword (`ICON_RULES`): goal and outcome get a target, boundary a shield, input and sources an inbox, result and check a tick, gate a gate, morning a sun, afternoon a moon, group and MOB people, evidence and packet a document, model and agent a chip, review a magnifier, learned a bulb, can do a flag. Odd cards tint orange, even cards purple, matching the card top border. Unknown titles get a dot; add a rule rather than a one-off icon.
+- **Pill chain** when a card body contains at least two arrows (`Theory → demo → review`): each step is a `.phase-tab`-style pill, the first one solid purple.
+- **Timeline** when a card body is a `·`-separated list of `HH:MM label` items (route and schedule slides): a purple rail with ink time chips.
+- Everything else stays a paragraph. The transforms are pure functions of the card text, so the canonical JSON never changes for looks.
