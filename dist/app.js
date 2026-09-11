@@ -13,7 +13,7 @@ function announce(text){$('announcement').textContent=text;}
 function notify(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2600);}
 function openPanel(title,content){lastFocus=document.activeElement;if(lastFocus instanceof HTMLElement)lastFocus.setAttribute('aria-expanded','true');$('panel-title').textContent=title;$('panel-body').replaceChildren(content);panel.setAttribute('aria-labelledby','panel-title');panel.showModal();$('close-panel').focus();}
 function closePanel(){panel.close();lastFocus?.setAttribute('aria-expanded','false');lastFocus?.focus();}
-function showGlossary(){const grid=node('div','glossary-grid');(window.GLOSSARY||[]).forEach((item,i)=>{const card=node('article','glossary-item');card.style.setProperty('--i',i);card.append(node('h3',null,item.term),node('p',null,item.definition));grid.append(card);});openPanel('Glossary · return here anytime',grid);}
+function showGlossary(){const wrap=node('div');const grid=node('div','glossary-grid');(window.GLOSSARY||[]).forEach((item,i)=>{const card=node('article','glossary-item');card.style.setProperty('--i',i);card.append(node('h3',null,item.term),node('p',null,item.definition));grid.append(card);});const link=node('a','guide-link','Open full glossary page ↗');link.href='glossary.html';link.target='_blank';link.rel='noopener noreferrer';link.style.marginTop='1rem';wrap.append(grid,link);openPanel('Glossary · return here anytime',wrap);}
 $('close-panel').addEventListener('click',closePanel);
 panel.addEventListener('cancel',e=>{e.preventDefault();closePanel();});
 $('glossary').addEventListener('click',showGlossary);
