@@ -109,3 +109,7 @@ body.dark .mascot{mix-blend-mode:screen;opacity:.9}
 .timer{box-shadow:0 12px 30px rgba(91,63,255,.08);animation:timer-in .45s both}
 @keyframes timer-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media(max-width:760px){.mascot{right:.5rem;bottom:7.5rem;width:clamp(72px,18vw,110px);opacity:.72}.timer{margin-right:4rem}}
+.glossary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;max-height:65vh;overflow:auto;padding:.2rem}
+.glossary-item{padding:1rem;border:1px solid var(--line);border-left:3px solid var(--purple);border-radius:10px;background:var(--surface);animation:enter .35s both;animation-delay:calc(var(--i,0)*35ms)}
+.glossary-item:nth-child(even){border-left-color:var(--orange)}.glossary-item h3{margin:0 0 .35rem;color:var(--purple);font-size:1rem}.glossary-item p{margin:0;line-height:1.45;color:var(--muted)}
+@media(max-width:650px){.glossary-grid{grid-template-columns:1fr}}
