@@ -19,8 +19,8 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | `dist/app.js` | Rendering, navigation, exercise timers and reveal controls |
 | `dist/widgets.js` | Interactive agent loop and illustrative SDLC diagram |
 | `dist/data.js` | Reusable presentation framework |
-| `dist/days.js` | Crew 1 day decks (`window.DAYS`) |
-| `dist/crew2.js` | Crew 2 day decks (`window.CREW2`) |
+| `dist/days.js` | Squad 1 day decks (`window.DAYS`) |
+| `dist/squad2.js` | Squad 2 day decks (`window.SQUAD2`) |
 | `dist/assets/` | Images |
 
 The day registries are JavaScript assignments containing JSON data. Preserve the
@@ -33,8 +33,8 @@ that registry, so carry direct slide edits back to the canonical course JSON.
 ## Preview
 
 From this repository root, run `python3 -m http.server 8080 --directory dist`,
-then open `http://localhost:8080/?crew=1&day=3#1` or
-`http://localhost:8080/?crew=2&day=2#1`. Stop the server with Ctrl-C afterward.
+then open `http://localhost:8080/?squad=1&day=3#1` or
+`http://localhost:8080/?squad=2&day=2#1`. Stop the server with Ctrl-C afterward.
 No build or package install is required.
 
 ## Publish
