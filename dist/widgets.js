@@ -11,14 +11,14 @@
   /* ---------- Widget 1: the agentic loop ---------- */
   const LOOP_STEPS=[
     {phase:'prompt',title:'Your prompt',text:'“Use the ticket-coach subagent. Read TICKET-OPS-101 and return a draft that follows the template. Preview only.”',adapter:'n8n: Execute workflow · Claude Code: you type the prompt'},
-    {phase:'gather',title:'Gather context',text:'The agent reads what it needs: ticket-inputs.md, ticket-template.md, the contract README. Every read is one tool call.',adapter:'n8n: Set node supplies the ticket · Claude Code: Read / Glob / Grep'},
-    {phase:'act',title:'Take action',text:'It decides one bounded step and acts: reproduce the arithmetic, draft the packet. Calculator or its own reasoning — still a tool action.',adapter:'n8n: AI Agent + Calculator (ai_tool) · Claude Code: subagent drafts in chat'},
+    {phase:'gather',title:'Gather context',text:'The agent reads what it needs: ticket-inputs.md, ticket-template.md, the contract README. The trace records actual tool calls; supplied context is not a tool call.',adapter:'n8n: Set node supplies the ticket · Claude Code: Read / Glob / Grep'},
+    {phase:'act',title:'Take action',text:'It decides one bounded step and acts: reproduce the arithmetic, draft the packet. A Calculator call is a tool action. Reasoning or drafting alone is not a tool call.',adapter:'n8n: AI Agent + Calculator (ai_tool) · Claude Code: subagent drafts in chat'},
     {phase:'verify',title:'Verify results',text:'It checks its own work against the contract: headings present, protected text unchanged, OPEN where sources are silent.',adapter:'Both: checker (shape) + your review (content). Trace shows what ran.'},
     {phase:'repeat',title:'Repeat',text:'Something missing? Back to gathering context with what it just learned. Dozens of small cycles chain together.',adapter:'The loop adapts: a question may need one pass, a fix several.'},
     {phase:'human',title:'You: interrupt, steer, add context',text:'You are part of the loop. Interrupt, redirect, add a source, or accept at the human gate. The agent works autonomously but stays responsive.',adapter:'Human gate: accept · park · redirect. No approval is implied by silence.'},
     {phase:'done',title:'Done',text:'A preview you can inspect, a trace of what ran, a checker line, and your decision. That is evidence — the answer alone is not.',adapter:'Record: input, settings, output, trace, human decision.'}
   ];
-  function agenticLoop(){
+  function agenticLoop(options={}){
     const wrap=h('section','widget widget-loop');wrap.setAttribute('aria-label','Interactive agentic loop');
     const svg=el('svg',{viewBox:'0 0 760 250',role:'img','aria-label':'Your prompt → gather context → take action → verify results → done, with a repeat arrow and a human interrupt'});
     const box=(id,x,y,w,label,cls)=>{const g=el('g',{class:'lp-box '+cls,'data-id':id});g.append(el('rect',{x,y,width:w,height:52,rx:10}),el('text',{x:x+w/2,y:y+31,'text-anchor':'middle'},label));return g;};
@@ -46,6 +46,7 @@
     bPlay.addEventListener('click',()=>{if(timer){stop();return;}bPlay.textContent='Pause';timer=setInterval(step,2200);});
     bHuman.addEventListener('click',()=>{stop();show(LOOP_STEPS.findIndex(s=>s.phase==='human'));});
     bReset.addEventListener('click',()=>{stop();show(0);});
+    options.signal?.addEventListener('abort',stop,{once:true});
     show(0);
     return wrap;
   }
@@ -68,27 +69,27 @@
     line.append(h('p','sdlc-note','One slow loop back is a new release cycle.'));
     /* right: the loop */
     const loop=h('div','sdlc-loop');loop.append(h('p','sdlc-label','AI-native: the loop'));
-    const svg=el('svg',{viewBox:'0 0 320 320',role:'img','aria-label':'Six stages in a circle around Claude with arrows cycling'});
+    const svg=el('svg',{viewBox:'0 0 320 320',role:'group','aria-label':'Six stages in a circle around Claude with arrows cycling'});
     const ring=el('g',{class:'sdlc-ring'});
     for(let k=0;k<6;k++){const a=(k/6)*Math.PI*2-Math.PI/2;const a2=((k+1)/6)*Math.PI*2-Math.PI/2;const r=118;const x1=160+r*Math.cos(a+0.3),y1=160+r*Math.sin(a+0.3),x2=160+r*Math.cos(a2-0.3),y2=160+r*Math.sin(a2-0.3);ring.append(el('path',{class:'sdlc-arc',d:`M${x1} ${y1} A${r} ${r} 0 0 1 ${x2} ${y2}`,'marker-end':'url(#sdlc-head)'}));}
     const defs=el('defs');const m=el('marker',{id:'sdlc-head',viewBox:'0 0 10 10',refX:'8',refY:'5',markerWidth:'6',markerHeight:'6',orient:'auto'});m.append(el('path',{d:'M0 0 L10 5 L0 10 z',class:'sdlc-head'}));defs.append(m);svg.append(defs,ring);
     svg.append(el('circle',{class:'sdlc-core',cx:160,cy:160,r:56}));svg.append(el('text',{class:'sdlc-core-label',x:160,y:156,'text-anchor':'middle'},'agent'),el('text',{class:'sdlc-core-sub',x:160,y:176,'text-anchor':'middle'},'humans above the loop'));
     STAGES.forEach((s,k)=>{const a=(k/6)*Math.PI*2-Math.PI/2;const x=160+118*Math.cos(a),y=160+118*Math.sin(a);const g=el('g',{class:'sdlc-node','data-k':k});g.append(el("circle",{cx:x,cy:y,r:27}),el('text',{x,y:y+5,'text-anchor':'middle'},s.name));svg.append(g);});
-    loop.append(svg,h('p','sdlc-note','Hours, not weeks, with humans instigating, directing, and governing.'));
+    loop.append(svg,h('p','sdlc-note','Shorter feedback cycles are the goal. Humans direct and govern; measure actual results.'));
     row.append(line,loop);wrap.append(row);
     /* before / after bars */
-    const bars=h('div','sdlc-bars');const bTitle=h('p','sdlc-label','Before agents: every stage runs at human speed');const track=h('div','sdlc-track');
+    const bars=h('div','sdlc-bars');const bTitle=h('p','sdlc-label','Illustrative workflow before agents (not measured)');const track=h('div','sdlc-track');
     const widths={before:[10,10,44,12,12,12],after:[10,10,4,12,12,12]};
     STAGES.forEach((s,k)=>{const seg=h('div','sdlc-seg'+(k===2?' build':''),s.name);seg.style.flex=String(widths.before[k]);seg.dataset.k=k;track.append(seg);});
     const reclaimed=h('div','sdlc-reclaimed','cycle time reclaimed');reclaimed.style.flex='0';track.append(reclaimed);
     const toggle=h('div','widget-controls');const bBefore=h('button',null,'Before agents');const bAfter=h('button','secondary','After agents');toggle.append(bBefore,bAfter);
-    bars.append(bTitle,track,toggle);wrap.append(bars);
-    function mode(after){bTitle.textContent=after?'After agents: build runs at agent speed — requirements, review and release stay human':'Before agents: every stage runs at human speed';track.querySelectorAll('.sdlc-seg').forEach(seg=>{seg.style.flex=String((after?widths.after:widths.before)[seg.dataset.k]);seg.textContent=after&&seg.dataset.k==='2'?'':STAGES[seg.dataset.k].name;});reclaimed.style.flex=after?'40':'0';reclaimed.classList.toggle('show',after);bBefore.className=after?'secondary':'';bAfter.className=after?'':'secondary';}
+    bars.append(bTitle,track,toggle,h('p','sdlc-note','Schematic proportions only. These bars are not Worldline measurements or a prediction.'));wrap.append(bars);
+    function mode(after){bTitle.textContent=after?'Illustrative workflow with agents; actual time savings depend on the task':'Illustrative workflow before agents (not measured)';track.querySelectorAll('.sdlc-seg').forEach(seg=>{seg.style.flex=String((after?widths.after:widths.before)[seg.dataset.k]);seg.textContent=after&&seg.dataset.k==='2'?'':STAGES[seg.dataset.k].name;});reclaimed.style.flex=after?'40':'0';reclaimed.classList.toggle('show',after);bBefore.className=after?'secondary':'';bAfter.className=after?'':'secondary';}
     bBefore.addEventListener('click',()=>mode(false));bAfter.addEventListener('click',()=>mode(true));
     /* stage hint */
     const hint=h('p','widget-caption sdlc-hint','Click a stage to see where the training exercises sit.');wrap.append(hint);
     function pick(k){wrap.querySelectorAll('[data-k]').forEach(n=>n.classList.toggle('active',n.dataset.k===String(k)));hint.textContent=STAGES[k].name+' · '+STAGES[k].hint;}
-    wrap.querySelectorAll('.sdlc-stage,.sdlc-node').forEach(n=>{n.addEventListener('click',()=>pick(+n.dataset.k));if(n.tagName==='g'){n.setAttribute('tabindex','0');n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(+n.dataset.k);}});}});
+    wrap.querySelectorAll('.sdlc-stage,.sdlc-node').forEach(n=>{n.addEventListener('click',()=>pick(+n.dataset.k));if(n.tagName==='g'){n.setAttribute('tabindex','0');n.setAttribute('role','button');n.setAttribute('aria-label',STAGES[+n.dataset.k].name);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(+n.dataset.k);}});}});
     return wrap;
   }
 

@@ -16,7 +16,8 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | --- | --- |
 | `dist/index.html` | Page shell and asset references |
 | `dist/styles.css` | AetherLink colours, typography and layout |
-| `dist/app.js` | Rendering, navigation and interactive controls |
+| `dist/app.js` | Rendering, navigation, exercise timers and reveal controls |
+| `dist/widgets.js` | Interactive agent loop and illustrative SDLC diagram |
 | `dist/data.js` | Reusable presentation framework |
 | `dist/days.js` | Crew 1 day decks (`window.DAYS`) |
 | `dist/crew2.js` | Crew 2 day decks (`window.CREW2`) |
