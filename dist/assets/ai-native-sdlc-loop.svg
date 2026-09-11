@@ -1,25 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
-  <title id="title">AI-native SDLC loop</title><desc id="desc">A standalone six-phase AI-native software delivery loop with Claude at the centre.</desc>
-  <defs>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker>
-    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker>
-    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker>
-    <filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter>
-  </defs>
-  <rect width="900" height="900" fill="#ffffff"/>
-<text x="450" y="60" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#5b3fff">AI-NATIVE SDLC</text>
-<text x="450" y="92" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">AI helps at every point · humans govern the loop</text>
-<g transform="translate(450 470)">
-<circle r="290" fill="none" stroke="#ff7a1a" stroke-width="14" stroke-dasharray="90 26" stroke-linecap="round"/>
-<circle cx="0" cy="-268" r="62" fill="#1f1e2e" stroke="#dedbea" stroke-width="1.5"/><text x="0" y="-261" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#fbfafc">PLAN</text>
-<circle cx="232" cy="-134" r="62" fill="#1f1e2e" stroke="#dedbea" stroke-width="1.5"/><text x="232" y="-127" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#fbfafc">DESIGN</text>
-<circle cx="232" cy="134" r="62" fill="#1f1e2e" stroke="#dedbea" stroke-width="1.5"/><text x="232" y="141" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#fbfafc">BUILD</text>
-<circle cx="0" cy="268" r="62" fill="#1f1e2e" stroke="#dedbea" stroke-width="1.5"/><text x="0" y="275" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#fbfafc">TEST</text>
-<circle cx="-232" cy="134" r="62" fill="#1f1e2e" stroke="#dedbea" stroke-width="1.5"/><text x="-232" y="141" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#fbfafc">DEPLOY</text>
-<circle cx="-232" cy="-134" r="62" fill="#1f1e2e" stroke="#dedbea" stroke-width="1.5"/><text x="-232" y="-127" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#fbfafc">MAINTAIN</text>
-<circle r="120" fill="#ff7a1a"/>
-<text y="12" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#1f1e2e">Claude</text>
-<text y="42" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">HELPS AT EVERY POINT</text>
-</g>
-<text x="450" y="860" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">INTENT · REVIEW · RELEASE STAY HUMAN DECISIONS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">AI-native SDLC loop</title><desc id="desc">Six phases, plan, design, build, test, deploy and maintain, on one repeating loop with Claude helping at every point while humans govern intent, review and release.</desc>
+  <defs><marker id="ao" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker></defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">AI-NATIVE SDLC · FROM LINE TO LOOP</text>
+  <text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">AI helps at every point · humans govern the loop</text>
+  <ellipse cx="500" cy="318" rx="330" ry="168" fill="none" stroke="#ff7a1a" stroke-width="9" stroke-dasharray="26 16" stroke-linecap="round" opacity=".9"/>
+<path d="M665.0 172.5L684.5 178.7" stroke="#ff7a1a" stroke-width="9" marker-end="url(#ao)"/>
+<path d="M665.0 463.5L644.7 469.0" stroke="#ff7a1a" stroke-width="9" marker-end="url(#ao)"/>
+<path d="M335.0 463.5L315.5 457.3" stroke="#ff7a1a" stroke-width="9" marker-end="url(#ao)"/>
+<path d="M335.0 172.5L355.3 167.0" stroke="#ff7a1a" stroke-width="9" marker-end="url(#ao)"/>
+<rect x="425.0" y="127.0" width="150" height="46" rx="23.0" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
+<text x="500.0" y="155.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#fff">PLAN</text>
+<rect x="710.7883832488648" y="211.0" width="150" height="46" rx="23.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="785.7883832488648" y="239.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#413380">DESIGN</text>
+<rect x="710.7883832488648" y="379.0" width="150" height="46" rx="23.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="785.7883832488648" y="407.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#413380">BUILD</text>
+<rect x="425.0" y="463.0" width="150" height="46" rx="23.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="500.0" y="491.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#413380">TEST</text>
+<rect x="139.21161675113524" y="379.0" width="150" height="46" rx="23.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="214.21161675113524" y="407.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#413380">DEPLOY</text>
+<rect x="139.21161675113524" y="211.0" width="150" height="46" rx="23.0" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+<text x="214.21161675113524" y="239.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#413380">MAINTAIN</text>
+<rect x="350" y="266" width="300" height="104" rx="14" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="500" y="310" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#1f1e2e">Claude</text>
+<text x="500" y="334" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">helps at every point · reads, drafts, checks</text>
+<text x="500" y="354" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.2" fill="#aa4300">A HUMAN DECIDES AT EVERY GATE</text>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">INTENT · REVIEW · RELEASE STAY HUMAN DECISIONS</text>
 </svg>
