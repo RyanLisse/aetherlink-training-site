@@ -102,3 +102,10 @@ body.dark .widget,body.dark .pillar,body.dark .timer{--surface:#292638}
 .sdlc-core-label,.sdlc-core-sub{fill:#1f1e2e}
 
 .step-item.active .step-circle,.step-item.highlight .step-circle{border-color:var(--accent-text);color:var(--accent-text)}.timer-late .timer-face{color:var(--accent-text)}.sdlc-arc{stroke:var(--accent-text)}.sdlc-head{fill:var(--accent-text)}
+/* Shared presentation polish: the guide is alive on every slide. */
+.mascot{filter:drop-shadow(0 14px 18px rgba(91,63,255,.18));mix-blend-mode:multiply;opacity:.96;transition:transform .35s ease,opacity .35s ease}
+body.dark .mascot{mix-blend-mode:screen;opacity:.9}
+.mascot:hover{transform:translateY(-12px) rotate(-2deg)}
+.timer{box-shadow:0 12px 30px rgba(91,63,255,.08);animation:timer-in .45s both}
+@keyframes timer-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.mascot{right:.5rem;bottom:7.5rem;width:clamp(72px,18vw,110px);opacity:.72}.timer{margin-right:4rem}}
