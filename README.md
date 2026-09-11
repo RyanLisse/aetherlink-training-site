@@ -21,7 +21,7 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | `dist/data.js` | Reusable presentation framework |
 | `dist/days.js` | Squad 1 day decks (`window.DAYS`) |
 | `dist/squad2.js` | Squad 2 day decks (`window.SQUAD2`) |
-| `dist/assets/` | Images, including the standalone `ai-native-sdlc-loop.svg` reference |
+| `dist/assets/` | Images, including the standalone `ai-native-sdlc-line-and-loop.png` reference |
 
 The day registries are JavaScript assignments containing JSON data. Preserve the
 assignment and edit the objects. Each deck has a `guideUrl` and `slides`; keep
