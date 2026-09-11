@@ -15,8 +15,8 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | File | Purpose |
 | --- | --- |
 | `dist/index.html` | Page shell and asset references |
-| `dist/styles.css` | AetherLink colours, typography and layout |
-| `dist/app.js` | Rendering, navigation, exercise timers and reveal controls |
+| `dist/styles.css` | AetherLink colours, typography and layout; the "Learning-experience layer" block at the end owns the Learn/Do grid, slide-type chips and progress segments |
+| `dist/app.js` | Rendering, navigation, exercise timers, reveal controls, the checkable "Do this now" panel (progress kept in `sessionStorage` per slide) and the typed day-progress bar |
 | `dist/widgets.js` | Interactive agent loop and illustrative SDLC diagram |
 | `dist/data.js` | Reusable presentation framework |
 | `dist/days.js` | Squad 1 day decks (`window.DAYS`) |
@@ -26,6 +26,10 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 The day registries are JavaScript assignments containing JSON data. Preserve the
 assignment and edit the objects. Each deck has a `guideUrl` and `slides`; keep
 slide fields such as `title`, `cards`, `prompt`, `steps`, `expected`, and `check`.
+Slides carry no type field: `slideType()` in `app.js` derives Practice, Concept,
+Review, Recap, Break or Context from the kicker, title, layout and timer, so
+keep kickers starting with a recognisable word (`PRACTICE`, `CONCEPT`, `REVIEW`,
+`RECAP`, `BREAK`) when you add slides.
 For curriculum changes, update the canonical JSON in the course repo first and
 copy its data into the matching site registry. A later course sync replaces
 that registry, so carry direct slide edits back to the canonical course JSON.
