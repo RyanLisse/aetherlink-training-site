@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI-native SDLC loop</title>
+  <desc id="desc">A standalone six-phase AI-native software delivery loop with Claude at the centre.</desc>
+  <rect width="900" height="900" rx="36" fill="#f4f1e8"/>
+  <text x="450" y="66" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#161616">AI-NATIVE SDLC</text>
+  <text x="450" y="101" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">AI helps at every point · humans govern the loop</text>
+  <g transform="translate(450 455)">
+    <circle r="294" fill="none" stroke="#df7a55" stroke-width="20" stroke-dasharray="104 26" stroke-linecap="round"/>
+    <g fill="#161616" font-family="Arial,sans-serif" font-size="22" font-weight="700" text-anchor="middle">
+      <circle cy="-270" r="67"/><circle cx="234" cy="-135" r="67"/><circle cx="234" cy="135" r="67"/>
+      <circle cy="270" r="67"/><circle cx="-234" cy="135" r="67"/><circle cx="-234" cy="-135" r="67"/>
+    </g>
+    <g fill="#fff" font-family="Arial,sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+      <text y="-263">PLAN</text><text x="234" y="-128">DESIGN</text><text x="234" y="142">BUILD</text>
+      <text y="278">TEST</text><text x="-234" y="142">DEPLOY</text><text x="-234" y="-128">MAINTAIN</text>
+    </g>
+    <circle r="132" fill="#df7a55"/>
+    <g transform="translate(-76 -38)" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
+      <path d="M0 0h32M16-16v32M5-11l22 22M27-11 5 11"/>
+    </g>
+    <text x="0" y="28" text-anchor="middle" font-family="Georgia,serif" font-size="48" fill="#fff">Claude</text>
+    <path d="M-70 65Q0 91 70 65" fill="none" stroke="#ff8a2a" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <text x="450" y="858" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">Intent · review · release stay human decisions.</text>
+</svg>
