@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">Parallel sessions and subagents</title><desc id="desc">One engineer steers several Claude Code sessions, each in its own worktree; inside a session, subagents are scoped helpers with their own context and tool limits. CLAUDE.md, hooks and permissions in the repo govern all of them.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker><marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker><marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker>
+  <filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter></defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">PARALLEL SESSIONS AND SUBAGENTS</text>
+  <text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">one engineer steers several streams · subagents keep each session focused</text>
+<rect x="60" y="250" width="170" height="80" rx="12" fill="#fff1e6" stroke="#ff7a1a" stroke-width="1.5"/>
+<text x="145.0" y="287.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Engineer</text>
+<text x="145.0" y="307.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">steers · reviews · decides</text>
+<path d="M230 290L318 160" fill="none" stroke="#ff7a1a" stroke-width="2.5" marker-end="url(#ao)"/>
+<rect x="320" y="120" width="220" height="80" rx="12" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
+<text x="430.0" y="157.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#fff">Session A</text>
+<text x="430.0" y="177.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#e4dcff">worktree feature-auth</text>
+<path d="M540 160L598 158" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="600" y="140" width="200" height="38" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="700.0" y="165.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#1f1e2e">verifier</text>
+<text x="815" y="164" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">runs the app, reports</text>
+<path d="M540 160L598 210" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="600" y="192" width="200" height="38" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="700.0" y="217.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#1f1e2e">researcher</text>
+<text x="815" y="216" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">reads, does not flood</text>
+<path d="M540 160L598 262" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="600" y="244" width="200" height="38" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="700.0" y="269.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#1f1e2e">simplifier</text>
+<text x="815" y="268" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">strips complexity</text>
+<path d="M230 290L318 280" fill="none" stroke="#ff7a1a" stroke-width="2.5" marker-end="url(#ao)"/>
+<rect x="320" y="240" width="220" height="80" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="430.0" y="307.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Session B</text>
+<text x="430.0" y="327.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">worktree fix-rate-limit</text>
+<path d="M230 290L318 400" fill="none" stroke="#ff7a1a" stroke-width="2.5" marker-end="url(#ao)"/>
+<rect x="320" y="360" width="220" height="80" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="430.0" y="397.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Session C</text>
+<text x="430.0" y="417.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">worktree docs-sync</text>
+<text x="700" y="330" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#5b3fff">SUBAGENTS · .claude/agents/*.md</text>
+<text x="700" y="350" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">own context window · own tool limits · checked into git</text>
+<text x="700" y="455" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">sessions know nothing about each other</text>
+<text x="700" y="473" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">the engineer is the only thing they share</text>
+<rect x="60" y="470" width="880" height="1.5" fill="#dedbea"/>
+<rect x="120" y="490" width="760" height="56" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="500.0" y="515.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#1f1e2e">Governance lives in the repo: CLAUDE.md · hooks · permission settings · logged and attributed</text>
+<text x="500.0" y="535.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">applies to every session · start with two or three, add only while review keeps up</text>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">MORE STREAMS IN FLIGHT · THE CEILING IS WHAT ONE PERSON CAN REVIEW</text>
+</svg>
