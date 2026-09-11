@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">Human gate</title><desc id="desc">Agent output waits at a gate where a human reviews the evidence and either accepts or returns the work; no business-system write happens without that decision.</desc>
+  <rect width="1000" height="620" rx="36" fill="#f4f1e8"/>
+  <text x="500" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#161616">HUMAN GATE</text>
+  <text x="500" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">the agent proposes · a human decides · nothing is written without the gate</text>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#6b675f"/></marker>
+  <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#df7a55"/></marker></defs>
+<rect x="60" y="270" width="220" height="90" rx="18" fill="#161616"/>
+<text x="170.0" y="309.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">AGENT OUTPUT</text>
+<text x="170.0" y="335.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">draft · preview · trace</text>
+<path d="M280 315L370 315" fill="none" stroke="#6b675f" stroke-width="4" marker-end="url(#a)" />
+<rect x="380" y="200" width="240" height="230" rx="24" fill="#fff" stroke="#df7a55" stroke-width="5"/>
+<text x="500" y="240" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#df7a55">GATE</text>
+<text x="500" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#6b675f">human reviews the evidence</text>
+<circle cx="500" cy="340" r="44" fill="#df7a55"/>
+<path d="M480 340l14 14 28-30" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="500" y="412" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#6b675f">source · check · reviewer named</text>
+<path d="M620 290L720 250" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)" />
+<path d="M620 345L720 395" fill="none" stroke="#6b675f" stroke-width="4" marker-end="url(#a)" />
+<rect x="720" y="215" width="220" height="70" rx="18" fill="#df7a55"/>
+<text x="830.0" y="244.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#fff">ACCEPT</text>
+<text x="830.0" y="270.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">evidence log updated</text>
+<rect x="720" y="360" width="220" height="70" rx="18" fill="#161616"/>
+<text x="830.0" y="389.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#fff">RETURN</text>
+<text x="830.0" y="415.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">with a named reason</text>
+<path d="M830 430C830 520 170 520 170 360" fill="none" stroke="#6b675f" stroke-width="4" stroke-dasharray="8 8" marker-end="url(#a)"/>
+<text x="500" y="505" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#6b675f">back to the agent with the gap named</text>
+<text x="500" y="590" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">No real payment, credential or business-system write in training. The gate is where control stays visible.</text>
+</svg>

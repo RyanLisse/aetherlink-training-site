@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">One contract, two platforms</title><desc id="desc">The same functional contract and input run in n8n and Claude Code; platform adapters and settings are recorded separately and both outputs go through the same checker.</desc>
+  <rect width="1000" height="620" rx="36" fill="#f4f1e8"/>
+  <text x="500" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#161616">ONE CONTRACT, TWO PLATFORMS</text>
+  <text x="500" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">same functional contract · same input · adapters and settings recorded</text>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#6b675f"/></marker>
+  <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#df7a55"/></marker></defs>
+  <rect x="330" y="120" width="340" height="90" rx="18" fill="#df7a55"/>
+  <text x="500" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">ONE CONTRACT</text>
+  <text x="500" y="185" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#fff" opacity=".85">shared-prompt.md + TICKET-OPS-101</text>
+  <path d="M430 210L250 280" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)"/>
+  <path d="M570 210L750 280" fill="none" stroke="#df7a55" stroke-width="4" marker-end="url(#ao)"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <rect x="80" y="290" width="340" height="150" rx="18" fill="#161616"/>
+    <text x="250" y="325" font-size="20" font-weight="700" fill="#fff">n8n</text>
+    <text x="250" y="348" font-size="14" fill="#c9c4d8">visual harness · morning</text>
+    <text x="250" y="384" font-size="15" fill="#fff">Set node → AI Agent → Calculator tool</text>
+    <text x="250" y="412" font-size="13" fill="#c9c4d8">adapter: system message · model · access</text>
+    <rect x="580" y="290" width="340" height="150" rx="18" fill="#161616"/>
+    <text x="750" y="325" font-size="20" font-weight="700" fill="#fff">CLAUDE CODE</text>
+    <text x="750" y="348" font-size="14" fill="#c9c4d8">terminal harness · afternoon</text>
+    <text x="750" y="384" font-size="15" fill="#fff">ticket-coach subagent · Read / Glob / Grep</text>
+    <text x="750" y="412" font-size="13" fill="#c9c4d8">adapter: invocation · model · read-only tools</text>
+  </g>
+  <path d="M250 440L430 490" fill="none" stroke="#6b675f" stroke-width="4" marker-end="url(#a)"/>
+  <path d="M750 440L570 490" fill="none" stroke="#6b675f" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="360" y="490" width="280" height="60" rx="18" fill="#f4f1e8" stroke="#161616" stroke-width="3"/>
+  <text x="500" y="528" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#161616">SAME CHECKER</text>
+  <text x="500" y="590" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6b675f">Differences are observations of two controlled runs. One pair proves no cause.</text>
+</svg>
