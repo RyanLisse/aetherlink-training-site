@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
-  <title id="title">MOB programming</title><desc id="desc">Four rotating roles on one chain: driver, navigator, researcher, tester, around one laptop.</desc>
+  <title id="title">MOB programming</title><desc id="desc">Four rotating roles on one chain: driver, navigator, skeptic, scribe, around one laptop.</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker>
     <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker>
@@ -23,12 +23,12 @@
 <text x="396" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">thinks out loud</text>
 <circle cx="602" cy="240" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
 <text x="602" y="249" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">3</text>
-<text x="602" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">RESEARCHER</text>
-<text x="602" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">brings the outside view</text>
+<text x="602" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">SKEPTIC</text>
+<text x="602" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">asks for source ids</text>
 <circle cx="808" cy="240" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/>
 <text x="808" y="249" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#5b3fff">4</text>
-<text x="808" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">TESTER</text>
-<text x="808" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">checks the evidence</text>
+<text x="808" y="302" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">SCRIBE</text>
+<text x="808" y="324" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#625d73">records the decision</text>
 <rect x="300" y="400" width="400" height="64" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
 <text x="500.0" y="428.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="600" fill="#1f1e2e">One laptop · one screen</text>
 <text x="500.0" y="450.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">the shared source of truth in the room</text>

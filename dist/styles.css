@@ -206,3 +206,4 @@ body.dark .mascot{mix-blend-mode:screen}
   .concept-figure{padding:.5rem}.image-caption{font-size:.85rem}
 }
 @media(max-width:480px){.brand small{display:none}.brand{font-size:.85rem}.tools button{font-size:.75rem;padding:.5rem .6rem}}
+.with-side .compare{grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.with-side .compare-col{padding:.9rem 1rem}.with-side .compare-col ul{font-size:.95rem;line-height:1.5;padding-left:1rem}

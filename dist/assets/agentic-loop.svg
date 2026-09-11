@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">The agentic loop</title><desc id="desc">Your prompt enters a loop of gather context, take action and verify results that repeats until done; you can interrupt, steer or add context at any point.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker><marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker><marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5 0 10z" fill="#5b3fff"/></marker></defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">THE AGENTIC LOOP</text>
+  <text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">gather context → take action → verify results · repeat until done</text>
+  <rect x="290" y="150" width="500" height="230" rx="16" fill="none" stroke="#dedbea" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="540" y="178" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#625d73">AGENTIC LOOP</text>
+<rect x="70" y="230" width="180" height="70" rx="12" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
+<text x="160.0" y="262.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#fff">Your prompt</text>
+<text x="160.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#e4dcff">bounded task</text>
+<path d="M250 265L308 265" fill="none" stroke="#5b3fff" stroke-width="3" marker-end="url(#ap)"/>
+<rect x="310" y="230" width="140" height="70" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="380.0" y="262.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Gather</text>
+<text x="380.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">read · glob · grep</text>
+<path d="M450 265L478 265" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="480" y="230" width="140" height="70" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="550.0" y="262.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Act</text>
+<text x="550.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">one bounded step</text>
+<path d="M620 265L648 265" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="650" y="230" width="120" height="70" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="710.0" y="262.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Verify</text>
+<text x="710.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">check the result</text>
+<path d="M770 265L828 265" fill="none" stroke="#625d73" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="830" y="230" width="110" height="70" rx="12" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="885.0" y="262.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">Done</text>
+<text x="885.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">evidence</text>
+<path d="M710 300V340H380V302" fill="none" stroke="#5b3fff" stroke-width="3" marker-end="url(#ap)"/>
+<text x="545" y="360" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#5b3fff">REPEAT</text>
+<rect x="70" y="420" width="300" height="74" rx="12" fill="#fff1e6" stroke="#ff7a1a" stroke-width="1.5"/>
+<text x="220.0" y="454.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#1f1e2e">You</text>
+<text x="220.0" y="474.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">interrupt · steer · add context</text>
+<path d="M370 457H540V382" fill="none" stroke="#ff7a1a" stroke-width="2.5" stroke-dasharray="6 6" marker-end="url(#ao)"/>
+<text x="500" y="586" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">MODELS REASON · TOOLS ACT · THE HARNESS HOLDS THE LOOP</text>
+</svg>

@@ -8,7 +8,7 @@ Source of truth for how a slide looks and behaves. `intent.md` says what the dec
 2. **The type is visible before the text.** Every slide carries one of six types, shown as a chip in the eyebrow and as a coloured segment in the footer. Participants should know "practice or concept?" before they read the title.
 3. **State belongs to the room, not the server.** Checklist and checkpoint state live in `sessionStorage`, keyed by squad, day and slide title. Closing the tab resets the room. Nothing is sent anywhere.
 4. **English on the slide, Dutch in the notes.** All participant-visible text is English. Only the facilitator `notes` field may be Dutch.
-5. **Concept cadence.** A concept is introduced as definition → visual → how we use it. The definition is a three-card slide, the visual is an `image` layout with a caption, and "how we use it" is the first exercise step that applies it.
+5. **Concept cadence.** A concept is introduced as three slides: definition (three cards, kicker `CONCEPT DEFINITION · NAME`), visual (`image` layout with caption, kicker `VISUAL · NAME`) and how we use it (cards or a two-column compare, kicker `HOW WE USE IT · NAME`). Each slide has its own specific checkpoint. The triplets are generated from the course repo's `presentations/concepts.json`.
 
 ## Tokens (`dist/styles.css`)
 
@@ -37,7 +37,7 @@ Chip text is white except on practice, recap-on-dark and pause, where it is `--i
   section.exercise-instructions   (when the layout is too wide for a side panel)
 ```
 
-`with-side` is on for every day-deck slide except `widget`, `steps` and `compare` layouts, which need the full width. Below 1100px the grid collapses to one column and the panel follows the content.
+`with-side` is on for every day-deck slide except `widget` and `steps` layouts, which need the full width. Below 1100px the grid collapses to one column and the panel follows the content.
 
 ## "Do this now" panel
 
