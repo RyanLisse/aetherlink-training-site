@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">Code is no longer the bottleneck</title><desc id="desc">Before agents every stage runs at human speed and build is the widest block. After agents build collapses to a sliver, cycle time is reclaimed, and plan, test and deploy keep their human-speed length. Three consequences are listed below.</desc>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">CODE IS NO LONGER THE BOTTLENECK</text>
+  <text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">build collapses from weeks to hours · the human-speed stages keep their length</text>
+<text x="70" y="112" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">BEFORE AGENTS · every stage runs at human speed</text>
+<rect x="70" y="126" width="84" height="62" rx="12" fill="#1f1e2e"/>
+<text x="112.0" y="162.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Plan</text>
+<rect x="162" y="126" width="96" height="62" rx="12" fill="#1f1e2e"/>
+<text x="210.0" y="162.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Design</text>
+<rect x="266" y="126" width="380" height="62" rx="12" fill="#ff7a1a"/>
+<text x="456.0" y="162.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#1f1e2e">Build</text>
+<rect x="654" y="126" width="84" height="62" rx="12" fill="#1f1e2e"/>
+<text x="696.0" y="162.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Test</text>
+<rect x="746" y="126" width="96" height="62" rx="12" fill="#1f1e2e"/>
+<text x="794.0" y="162.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Deploy</text>
+<rect x="850" y="126" width="104" height="62" rx="12" fill="#1f1e2e"/>
+<text x="902.0" y="162.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Maintain</text>
+<text x="70" y="232" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">AFTER AGENTS · build runs at agent speed</text>
+<rect x="70" y="246" width="84" height="62" rx="12" fill="#1f1e2e"/>
+<text x="112.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Plan</text>
+<rect x="162" y="246" width="96" height="62" rx="12" fill="#1f1e2e"/>
+<text x="210.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Design</text>
+<rect x="266" y="246" width="14" height="62" rx="12" fill="#ff7a1a"/>
+<text x="273.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff"></text>
+<rect x="288" y="246" width="84" height="62" rx="12" fill="#1f1e2e"/>
+<text x="330.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Test</text>
+<rect x="380" y="246" width="96" height="62" rx="12" fill="#1f1e2e"/>
+<text x="428.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Deploy</text>
+<rect x="484" y="246" width="104" height="62" rx="12" fill="#1f1e2e"/>
+<text x="536.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" fill="#fff">Maintain</text>
+<rect x="596" y="246" width="334" height="62" rx="12" fill="none" stroke="#dedbea" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="763.0" y="282.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15"  fill="#625d73">cycle time reclaimed</text>
+<text x="158" y="332" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">requirements</text>
+<text x="330" y="332" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">review</text>
+<text x="428" y="332" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">release</text>
+<rect x="70" y="352" width="860" height="1.5" fill="#dedbea"/>
+<text x="500" y="382" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5" fill="#625d73">THREE THINGS BECOME TRUE</text>
+<rect x="70" y="400" width="270" height="118" rx="14" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="205" y="428" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f1e2e">THE BOTTLENECK MOVES</text>
+<text x="205" y="452" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">to plan, review and test, and deploy,</text>
+<text x="205" y="469" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">which still run at human speed</text>
+<rect x="360" y="400" width="270" height="118" rx="14" fill="#fff1e6" stroke="#ff7a1a" stroke-width="1.5"/>
+<text x="495" y="428" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f1e2e">CONTROLS STOP MATCHING REALITY</text>
+<text x="495" y="452" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">line-by-line review made sense when a</text>
+<text x="495" y="469" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">person wrote it; it cannot keep up when</text>
+<text x="495" y="486" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">agents write most of the diff</text>
+<rect x="650" y="400" width="270" height="118" rx="14" fill="#eeeafe" stroke="#dedbea" stroke-width="1.5"/>
+<text x="785" y="428" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f1e2e">GOVERNANCE GETS MORE EXPENSIVE</text>
+<text x="785" y="452" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">exceptions still route through</text>
+<text x="785" y="469" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#1f1e2e">committees that meet weekly or monthly</text>
+<text x="500" y="560" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12"  fill="#625d73">Security teams are sized for human output: when agents multiply code, the queue builds or code ships under-reviewed. A regulated organisation accepts neither.</text>
+<text x="500" y="592" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#aa4300">SAME CONTROL OBJECTIVES · THE CONTROLS AROUND BUILD MUST CHANGE AS MUCH AS BUILD DID</text>
+</svg>

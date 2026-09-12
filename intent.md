@@ -21,6 +21,7 @@ Every concept ships as three slides, in this order: **definition** (what it is, 
 
 | Concept | Visual | Squad 1 | Squad 2 |
 | --- | --- | --- | --- |
+| The bottleneck moved | `bottleneck-bars.svg` | Day 3 | Day 1 |
 | intent.md | `intent-md.svg` | Day 1 | Day 1 |
 | Evidence rule | `evidence-rule.svg` | Day 1, 2 | Day 2 |
 | MOB programming | `mob-programming.svg` | Day 1 | Day 5 |
