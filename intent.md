@@ -30,8 +30,6 @@ Every concept ships as three slides, in this order: **definition** (what it is, 
 | Human gate | `human-gate.svg` | Day 4 | Day 5 |
 | Hooks | `hooks-guardrails.svg` | Day 5 | Day 4 |
 | Subagents | `parallel-sessions-subagents.svg` | Day 5 | Day 4 |
-| Holdout scenarios | `holdout-scenarios.svg` | Day 5 | Day 5 |
-| Measure the loop | `measure-loop.svg` | Day 5 | Day 5 |
 
 The word "harness" is deliberately absent from participant material: the decks say "platform" (n8n, Claude Code). Keep it that way.
 
