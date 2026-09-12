@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="1000" height="620" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="40" y="52" fill="#5b3fff" font-size="15" font-weight="700" letter-spacing="2">ONE EXAMPLE · FIVE DAYS · DAILY PAYMENT RECONCILIATION</text>
+  <text x="40" y="84" fill="#1f1e2e" font-size="22" font-weight="700">Three CSV files, one cutoff, five documented cases. The same thread from intent to handoff.</text>
+  <rect x="60" y="192" width="880" height="10" rx="5" fill="#eeeafe"/>
+  <g font-size="22" font-weight="700" text-anchor="middle">
+    <circle cx="100" cy="197" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/><text x="100" y="205" fill="#5b3fff">1</text>
+    <circle cx="300" cy="197" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/><text x="300" y="205" fill="#5b3fff">2</text>
+    <circle cx="500" cy="197" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/><text x="500" y="205" fill="#5b3fff">3</text>
+    <circle cx="700" cy="197" r="32" fill="#ffffff" stroke="#5b3fff" stroke-width="3"/><text x="700" y="205" fill="#5b3fff">4</text>
+    <circle cx="900" cy="197" r="32" fill="#ffffff" stroke="#ff7a1a" stroke-width="3"/><text x="900" y="205" fill="#aa4300">5</text>
+  </g>
+  <g font-size="13" font-weight="700" letter-spacing="1" fill="#625d73" text-anchor="middle">
+    <text x="100" y="150">DAY 1 · PLAN</text><text x="300" y="150">DAY 2 · DESIGN</text><text x="500" y="150">DAY 3 · BUILD</text><text x="700" y="150">DAY 4 · TEST</text><text x="900" y="150">DAY 5 · DEPLOY</text>
+  </g>
+  <g>
+    <rect x="30" y="250" width="150" height="150" rx="10" fill="#ffffff" stroke="#dedbea"/><rect x="30" y="250" width="150" height="4" fill="#5b3fff"/>
+    <text x="44" y="282" fill="#5b3fff" font-size="13" font-weight="700" letter-spacing="1">INTENT.MD</text>
+    <text x="44" y="308" fill="#1f1e2e" font-size="15">Outcome, human gate,</text><text x="44" y="330" fill="#1f1e2e" font-size="15">stop rule, one OPEN</text><text x="44" y="352" fill="#1f1e2e" font-size="15">for FIN-001</text>
+    <rect x="230" y="250" width="150" height="150" rx="10" fill="#ffffff" stroke="#dedbea"/><rect x="230" y="250" width="150" height="4" fill="#5b3fff"/>
+    <text x="244" y="282" fill="#5b3fff" font-size="13" font-weight="700" letter-spacing="1">PLAN + BY HAND</text>
+    <text x="244" y="308" fill="#1f1e2e" font-size="15">Four checks, then</text><text x="244" y="330" fill="#1f1e2e" font-size="15">classify six batches</text><text x="244" y="352" fill="#1f1e2e" font-size="15">yourself. Time it.</text>
+    <rect x="430" y="250" width="150" height="150" rx="10" fill="#ffffff" stroke="#dedbea"/><rect x="430" y="250" width="150" height="4" fill="#5b3fff"/>
+    <text x="444" y="282" fill="#5b3fff" font-size="13" font-weight="700" letter-spacing="1">AGENT IN N8N</text>
+    <text x="444" y="308" fill="#1f1e2e" font-size="15">Same files, one</text><text x="444" y="330" fill="#1f1e2e" font-size="15">contract, a table</text><text x="444" y="352" fill="#1f1e2e" font-size="15">with row ids + OPEN</text>
+    <rect x="630" y="250" width="150" height="150" rx="10" fill="#ffffff" stroke="#dedbea"/><rect x="630" y="250" width="150" height="4" fill="#5b3fff"/>
+    <text x="644" y="282" fill="#5b3fff" font-size="13" font-weight="700" letter-spacing="1">CLAUDE CODE + HOOK</text>
+    <text x="644" y="308" fill="#1f1e2e" font-size="15">Same contract, a</text><text x="644" y="330" fill="#1f1e2e" font-size="15">check before any</text><text x="644" y="352" fill="#1f1e2e" font-size="15">"reconciled" claim</text>
+    <rect x="830" y="250" width="150" height="150" rx="10" fill="#fff1e6" stroke="#ff7a1a"/><rect x="830" y="250" width="150" height="4" fill="#ff7a1a"/>
+    <text x="844" y="282" fill="#aa4300" font-size="13" font-weight="700" letter-spacing="1">GATE + HANDOFF</text>
+    <text x="844" y="308" fill="#1f1e2e" font-size="15">MOB on FIN-003,</text><text x="844" y="330" fill="#1f1e2e" font-size="15">accept per batch,</text><text x="844" y="352" fill="#1f1e2e" font-size="15">drafts with OPEN links</text>
+  </g>
+  <text x="40" y="460" fill="#5b3fff" font-size="13" font-weight="700" letter-spacing="1">THREE TRAPS THE HUMAN GATE MUST CATCH</text>
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <rect x="40" y="478" width="290" height="40" rx="20" fill="#ffffff" stroke="#c9c0f7" stroke-width="2"/><text x="185" y="504" fill="#1f1e2e">SET-1003-B · duplicate stays UNRESOLVED</text>
+    <rect x="350" y="478" width="290" height="40" rx="20" fill="#ffffff" stroke="#c9c0f7" stroke-width="2"/><text x="495" y="504" fill="#1f1e2e">TX-NS-1008 · timing, not an error</text>
+    <rect x="660" y="478" width="300" height="40" rx="20" fill="#ffffff" stroke="#c9c0f7" stroke-width="2"/><text x="810" y="504" fill="#1f1e2e">TX-NS-1004 · fee mismatch stays a mismatch</text>
+  </g>
+  <text x="40" y="580" fill="#aa4300" font-size="14" font-weight="700" letter-spacing="2">THE BOTTLENECK MOVES FROM DOING THE SUMS TO VERIFYING THE FINDINGS</text>
+</svg>

@@ -32,6 +32,8 @@ Every concept ships as three slides, in this order: **definition** (what it is, 
 | Hooks | `hooks-guardrails.svg` | Day 5 | Day 4 |
 | Subagents | `parallel-sessions-subagents.svg` | Day 5 | Day 4 |
 
+Squad 2 also carries one worked example (daily payment reconciliation) from Day 1 to Day 5: six `EXAMPLE` slides generated from the `examples` block of the same register, typed as concept slides, with `worked-example-thread.svg` as the Day 1 visual. The example is documented in the course repo at `squads/squad-2/worked-example.md`.
+
 The word "harness" is deliberately absent from participant material: the decks say "platform" (n8n, Claude Code). Keep it that way.
 
 ## Boundary

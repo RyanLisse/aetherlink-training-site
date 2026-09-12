@@ -55,7 +55,7 @@ Chip text is white except on practice, recap-on-dark and pause, where it is `--i
 
 ## Slide types (`slideType()` in `dist/app.js`)
 
-Order of precedence: `layout: exercise` → practice; `layout: recap` → recap; kicker head word (`PRACTICE`, `CONCEPT`, `REVIEW`, `GATE`, `RECAP`, `CLOSE`, `BREAK`, `LUNCH`); `widget` or `image` layout → concept; title words; a timer or `MIN` in the kicker → practice; otherwise context. When adding slides, start the kicker with the type word and the chip absorbs it (`CONCEPT 1 · 10:15` renders as chip `CONCEPT 1`, kicker `10:15`).
+Order of precedence: `layout: exercise` → practice; `layout: recap` → recap; kicker head word (`PRACTICE`, `CONCEPT`, `EXAMPLE`, `REVIEW`, `GATE`, `RECAP`, `CLOSE`, `BREAK`, `LUNCH`); `widget` or `image` layout → concept; title words; a timer or `MIN` in the kicker → practice; otherwise context. When adding slides, start the kicker with the type word and the chip absorbs it (`CONCEPT 1 · 10:15` renders as chip `CONCEPT 1`, kicker `10:15`).
 
 ## Motion and accessibility
 
