@@ -7,7 +7,7 @@ The reference is the Canva deck **AetherMind · Worldline · Day 2 · From Model
 ## Principles
 
 1. **Mobile first.** The stylesheet is written for a phone. Two media queries widen it: `>=760px` (tablet) and `>=1100px` (presenter screen). A template never has its own mobile code — every arrangement is a column of blocks on a phone and spreads sideways when there is room.
-2. **One skeleton, ten bodies.** Every slide is eyebrow · counter · title · subtitle · **one body template** · orange takeaway band. That is the Day 2 master. Nothing else is invented per slide.
+2. **One skeleton, thirteen bodies.** Every slide is eyebrow · counter · title · subtitle · **one body template** · orange takeaway band. That is the Day 2 master. Nothing else is invented per slide.
 3. **HTML, not SVG.** A diagram with a fixed `viewBox` shrinks on a phone until its labels are unreadable. Every Day 2 arrangement is blocks in a row, a column or a grid, so HTML reflows them for free.
 4. **The room sees the concept; the facilitator holds the instructions.** The "Do this now" checklist, expected result and checkpoint live in the **Facilitator notes** dialog. The footer button carries the progress badge (`2/4`, `✓`).
 5. **The type is visible before the text.** Six types, shown as a chip in the eyebrow, as the slide's accent colour (`--type`) and as a coloured segment in the footer.
@@ -39,10 +39,26 @@ The reference is the Canva deck **AetherMind · Worldline · Day 2 · From Model
 | `columns` | 3, 25, 26 | concept definitions, `pillars` layout | one card per row | 2–4 equal cards | — |
 | `stack` | 8, 9, 10 | "how we use it", practice and individual blocks | title above body | title column beside body | — |
 | `chain` | 6, 7, 34 | only a slide that declares a sequence (an arrow in its subtitle or tagline) | vertical rail | numbers on a horizontal rail | — |
+| `comparison` | registry | parallel facts with no order (`What/Why/Boundaries`, positive vs negative tests) | one panel per row | side-by-side panels, optional `VS` badge | pointing |
+| `layers` | registry | named system parts (`contract/adapters/checker`, subagents, SDLC stages) | title above body | title column beside body, fading rail | pointing |
+| `handoff` | registry | one packet moving between named stages (`Analyst → Developer → Tester`) | documents stacked, ↓ between | documents in a row, → between | pointing |
 | `split` | 17, 27 | the deck's `compare` layout | stacked panels | two panels, the second dark | — |
 | `grid` | 35, 36 | recap and close | one tile per row | auto-fit tiles | thinking |
 
-Day 2's numbered panel (slides 12, 14, 22) has no on-slide equivalent here on purpose: our practice cards are *problem, outcome, open*, which is not a sequence, and the one genuinely ordered list — "Do this now" — is numbered inside the facilitator notes. **A template never numbers what the source did not order.** A chain is drawn only when the author declares the order with arrows; three unordered cards stay a stack. (Carried over from PR #4, which made the same point about generated figures.)
+### The topic registry
+
+`comparison`, `layers` and `handoff` are not chosen by keyword. `TOPIC_REGISTRY` — ported from PR #4's `figures.js` — matches an **exact set of card titles** and states, per entry, the relationship the template is allowed to show, its `aria` label and a one-line caption printed under the drawing:
+
+```js
+{id:'intent', template:'comparison', types:['concept'],
+ titleSets:[['What','Why','Boundaries']],
+ aria:'The intent facets: what, why and boundaries',
+ caption:'Intent keeps what, why and boundaries visible.'}
+```
+
+A `priority` entry wins over the slide type, so the analyst → developer → tester handoff stays a handoff on a review slide instead of becoming a gate. A slide whose titles match nothing falls through to the type rules. Adding a concept means adding a registry row, not a new drawing.
+
+Day 2's numbered panel (slides 12, 14, 22) has no on-slide equivalent here on purpose: our practice cards are *problem, outcome, open*, which is not a sequence, and the one genuinely ordered list — "Do this now" — is numbered inside the facilitator notes. **A template never numbers what the source did not order.** A chain is drawn only when the author declares the order — an arrow in the subtitle or tagline, or a card-title set in `ORDERED` (also ported from #4). Three unordered cards stay a stack.
 | `gate` | 34 | review and human gate | inputs, bar, exits top to bottom | inputs → gate → exits left to right | stop |
 | `arc` | route slides | schedule and route | typed bar + legend | the same, taller | neutral |
 | `pause` | break slides | break and lunch | clock + return time | the same, larger | neutral |

@@ -6,8 +6,9 @@
    spreads into a row or a grid when there is room.
 
    Sections
-     1  tokens          6  templates (cover, columns, stack, chain,
-     2  base               split, grid, gate, arc, pause, figure, steps, recap)
+     1  tokens          6  templates (cover, columns, stack, chain, comparison,
+     2  base               layers, handoff,
+                            split, grid, gate, arc, pause, figure, steps, recap)
      3  toolbar         7  timer and takeaway band
      4  stage/heading   8  widgets (agentic loop, SDLC loop) and framework deck
      5  slide body      9  footer · 10 dialogs · 11 motion · 12 breakpoints
@@ -139,6 +140,45 @@ body.dark .row-head h2{color:#b9a9ff}body.dark .row:nth-child(3n) .row-head h2{c
 .chain-text{padding-top:.5rem}
 .chain-text h2{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
 .chain-text p{font-size:.95rem;line-height:1.4;color:var(--muted);margin-top:.2rem}
+
+/* -- comparison: parallel facts, no implied order ----------------------- */
+.tpl-comparison .cmp-panels{position:relative;display:grid;gap:.6rem}
+.cmp-panel{position:relative;background:var(--surface);border:2px solid var(--purple-line);border-radius:var(--radius);padding:.85rem 1rem;text-align:center;box-shadow:var(--shadow-sm);animation:enter .4s both;animation-delay:calc(var(--i,0)*60ms)}
+.cmp-panel:nth-child(even){border-color:var(--orange-line);background:var(--orange-soft)}
+.cmp-dot{display:block;width:14px;height:14px;margin:0 auto .45rem;border-radius:50%;background:var(--purple)}
+.cmp-panel:nth-child(even) .cmp-dot{background:var(--orange)}
+.cmp-panel h2{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)}
+.cmp-panel:nth-child(even) h2{color:var(--accent-text)}
+body.dark .cmp-panel h2{color:#b9a9ff}body.dark .cmp-panel:nth-child(even) h2{color:var(--accent-text)}
+.cmp-panel p{font-size:.96rem;line-height:1.45;margin-top:.3rem}
+.cmp-mark{justify-self:center;align-self:center;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.06em}
+body.dark .cmp-mark{background:#fff;color:#1f1e2e}
+
+/* -- layers: named system parts as a stack ------------------------------ */
+.tpl-layers{gap:.5rem}
+.layer{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:.75rem 1rem .8rem 1.2rem;box-shadow:var(--shadow-sm);overflow:hidden;animation:enter .4s both;animation-delay:calc(var(--i,0)*60ms)}
+.layer-rail{position:absolute;inset:0 auto 0 0;width:8px;background:var(--purple);opacity:calc(1 - var(--i,0)*.22)}
+.layer:last-child .layer-rail{background:var(--orange);opacity:1}
+.layer h2{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)}
+.layer:last-child h2{color:var(--accent-text)}
+body.dark .layer h2{color:#b9a9ff}body.dark .layer:last-child h2{color:var(--accent-text)}
+.layer p{font-size:.96rem;line-height:1.45;margin-top:.25rem}
+
+/* -- handoff: one packet moving between named stages -------------------- */
+.tpl-handoff .handoff-row{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.handoff-doc{position:relative;background:var(--surface);border:1px solid var(--purple-line);border-radius:var(--radius-sm);padding:.75rem 1rem;box-shadow:var(--shadow-sm);animation:enter .4s both;animation-delay:calc(var(--i,0)*70ms)}
+.handoff-doc:nth-child(even){border-color:var(--orange-line);background:var(--orange-soft)}
+/* the packet arrow: down between stacked documents, right when they sit in a row */
+.handoff-doc+.handoff-doc::before{content:'↓';position:absolute;left:50%;top:-.55rem;transform:translateX(-50%);font-weight:800;color:var(--accent-text);line-height:1}
+.handoff-fold{position:absolute;right:0;top:0;width:18px;height:18px;background:var(--purple-line);clip-path:polygon(100% 0,0 0,100% 100%);border-top-right-radius:var(--radius-sm)}
+.handoff-doc:nth-child(even) .handoff-fold{background:var(--orange-line)}
+.handoff-doc h2{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)}
+.handoff-doc:nth-child(even) h2{color:var(--accent-text)}
+body.dark .handoff-doc h2{color:#b9a9ff}body.dark .handoff-doc:nth-child(even) h2{color:var(--accent-text)}
+.handoff-doc p{font-size:.95rem;line-height:1.45;margin-top:.25rem}
+
+/* The registry's one-line statement of what the drawing is allowed to claim. */
+.tpl-caption{text-align:center;font-size:.85rem;line-height:1.4;color:var(--muted)}
 
 /* -- split: two panels, the second one dark ---------------------------- */
 .tpl-split{display:grid;gap:.7rem}
@@ -407,6 +447,13 @@ dialog::backdrop{background:#161324c0}
   .chain-step::before{left:50%;right:-50%;top:26px;bottom:auto;width:auto;height:3px;transform:translateX(26px)}
   .chain-num{grid-row:auto;width:52px;height:52px;font-size:1.2rem}
   .chain-text{padding-top:0}
+  .tpl-comparison .cmp-panels{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.9rem}
+  .tpl-comparison:has(.cmp-mark) .cmp-panels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cmp-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1}
+  .tpl-layers .layer{display:grid;grid-template-columns:minmax(160px,.32fr) minmax(0,1fr);gap:.2rem 1.2rem;align-items:baseline;padding-left:1.4rem}
+  .tpl-layers .layer>p,.tpl-layers .layer>.tl,.tpl-layers .layer>.pills{margin-top:0}
+  .tpl-handoff .handoff-row{grid-auto-flow:column;grid-auto-columns:1fr;gap:1.6rem}
+  .handoff-doc+.handoff-doc::before{content:'→';left:-1.1rem;top:50%;transform:translateY(-50%);font-size:1.1rem}
   .tpl-split{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
   .tpl-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}
   .tpl-gate{grid-template-columns:minmax(0,1fr) auto minmax(0,.8fr);align-items:center;gap:1rem}
@@ -445,7 +492,7 @@ dialog::backdrop{background:#161324c0}
   :root{--gutter:3.5vw}
   h1{font-size:clamp(2.2rem,3.2vw,2.9rem)}
   p.subtitle{font-size:1.15rem}
-  .col p,.row p,.tile p{font-size:1.1rem}
+  .col p,.row p,.tile p,.cmp-panel p,.layer p{font-size:1.1rem}
   .col h2,.row-head h2,.tile h2,.chain-text h2{font-size:.8rem}
   .chain-text p{font-size:1.02rem}
   .split-panel ul{font-size:1.02rem}

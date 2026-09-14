@@ -17,7 +17,7 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | `dist/index.html` | Page shell and asset references |
 | `dist/styles.css` | Mobile-first: section 1 tokens, section 6 the templates, section 12 the two breakpoints (760px, 1100px) |
 | `dist/app.js` | Rendering, navigation, exercise timers, reveal controls, the facilitator-notes dialog (talk track + the checkable "Do this now" panel, progress kept in `sessionStorage` per slide) and the typed day-progress bar |
-| `dist/templates.js` | The ten slide-body templates taken from the Day 2 deck: cover, columns, stack, chain, split, grid, gate, arc, pause, figure |
+| `dist/templates.js` | The slide-body templates taken from the Day 2 deck (cover, columns, stack, chain, split, grid, gate, arc, pause, figure) plus the topic registry that maps exact card-title sets to comparison, layers and handoff |
 | `dist/widgets.js` | Interactive agent loop and illustrative SDLC diagram |
 | `dist/data.js` | Reusable presentation framework |
 | `dist/days.js` | Squad 1 day decks (`window.DAYS`) |
