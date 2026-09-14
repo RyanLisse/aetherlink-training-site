@@ -74,6 +74,7 @@ p.subtitle{font-size:clamp(.98rem,1.35vw,1.18rem);line-height:1.5;color:var(--mu
 .slide-body.single-visual .slide-main{width:min(100%,1180px);margin:0 auto}
 .slide-body.single-visual .slide-main:empty{display:none}
 .slide-body.single-visual.figure-right .slide-figure{order:0}
+@media(min-width:1101px){.slide-body.single-visual .slide-figure{height:min(42vh,380px);min-height:0;max-height:380px}}
 .slide-main{min-width:0;display:flex;flex-direction:column;gap:.8rem;justify-content:center}
 /* A long schedule card breaks into two columns so the route slide still fits 1440x900. */
 .with-figure .card .timeline{font-size:.85rem}
