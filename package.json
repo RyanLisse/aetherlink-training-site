@@ -1,0 +1,10 @@
+{
+  "name": "aetherlink-training-site-checks",
+  "private": true,
+  "scripts": {
+    "visual-check": "node work/shoot.js work/shots"
+  },
+  "devDependencies": {
+    "playwright": "1.48.2"
+  }
+}

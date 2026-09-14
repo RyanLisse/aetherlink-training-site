@@ -6,7 +6,7 @@ The reference is the Canva deck **AetherMind · Worldline · Day 2 · From Model
 
 ## Principles
 
-1. **Every slide is a picture plus a claim.** Left: the content (cards, compare, steps). Right: one figure — a published diagram, an interactive widget, or a figure generated from the slide's own cards. No slide is text only.
+1. **Every slide is a picture plus a claim.** A slide with a figure gets one large, centered visual — a published diagram or a figure generated from the slide's own cards. Its source card titles and bodies stay available in facilitator notes; timers remain below the visual. Slides without a figure keep their custom widget or wide layout.
 2. **The room sees the concept; the facilitator holds the instructions.** Since 2026-09-14 the "Do this now" checklist, expected result and checkpoint live in the **Facilitator notes** dialog, not on the slide. The footer button carries the progress badge (`2/4`, `✓`) so the facilitator sees the state without opening it.
 3. **The type is visible before the text.** Six types, shown as a chip in the eyebrow, as the accent colour of the whole slide (`--type`) and as a coloured segment in the footer.
 4. **AetherBOT works, he does not decorate.** He points at a concept, stops the room at a gate, thinks on a recap, waits during a break. He always sits in his own grid column inside the figure card, so he can never cover a label.
@@ -26,8 +26,8 @@ The Canva master, top to bottom, and the element that carries it here:
 | Orange kicker line (`YOUR TURN · 12 MINUTES`) | absorbed into the type chip, which takes the kicker's head word |
 | Big ink title, 34–37 pt | `h1` |
 | Grey one-line subtitle | `p.subtitle` |
-| Centre: one diagram built from cards, circles, rails and pills | `.slide-figure` (published SVG/PNG, widget, or generated figure) |
-| Left/right supporting cards | `.cards` in `.slide-main` |
+| Centre: one large diagram built from cards, circles, rails and pills | `.slide-figure` (published SVG/PNG or generated figure) |
+| Original card titles and bodies | `.notes-cards` in the facilitator notes dialog |
 | Orange all-caps takeaway band at the foot | `.tagline` — a full-width pill under the slide body |
 | AetherBOT in a corner, never over text | `.bot` in its own column of `.slide-figure` |
 
@@ -36,25 +36,28 @@ The Canva master, top to bottom, and the element that carries it here:
 ```
 #stage
   section.heading            eyebrow (type chip + kicker) · counter · h1 · subtitle
-  div.slide-body[.with-figure][.figure-right][.figure-only]
+  div.slide-body[.with-figure][.single-visual][.figure-only]
     figure.slide-figure      published image | generated SVG | hero illustration
       div.figure-canvas      the drawing
       img.bot                AetherBOT, own grid column (hub/flow/cycle → left, others → right)
-    div.slide-main           cards | pillars | steps | compare | recap | widget (+ timer)
+    div.slide-main           timer below a centered figure; custom widget or wide layout when no figure exists
   p.tagline                  orange takeaway band (day decks only)
 ```
 
-`figure-right` puts the figure after the content for hub, close and hero figures, so consecutive slides alternate and the deck does not feel like one repeated layout. Below 1100 px the grid collapses to one column, figure first.
+`single-visual` makes the figure span the slide and bounds its height so the title, figure and timer fit at 1440×900. Below 1100 px the grid collapses to one column.
 
 ## Figures (`dist/figures.js`)
 
-`FIGURES.forSlide(slide, ctx)` picks a kind from the slide type and kicker and draws an inline SVG from the slide's **own card titles** — the canonical JSON never changes for looks. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
+`FIGURES.forSlide(slide, ctx)` first checks a small declarative topic registry, then falls back to the slide type and kicker. Generated SVGs use the slide's **own card titles** — the canonical JSON never changes for looks, and unordered cards are not presented as a sequence. Full explanations stay in facilitator notes. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
 
 | Kind | Used for | Drawing | Bot |
 | --- | --- | --- | --- |
 | `hub` | `CONCEPT DEFINITION`, `REFERENCE`, `What is …` | concept in an orange-ringed navy circle, one card per node | pointing |
 | `rows` | `HOW WE USE IT` | one full-width row per card with a coloured rail (Day 2 memory slide) | — |
-| `flow` | demo, example, theory, transfer | numbered circles on a purple rail, ending at an orange "You decide" | pointing |
+| `comparison` | intent facets (`WHAT`, `WHY`, `BOUNDARIES`), positive/negative tests | parallel source-card panels; tests add a visible VS marker | pointing |
+| `layers` | AI-native SDLC, agent system parts | stacked source-card layers with topic-specific relationship caption | pointing |
+| `handoff` | Proof/GitLab handoff, named roles | document panels connected only where the source names stages | pointing |
+| `flow` | explicitly ordered demo or transfer | numbered circles on a purple rail, ending at an orange "You decide" | pointing |
 | `cycle` | practice, individual, MOB | do → evidence → check around the block timer in minutes | pointing |
 | `gate` | review, human gate | three inputs meet the gate; exits accept / park / redirect | stop |
 | `arc` | welcome, schedule, route | the whole day as typed segments with "You are here" and a legend | neutral |
@@ -64,7 +67,9 @@ The Canva master, top to bottom, and the element that carries it here:
 
 A slide that carries its own `image`, a `widget`, or a wide layout (`steps`, `pillars`, `compare`, `recap`) keeps that and gets no generated figure.
 
-Canvas sizes are 640×400 (`flow`, `rows`) and 640×440 (the rest), close to the card's aspect so the drawing fills it instead of floating in whitespace.
+Canvas sizes are 640×400 (`flow`, `handoff`, `rows`) and 640×440 (the rest), close to the card's aspect so the drawing fills it instead of floating in whitespace.
+
+The topic registry covers exact card-title sets for intent, Proof/GitLab handoff, agent tools and instructions, SDLC stages, positive/negative tests, and named roles. Its captions describe only relationships stated by those cards. A generic demo or example receives `flow` only when the cards contain a recognised ordered set such as install → invoke → verify.
 
 ## AetherBOT
 
