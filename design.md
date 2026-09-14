@@ -48,13 +48,16 @@ The Canva master, top to bottom, and the element that carries it here:
 
 ## Figures (`dist/figures.js`)
 
-`FIGURES.forSlide(slide, ctx)` picks a kind from the slide type and kicker and draws an inline SVG from the slide's **own card titles** — the canonical JSON never changes for looks. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
+`FIGURES.forSlide(slide, ctx)` first checks a small declarative topic registry, then falls back to the slide type and kicker. Generated SVGs use the slide's **own card titles and one short fact per card** — the canonical JSON never changes for looks, and unordered cards are not presented as a sequence. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
 
 | Kind | Used for | Drawing | Bot |
 | --- | --- | --- | --- |
 | `hub` | `CONCEPT DEFINITION`, `REFERENCE`, `What is …` | concept in an orange-ringed navy circle, one card per node | pointing |
 | `rows` | `HOW WE USE IT` | one full-width row per card with a coloured rail (Day 2 memory slide) | — |
-| `flow` | demo, example, theory, transfer | numbered circles on a purple rail, ending at an orange "You decide" | pointing |
+| `comparison` | intent facets (`WHAT`, `WHY`, `BOUNDARIES`), positive/negative tests | parallel source-card panels; tests add a visible VS marker | pointing |
+| `layers` | AI-native SDLC, agent system parts | stacked source-card layers with topic-specific relationship caption | pointing |
+| `handoff` | Proof/GitLab handoff, named roles | document panels connected only where the source names stages | pointing |
+| `flow` | explicitly ordered demo or transfer | numbered circles on a purple rail, ending at an orange "You decide" | pointing |
 | `cycle` | practice, individual, MOB | do → evidence → check around the block timer in minutes | pointing |
 | `gate` | review, human gate | three inputs meet the gate; exits accept / park / redirect | stop |
 | `arc` | welcome, schedule, route | the whole day as typed segments with "You are here" and a legend | neutral |
@@ -64,7 +67,9 @@ The Canva master, top to bottom, and the element that carries it here:
 
 A slide that carries its own `image`, a `widget`, or a wide layout (`steps`, `pillars`, `compare`, `recap`) keeps that and gets no generated figure.
 
-Canvas sizes are 640×400 (`flow`, `rows`) and 640×440 (the rest), close to the card's aspect so the drawing fills it instead of floating in whitespace.
+Canvas sizes are 640×400 (`flow`, `handoff`, `rows`) and 640×440 (the rest), close to the card's aspect so the drawing fills it instead of floating in whitespace.
+
+The topic registry covers exact card-title sets for intent, Proof/GitLab handoff, agent tools and instructions, SDLC stages, positive/negative tests, and named roles. Its captions describe only relationships stated by those cards. A generic demo or example receives `flow` only when the cards contain a recognised ordered set such as install → invoke → verify.
 
 ## AetherBOT
 

@@ -17,7 +17,7 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | `dist/index.html` | Page shell and asset references |
 | `dist/styles.css` | AetherLink colours, typography and layout; the "Learning-experience layer" block at the end owns the Learn/Do grid, slide-type chips and progress segments |
 | `dist/app.js` | Rendering, navigation, exercise timers, reveal controls, the facilitator-notes dialog (talk track + the checkable "Do this now" panel, progress kept in `sessionStorage` per slide) and the typed day-progress bar |
-| `dist/figures.js` | Generated slide diagrams: one figure per slide, drawn from the slide's own cards |
+| `dist/figures.js` | Generated slide diagrams: semantic topic registry plus one figure per slide, drawn from the slide's own card titles and short facts |
 | `dist/widgets.js` | Interactive agent loop and illustrative SDLC diagram |
 | `dist/data.js` | Reusable presentation framework |
 | `dist/days.js` | Squad 1 day decks (`window.DAYS`) |

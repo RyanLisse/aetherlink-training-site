@@ -1,61 +1,260 @@
-// Screenshot + render-all check for the AetherLink site.
-// usage: node shoot.js [outdir]
-const { chromium } = require('playwright');
+// Browser regression gate and representative screenshots for the AetherLink site.
+// usage: node work/shoot.js [outdir]
+const fs = require('fs');
 const path = require('path');
+const { chromium } = require('playwright');
+
 const out = process.argv[2] || path.join(__dirname, 'shots');
-require('fs').mkdirSync(out, { recursive: true });
-const base = 'http://127.0.0.1:8080/';
-const decks = [['1','3'],['1','4'],['1','5'],['1','1'],['1','2'],['2','1'],['2','2'],['2','3'],['2','4'],['2','5']];
-(async () => {
-  const browser = await chromium.launch();
-  const errors = [];
-  // 1 · render every slide of every deck at 1440x900, collect console errors + figure kinds
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
-  const kinds = {}; let total = 0; let overflow = [];
-  for (const [squad, dayKey] of decks) {
-    await page.goto(`${base}?squad=${squad}&day=${dayKey}#1`);
-    await page.waitForSelector('#stage h1');
-    const n = await page.evaluate(() => document.querySelectorAll('#progress .seg').length);
-    for (let i = 1; i <= n; i++) {
-      await page.evaluate(h => { location.hash = h; }, String(i));
-      await page.waitForFunction(i => document.querySelector('#count')?.textContent.startsWith(String(i).padStart(2, '0')), i);
-      const info = await page.evaluate(() => ({
-        kind: document.querySelector('.slide-figure')?.dataset.kind || (document.querySelector('.widget') ? 'widget' : document.querySelector('.compare,.steps-wrap,.pillars,.recap-list') ? 'layout' : 'none'),
-        doOnSlide: !!document.querySelector('#stage .exercise-instructions'),
-        tall: document.documentElement.scrollHeight > 900 + 4,
-        bot: document.querySelector('.bot')?.className || ''
+const base = process.env.SHOOT_BASE || 'http://127.0.0.1:8080/';
+const desktopViewport = { width: 1440, height: 900 };
+const mobileViewport = { width: 390, height: 844 };
+const decks = [
+  { id: 'framework', label: 'framework', query: '' },
+  { id: 's1d3', label: 'squad 1/day 3', query: 'squad=1&day=3' },
+  { id: 's1d4', label: 'squad 1/day 4', query: 'squad=1&day=4' },
+  { id: 's1d5', label: 'squad 1/day 5', query: 'squad=1&day=5' },
+  { id: 's1d1', label: 'squad 1/day 1', query: 'squad=1&day=1' },
+  { id: 's1d2', label: 'squad 1/day 2', query: 'squad=1&day=2' },
+  { id: 's2d1', label: 'squad 2/day 1', query: 'squad=2&day=1' },
+  { id: 's2d2', label: 'squad 2/day 2', query: 'squad=2&day=2' },
+  { id: 's2d3', label: 'squad 2/day 3', query: 'squad=2&day=3' },
+  { id: 's2d4', label: 'squad 2/day 4', query: 'squad=2&day=4' },
+  { id: 's2d5', label: 'squad 2/day 5', query: 'squad=2&day=5' }
+];
+
+fs.mkdirSync(out, { recursive: true });
+const errors = [];
+const report = {
+  base,
+  viewports: { desktop: desktopViewport, mobile: mobileViewport },
+  reducedMotion: true,
+  decks: [],
+  uniqueSlides: 0,
+  viewportRenders: { desktop: 0, mobile: 0 },
+  figureKinds: {},
+  representativeScreenshots: [],
+  errors
+};
+const representativeKinds = { desktop: new Set(), mobile: new Set() };
+
+function urlFor(deck, slide) {
+  return `${base}${deck.query ? `?${deck.query}` : ''}#${slide}`;
+}
+
+function addError(message) {
+  errors.push(message);
+}
+
+async function openSlide(page, deck, slide) {
+  await page.goto(urlFor(deck, slide), { waitUntil: 'networkidle' });
+  await page.waitForSelector('#stage h1');
+  await page.waitForFunction(expected => document.querySelector('#count')?.textContent.startsWith(expected), String(slide).padStart(2, '0'));
+  await page.waitForTimeout(50);
+}
+
+async function deckSize(page, deck) {
+  await openSlide(page, deck, 1);
+  return page.evaluate(() => document.querySelectorAll('#progress .seg').length);
+}
+
+async function inspectSlide(page, deck, slide, mode) {
+  const info = await page.evaluate(({ mode, viewportWidth }) => {
+    const finite = value => Number.isFinite(value);
+    const visible = element => {
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+    };
+    const intersects = (a, b) => a.left < b.right - 0.5 && a.right > b.left + 0.5 && a.top < b.bottom - 0.5 && a.bottom > b.top + 0.5;
+    const images = [...document.images].map(image => ({
+      src: image.currentSrc || image.src,
+      loaded: image.complete && image.naturalWidth > 0
+    }));
+    const svgIssues = [];
+    [...document.querySelectorAll('svg')].filter(visible).forEach((svg, index) => {
+      const rect = svg.getBoundingClientRect();
+      const values = [rect.left, rect.top, rect.right, rect.bottom, rect.width, rect.height];
+      if (!values.every(finite) || rect.width <= 0 || rect.height <= 0) svgIssues.push(`svg ${index + 1} has non-finite or empty bounds`);
+      try {
+        const box = svg.getBBox();
+        if (![box.x, box.y, box.width, box.height].every(finite)) svgIssues.push(`svg ${index + 1} has a non-finite drawing box`);
+      } catch (error) {
+        svgIssues.push(`svg ${index + 1} getBBox failed: ${error.message}`);
+      }
+    });
+    const motionIssues = [];
+    const nonZeroDuration = value => value.split(',').some(part => Number.parseFloat(part) > 0);
+    [...document.querySelectorAll('.bot, .fig, .fig *')].filter(visible).forEach((element, index) => {
+      const style = getComputedStyle(element);
+      if (style.animationName !== 'none' || nonZeroDuration(style.transitionDuration)) {
+        motionIssues.push(`visible motion element ${index + 1} is not reduced`);
+      }
+    });
+    const botIssues = [];
+    document.querySelectorAll('.bot').forEach((bot, index) => {
+      const botRect = bot.getBoundingClientRect();
+      const figure = bot.closest('.slide-figure.with-bot');
+      const canvas = figure?.querySelector('.figure-canvas');
+      if (!figure || !canvas) {
+        botIssues.push(`bot ${index + 1} is missing its figure column`);
+        return;
+      }
+      if (intersects(botRect, canvas.getBoundingClientRect())) botIssues.push(`bot ${index + 1} overlaps the figure canvas`);
+      const textElements = document.querySelectorAll('#stage h1, #stage h2, #stage h3, #stage p, #stage li, #stage button, #stage figcaption, #stage .card, #stage .step-label, #stage .pillar-label, #stage .compare-col, #stage .recap-item, #stage .timer, #stage svg text');
+      textElements.forEach(text => {
+        if (text === bot || text.closest('.bot')) return;
+        if (intersects(botRect, text.getBoundingClientRect())) botIssues.push(`bot ${index + 1} overlaps text: ${text.textContent.trim().slice(0, 60)}`);
+      });
+    });
+    const desktopHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    const horizontalWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);
+    const controls = ['#notes', '#prompt'].map(selector => {
+      const element = document.querySelector(selector);
+      return { selector, present: !!element, visible: !!element && visible(element) };
+    });
+    return {
+      kind: document.querySelector('.slide-figure')?.dataset.kind || (document.querySelector('.widget') ? 'widget' : document.querySelector('.compare,.steps-wrap,.pillars,.recap-list') ? 'layout' : 'none'),
+      images,
+      svgIssues,
+      motionIssues,
+      botIssues,
+      desktopHeight,
+      horizontalWidth,
+      viewportWidth,
+      controls,
+      doOnSlide: !!document.querySelector('#stage .exercise-instructions'),
+      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    };
+  }, { mode, viewportWidth: mode === 'mobile' ? mobileViewport.width : desktopViewport.width });
+
+  const prefix = `${deck.id}#${slide}`;
+  if (!info.reducedMotion) addError(`${prefix}: reduced-motion media query is not active`);
+  if (info.doOnSlide) addError(`${prefix}: Do-this-now instructions leaked onto the slide`);
+  info.images.filter(image => !image.loaded).forEach(image => addError(`${prefix}: image failed to load: ${image.src}`));
+  info.svgIssues.forEach(issue => addError(`${prefix}: ${issue}`));
+  info.motionIssues.forEach(issue => addError(`${prefix}: ${issue}`));
+  info.botIssues.forEach(issue => addError(`${prefix}: ${issue}`));
+  info.controls.filter(control => !control.present || !control.visible).forEach(control => addError(`${prefix}: ${control.selector} control is missing or hidden`));
+  if (mode === 'desktop' && info.desktopHeight > desktopViewport.height + 4) {
+    addError(`${prefix}: desktop document is ${info.desktopHeight}px tall (viewport ${desktopViewport.height}px)`);
+  }
+  if (mode === 'mobile' && info.horizontalWidth > mobileViewport.width + 1) {
+    addError(`${prefix}: mobile document is ${info.horizontalWidth}px wide (viewport ${mobileViewport.width}px)`);
+  }
+  report.viewportRenders[mode] += 1;
+  report.figureKinds[info.kind] = (report.figureKinds[info.kind] || 0) + 1;
+  return info;
+}
+
+async function exerciseControls(page, deck, slide) {
+  const prefix = `${deck.id}#${slide}`;
+  for (const selector of ['#notes', '#prompt']) {
+    try {
+      await page.click(selector);
+      await page.waitForSelector('#panel[open]');
+      const panel = await page.evaluate(() => ({
+        title: document.querySelector('#panel-title')?.textContent.trim(),
+        body: document.querySelector('#panel-body')?.textContent.trim(),
+        prompt: document.querySelector('.prompt-text')?.value || ''
       }));
-      total++; kinds[info.kind] = (kinds[info.kind] || 0) + 1;
-      if (info.doOnSlide) errors.push(`Do-this-now still on slide ${squad}/${dayKey}#${i}`);
-      if (info.tall) overflow.push(`${squad}/${dayKey}#${i} (${info.kind})`);
+      if (!panel.title || !panel.body) addError(`${prefix}: ${selector} opened an empty panel`);
+      // A slide may intentionally omit a prompt. The control and panel remain
+      // covered by this interaction check; prompt content is not asserted here.
+      await page.click('#close-panel');
+      await page.waitForFunction(() => !document.querySelector('#panel')?.open);
+    } catch (error) {
+      addError(`${prefix}: ${selector} interaction failed: ${error.message}`);
+      if (await page.locator('#panel[open]').count()) await page.keyboard.press('Escape').catch(() => {});
     }
   }
-  // framework deck
-  await page.goto(base + '#1'); await page.waitForSelector('#stage h1');
-  const fn = await page.evaluate(() => document.querySelectorAll('#progress .seg').length);
-  for (let i = 1; i <= fn; i++) { await page.evaluate(h => { location.hash = h; }, String(i)); await page.waitForFunction(i => document.querySelector('#count')?.textContent.startsWith(String(i).padStart(2, '0')), i); total++; }
-  console.log('rendered', total, 'slides · figure kinds', JSON.stringify(kinds));
-  console.log('slides taller than 900px:', overflow.length, overflow.slice(0, 40).join(', '));
-  // 2 · screenshots
-  const shots = [['s1d3-01', '?squad=1&day=3#1'], ['s1d3-02', '?squad=1&day=3#2'], ['s1d3-03', '?squad=1&day=3#3'], ['s1d3-12', '?squad=1&day=3#12'], ['s1d3-15', '?squad=1&day=3#15'], ['s1d3-19', '?squad=1&day=3#19'], ['s1d5-02', '?squad=1&day=5#2'], ['s2d2-09', '?squad=2&day=2#9'], ['s1d4-04', '?squad=1&day=4#4'], ['s1d5-11', '?squad=1&day=5#11'], ['fw-07', '#7']];
-  for (const [name, hash] of shots) {
-    await page.goto(base + hash); await page.waitForSelector('#stage h1'); await page.waitForTimeout(1200);
-    await page.screenshot({ path: path.join(out, name + '-1440.png') });
+}
+
+async function scanDeck(page, deck, mode) {
+  let count;
+  try {
+    count = await deckSize(page, deck);
+  } catch (error) {
+    addError(`${deck.id}: could not open deck: ${error.message}`);
+    return;
   }
-  // notes dialog
-  await page.goto(base + '?squad=1&day=3#12'); await page.waitForSelector('#stage h1'); await page.click('#notes'); await page.waitForTimeout(500);
-  await page.screenshot({ path: path.join(out, 'notes-dialog-1440.png') });
-  await page.close();
-  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
-  for (const [name, hash] of [['s1d3-02', '?squad=1&day=3#2'], ['s1d3-12', '?squad=1&day=3#12']]) {
-    await mobile.goto(base + hash); await mobile.waitForSelector('#stage h1'); await mobile.waitForTimeout(1200);
-    await mobile.screenshot({ path: path.join(out, name + '-390.png'), fullPage: true });
-    const wide = await mobile.evaluate(() => document.documentElement.scrollWidth > 390);
-    if (wide) errors.push('horizontal overflow on mobile ' + hash);
+  report.decks.push({ id: deck.id, label: deck.label, slides: count, mode });
+  if (mode === 'desktop') report.uniqueSlides += count;
+  for (let slide = 1; slide <= count; slide += 1) {
+    try {
+      await openSlide(page, deck, slide);
+      const info = await inspectSlide(page, deck, slide, mode);
+      if (!representativeKinds[mode].has(info.kind)) {
+        representativeKinds[mode].add(info.kind);
+        const screenshotPath = path.join(out, `${mode}-${info.kind}.png`);
+        await page.screenshot({ path: screenshotPath, fullPage: mode === 'mobile' });
+        report.representativeScreenshots.push({ mode, kind: info.kind, deck: deck.id, slide, path: screenshotPath });
+      }
+      if (mode === 'desktop') await exerciseControls(page, deck, slide);
+    } catch (error) {
+      addError(`${deck.id}#${slide}: render failed: ${error.message}`);
+    }
   }
-  await browser.close();
-  console.log('errors:', errors.length); errors.forEach(e => console.log(' -', e));
-  process.exit(errors.length ? 1 : 0);
-})();
+}
+
+async function capture(page, name, deck, slide) {
+  try {
+    await openSlide(page, deck, slide);
+    await page.screenshot({ path: path.join(out, `${name}-1440.png`) });
+  } catch (error) {
+    addError(`screenshot ${name} failed: ${error.message}`);
+  }
+}
+
+async function main() {
+  let browser;
+  let desktop;
+  let mobile;
+  try {
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ reducedMotion: 'reduce', viewport: desktopViewport });
+    desktop = await context.newPage();
+    desktop.on('pageerror', error => addError(`pageerror: ${error.message}`));
+    desktop.on('console', message => { if (message.type() === 'error') addError(`console: ${message.text()}`); });
+    desktop.on('requestfailed', request => addError(`request failed: ${request.url()} (${request.failure()?.errorText || 'unknown'})`));
+    for (const deck of decks) await scanDeck(desktop, deck, 'desktop');
+
+    const mobileContext = await browser.newContext({ reducedMotion: 'reduce', viewport: mobileViewport, deviceScaleFactor: 2 });
+    mobile = await mobileContext.newPage();
+    mobile.on('pageerror', error => addError(`mobile pageerror: ${error.message}`));
+    mobile.on('console', message => { if (message.type() === 'error') addError(`mobile console: ${message.text()}`); });
+    mobile.on('requestfailed', request => addError(`mobile request failed: ${request.url()} (${request.failure()?.errorText || 'unknown'})`));
+    for (const deck of decks) await scanDeck(mobile, deck, 'mobile');
+
+    const screenshots = [
+      ['framework-01', decks[0], 1],
+      ['s1d3-02', decks[1], 2],
+      ['s1d3-12', decks[1], 12],
+      ['s2d2-09', decks[7], 9]
+    ];
+    for (const [name, deck, slide] of screenshots) await capture(desktop, name, deck, slide);
+    await openSlide(desktop, decks[1], 12);
+    await desktop.click('#notes');
+    await desktop.waitForSelector('#panel[open]');
+    await desktop.screenshot({ path: path.join(out, 'notes-dialog-1440.png') });
+    await desktop.click('#close-panel');
+    await openSlide(desktop, decks[1], 12);
+    await desktop.click('#prompt');
+    await desktop.waitForSelector('#panel[open]');
+    await desktop.screenshot({ path: path.join(out, 'prompt-dialog-1440.png') });
+  } catch (error) {
+    addError(`fatal visual gate error: ${error.stack || error.message}`);
+  } finally {
+    if (desktop) await desktop.close().catch(() => {});
+    if (mobile) await mobile.close().catch(() => {});
+    if (browser) await browser.close().catch(() => {});
+    report.finishedAt = new Date().toISOString();
+    fs.writeFileSync(path.join(out, 'report.json'), `${JSON.stringify(report, null, 2)}\n`);
+  }
+  const totalRenders = report.viewportRenders.desktop + report.viewportRenders.mobile;
+  console.log(`rendered ${report.uniqueSlides} unique slides in ${totalRenders} viewport renders · figure kinds ${JSON.stringify(report.figureKinds)}`);
+  console.log(`errors: ${errors.length}`);
+  errors.forEach(error => console.log(` - ${error}`));
+  process.exitCode = errors.length ? 1 : 0;
+}
+
+main();

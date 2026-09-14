@@ -125,6 +125,20 @@ body.dark .fig-hub circle{fill:#fff}
 body.dark .fig-venn{mix-blend-mode:screen;opacity:.35}
 .fig-venn-label{fill:var(--ink);font-size:15px;font-weight:800}
 .fig-venn-core{fill:var(--accent-text);font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.fig-compare-panel rect{fill:var(--purple-soft);stroke:var(--purple-line);stroke-width:1.8}
+.fig-compare-panel.alt rect{fill:var(--orange-soft);stroke:var(--orange-line)}
+.fig-panel-title{fill:var(--ink);font-size:17px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.fig-panel-body{fill:var(--muted);font-size:16px;font-weight:500}
+.fig-compare-mark circle{fill:var(--orange);stroke:var(--orange);stroke-width:2}
+.fig-compare-mark-label{fill:#1f1e2e;font-size:12px;font-weight:800;letter-spacing:.04em}
+.fig-compare-panel,.fig-layer,.fig-doc,.fig-compare-mark{animation:pop .5s both}
+.fig-compare-panel:nth-of-type(2){animation-delay:.1s}.fig-compare-panel:nth-of-type(3){animation-delay:.2s}.fig-compare-panel:nth-of-type(4){animation-delay:.3s}
+.fig-layer rect{fill:var(--purple-soft);stroke:var(--purple-line);stroke-width:1.8}
+.fig-layer.l1 rect{fill:var(--orange-soft);stroke:var(--orange-line)}.fig-layer.l2 rect{fill:color-mix(in srgb,var(--review) 12%,var(--surface));stroke:var(--review)}.fig-layer.l3 rect{fill:var(--surface);stroke:var(--line)}
+.fig-layer-index{fill:var(--purple)!important;stroke:none!important}.fig-layer.l1 .fig-layer-index{fill:var(--orange)!important}.fig-layer.l2 .fig-layer-index{fill:var(--review)!important}.fig-layer.l3 .fig-layer-index{fill:var(--muted)!important}
+.fig-doc rect{fill:var(--purple-soft);stroke:var(--purple-line);stroke-width:1.8}.fig-doc.alt rect{fill:var(--orange-soft);stroke:var(--orange-line)}
+.fig-doc-fold{fill:var(--purple-line);stroke:none}.fig-doc.alt .fig-doc-fold{fill:var(--orange-line)}
+.fig-handoff-line{stroke:var(--orange);stroke-width:2.8}
 .fig-clock{fill:var(--surface);stroke:var(--purple);stroke-width:5}
 .fig-tick{stroke:var(--line);stroke-width:2}.fig-tick.major{stroke:var(--purple);stroke-width:3}
 .fig-wedge{fill:var(--orange);opacity:.35}

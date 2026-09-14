@@ -63,7 +63,7 @@ function renderProgress(){const bar=$('progress');const hadFocus=bar.contains(do
    every other slide gets a generated figure from figures.js. */
 /* AetherBOT joins a figure only when he has a job: he points at a concept or flow,
    stops the room at a gate, thinks on a recap and waits during a break (Canva style guide). */
-const BOT_FOR_KIND={hub:'pointing',flow:'pointing',cycle:'pointing',gate:'stop',close:'thinking',pause:'neutral',arc:'neutral',hero:null};
+const BOT_FOR_KIND={hub:'pointing',flow:'pointing',cycle:'pointing',comparison:'pointing',layers:'pointing',handoff:'pointing',gate:'stop',close:'thinking',pause:'neutral',arc:'neutral',hero:null};
 function botImage(pose){if(!pose)return null;const img=node('img','bot bot-'+pose);img.src='assets/bot-'+pose+'.png';img.alt='';img.setAttribute('aria-hidden','true');img.decoding='async';return img;}
 function slideFigure(s,type){if(s.layout==='image'&&s.image)return imageFigure(s);if(s.widget||WIDE_LAYOUTS.has(s.layout)||!window.FIGURES)return null;const fig=node('figure','slide-figure generated');
   if(current===0&&day){/* welcome: the hero illustration instead of a diagram */fig.classList.add('hero');const img=node('img','hero-image');img.src='assets/bot-builder.jpg';img.alt='AetherBOT stacks three glowing blocks: goal, method and check.';fig.append(img);fig.dataset.kind='hero';return fig;}
