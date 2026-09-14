@@ -69,6 +69,11 @@ p.subtitle{font-size:clamp(.98rem,1.35vw,1.18rem);line-height:1.5;color:var(--mu
 .slide-body.figure-only{grid-template-columns:minmax(0,1fr)}
 .slide-body.figure-only .slide-figure{width:min(100%,900px);margin:0 auto}
 .slide-body.figure-only .slide-main:empty{display:none}
+.slide-body.single-visual{grid-template-columns:minmax(0,1fr);gap:.8rem}
+.slide-body.single-visual .slide-figure{width:min(100%,1180px);min-height:clamp(280px,48vh,540px);max-height:min(60vh,540px);margin:0 auto}
+.slide-body.single-visual .slide-main{width:min(100%,1180px);margin:0 auto}
+.slide-body.single-visual .slide-main:empty{display:none}
+.slide-body.single-visual.figure-right .slide-figure{order:0}
 .slide-main{min-width:0;display:flex;flex-direction:column;gap:.8rem;justify-content:center}
 /* A long schedule card breaks into two columns so the route slide still fits 1440x900. */
 .with-figure .card .timeline{font-size:.85rem}
@@ -347,6 +352,9 @@ dialog::backdrop{background:#161324b8;backdrop-filter:blur(6px)}
 .notes-grid.two{grid-template-columns:minmax(0,1fr) minmax(300px,.95fr)}
 .notes-heading{margin:0 0 .5rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#625d73}
 .notes-text{white-space:pre-wrap;font:1.02rem/1.6 Arial,sans-serif;color:#1f1e2e}
+.notes-cards{margin-top:1.5rem;padding-top:1rem;border-top:1px solid #dedbea}
+.notes-card-title{margin:.8rem 0 .2rem;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:#5b3fff}
+.notes-card-body{margin:0;color:#1f1e2e;line-height:1.5;white-space:pre-line}
 .notes-actions{margin-top:1rem}
 .exercise-instructions{border:1px solid #eceaf3;border-left:5px solid var(--practice);background:#fff;color:#1f1e2e;border-radius:12px;padding:1rem 1.2rem 1.1rem;box-shadow:0 10px 30px rgba(31,30,46,.06)}
 .exercise-instructions.all-done{border-left-color:var(--ok)}

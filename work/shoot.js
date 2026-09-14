@@ -138,6 +138,7 @@ async function inspectSlide(page, deck, slide, mode) {
     });
     return {
       kind: document.querySelector('.slide-figure')?.dataset.kind || (document.querySelector('.widget') ? 'widget' : document.querySelector('.compare,.steps-wrap,.pillars,.recap-list') ? 'layout' : 'none'),
+      duplicateGeneratedCards: !!document.querySelector('#stage .slide-figure.generated') && !!document.querySelector('#stage .slide-main .card, #stage .slide-main .cards'),
       images,
       svgIssues,
       textBoundsIssues,
@@ -155,6 +156,7 @@ async function inspectSlide(page, deck, slide, mode) {
   const prefix = `${deck.id}#${slide}`;
   if (!info.reducedMotion) addError(`${prefix}: reduced-motion media query is not active`);
   if (info.doOnSlide) addError(`${prefix}: Do-this-now instructions leaked onto the slide`);
+  if (info.duplicateGeneratedCards) addError(`${prefix}: generated visual still has a duplicate slide-main card strip`);
   info.images.filter(image => !image.loaded).forEach(image => addError(`${prefix}: image failed to load: ${image.src}`));
   info.svgIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.textBoundsIssues.forEach(issue => addError(`${prefix}: ${issue}`));
@@ -181,9 +183,11 @@ async function exerciseControls(page, deck, slide) {
       const panel = await page.evaluate(() => ({
         title: document.querySelector('#panel-title')?.textContent.trim(),
         body: document.querySelector('#panel-body')?.textContent.trim(),
+        notes: document.querySelector('.notes-text')?.textContent.trim() || '',
         prompt: document.querySelector('.prompt-text')?.value || ''
       }));
       if (!panel.title || !panel.body) addError(`${prefix}: ${selector} opened an empty panel`);
+      if (selector === '#notes' && !panel.notes) addError(`${prefix}: notes panel has no facilitator notes content`);
       // A slide may intentionally omit a prompt. The control and panel remain
       // covered by this interaction check; prompt content is not asserted here.
       await page.click('#close-panel');
@@ -253,6 +257,10 @@ async function main() {
 
     const screenshots = [
       ['framework-01', decks[0], 1],
+      ['framework-hub', decks[0], 1],
+      ['s1d3-hero', decks[1], 1],
+      ['s1d3-layers', decks[1], 5],
+      ['s1d3-handoff-timer', decks[1], 13],
       ['s1d3-02', decks[1], 2],
       ['s1d3-12', decks[1], 12],
       ['s2d2-09', decks[7], 9],
