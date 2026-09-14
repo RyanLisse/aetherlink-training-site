@@ -15,15 +15,15 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | File | Purpose |
 | --- | --- |
 | `dist/index.html` | Page shell and asset references |
-| `dist/styles.css` | AetherLink colours, typography and layout; the "Learning-experience layer" block at the end owns the Learn/Do grid, slide-type chips and progress segments |
+| `dist/styles.css` | Mobile-first: section 1 tokens, section 6 the templates, section 12 the two breakpoints (760px, 1100px) |
 | `dist/app.js` | Rendering, navigation, exercise timers, reveal controls, the facilitator-notes dialog (talk track + the checkable "Do this now" panel, progress kept in `sessionStorage` per slide) and the typed day-progress bar |
-| `dist/figures.js` | Generated slide diagrams: semantic topic registry plus one figure per slide, drawn from the slide's own card titles |
+| `dist/templates.js` | The ten slide-body templates taken from the Day 2 deck: cover, columns, stack, chain, split, grid, gate, arc, pause, figure |
 | `dist/widgets.js` | Interactive agent loop and illustrative SDLC diagram |
 | `dist/data.js` | Reusable presentation framework |
 | `dist/days.js` | Squad 1 day decks (`window.DAYS`) |
 | `dist/squad2.js` | Squad 2 day decks (`window.SQUAD2`) |
 | `dist/assets/` | Images: concept diagrams, the AetherBOT poses (`bot-*.png`, `bot-builder.jpg`) and the standalone `ai-native-sdlc-line-and-loop.png` reference |
-| `work/shoot.js` | Gate: renders every slide of every deck, fails on console errors or a slide taller than 900px, and writes screenshots |
+| `work/shoot.js` | Gate, also run by `.github/workflows/slide-check.yml`: renders every slide of every deck at 1440x900, 390x844 and 360x740 and fails on console errors, a missing template, a slide past the presenter fold, horizontal overflow on a phone or a tap target under 40px |
 
 The day registries are JavaScript assignments containing JSON data. Preserve the
 assignment and edit the objects. Each deck has a `guideUrl` and `slides`; keep
@@ -43,9 +43,9 @@ then open `http://localhost:8080/?squad=1&day=3#1` or
 `http://localhost:8080/?squad=2&day=2#1`. Stop the server with Ctrl-C afterward.
 No build or package install is required.
 
-With the server running, `node work/shoot.js` renders all 190 slides, fails on any
-console error or slide that does not fit 1440x900, and writes screenshots to
-`work/shots/`. It needs Playwright on `NODE_PATH`.
+With the server running, `node work/shoot.js` renders all 190 slides at three
+viewport sizes and writes screenshots to `work/shots/`. It needs Playwright on
+`NODE_PATH`. See the Evidence section of `design.md` for what it fails on.
 
 ## Publish
 

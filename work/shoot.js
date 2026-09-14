@@ -1,5 +1,13 @@
 // Browser regression gate and representative screenshots for the AetherLink site.
 // usage: node work/shoot.js [outdir]
+//
+// Every slide of every deck is rendered at three sizes — 1440x900 presenter,
+// 390x844 phone and 360x740 small phone — with reduced motion on, and checked
+// for: page/console errors, failed images, a missing template, "Do this now"
+// left on a slide, a slide past the presenter fold, horizontal overflow on a
+// phone, a tap target under 40px, unreduced motion, and AetherBOT overlapping
+// anything. One screenshot per template per size lands in the out directory
+// next to report.json.
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -8,6 +16,7 @@ const out = process.argv[2] || path.join(__dirname, 'shots');
 const base = process.env.SHOOT_BASE || 'http://127.0.0.1:8080/';
 const desktopViewport = { width: 1440, height: 900 };
 const mobileViewport = { width: 390, height: 844 };
+const smallViewport = { width: 360, height: 740 };
 const decks = [
   { id: 'framework', label: 'framework', query: '' },
   { id: 's1d3', label: 'squad 1/day 3', query: 'squad=1&day=3' },
@@ -26,16 +35,17 @@ fs.mkdirSync(out, { recursive: true });
 const errors = [];
 const report = {
   base,
-  viewports: { desktop: desktopViewport, mobile: mobileViewport },
+  viewports: { desktop: desktopViewport, mobile: mobileViewport, small: smallViewport },
   reducedMotion: true,
   decks: [],
   uniqueSlides: 0,
-  viewportRenders: { desktop: 0, mobile: 0 },
-  figureKinds: {},
+  viewportRenders: { desktop: 0, mobile: 0, small: 0 },
+  templates: {},
   representativeScreenshots: [],
   errors
 };
-const representativeKinds = { desktop: new Set(), mobile: new Set() };
+const representativeKinds = { desktop: new Set(), mobile: new Set(), small: new Set() };
+const widthFor = mode => (mode === 'desktop' ? desktopViewport.width : mode === 'small' ? smallViewport.width : mobileViewport.width);
 
 function urlFor(deck, slide) {
   return `${base}${deck.query ? `?${deck.query}` : ''}#${slide}`;
@@ -82,54 +92,29 @@ async function inspectSlide(page, deck, slide, mode) {
         svgIssues.push(`svg ${index + 1} getBBox failed: ${error.message}`);
       }
     });
-    const textBoundsIssues = [];
-    const boundedTextKinds = new Set(['comparison', 'layers', 'handoff']);
-    const kind = document.querySelector('.slide-figure')?.dataset.kind || '';
-    if (boundedTextKinds.has(kind)) {
-      [...document.querySelectorAll('svg')].filter(visible).forEach((svg, svgIndex) => {
-        const viewBox = svg.viewBox?.baseVal;
-        if (!viewBox || ![viewBox.x, viewBox.y, viewBox.width, viewBox.height].every(finite)) {
-          textBoundsIssues.push(`${kind} svg ${svgIndex + 1} has no finite viewBox`);
-          return;
-        }
-        const tolerance = 2;
-        [...svg.querySelectorAll('text')].filter(visible).forEach((text, textIndex) => {
-          try {
-            const box = text.getBBox();
-            const within = box.x >= viewBox.x - tolerance && box.y >= viewBox.y - tolerance &&
-              box.x + box.width <= viewBox.x + viewBox.width + tolerance &&
-              box.y + box.height <= viewBox.y + viewBox.height + tolerance;
-            if (!within) textBoundsIssues.push(`${kind} svg ${svgIndex + 1} text ${textIndex + 1} exceeds viewBox: ${text.textContent.trim().slice(0, 60)}`);
-          } catch (error) {
-            textBoundsIssues.push(`${kind} svg ${svgIndex + 1} text ${textIndex + 1} getBBox failed: ${error.message}`);
-          }
-        });
-      });
-    }
     const motionIssues = [];
     const nonZeroDuration = value => value.split(',').some(part => Number.parseFloat(part) > 0);
-    [...document.querySelectorAll('.bot, .fig, .fig *')].filter(visible).forEach((element, index) => {
+    [...document.querySelectorAll('.tpl-bot, .tpl, .tpl *')].filter(visible).forEach((element, index) => {
       const style = getComputedStyle(element);
       if (style.animationName !== 'none' || nonZeroDuration(style.transitionDuration)) {
         motionIssues.push(`visible motion element ${index + 1} is not reduced`);
       }
     });
+    /* AetherBOT lives in the template's own gutter. He may never touch text. */
     const botIssues = [];
-    document.querySelectorAll('.bot').forEach((bot, index) => {
+    document.querySelectorAll('.tpl-bot').forEach((bot, index) => {
       const botRect = bot.getBoundingClientRect();
-      const figure = bot.closest('.slide-figure.with-bot');
-      const canvas = figure?.querySelector('.figure-canvas');
-      if (!figure || !canvas) {
-        botIssues.push(`bot ${index + 1} is missing its figure column`);
-        return;
-      }
-      if (intersects(botRect, canvas.getBoundingClientRect())) botIssues.push(`bot ${index + 1} overlaps the figure canvas`);
-      const textElements = document.querySelectorAll('#stage h1, #stage h2, #stage h3, #stage p, #stage li, #stage button, #stage figcaption, #stage .card, #stage .step-label, #stage .pillar-label, #stage .compare-col, #stage .recap-item, #stage .timer, #stage svg text');
-      textElements.forEach(text => {
-        if (text === bot || text.closest('.bot')) return;
+      if (!bot.closest('.tpl.has-bot')) { botIssues.push(`bot ${index + 1} is outside a template gutter`); return; }
+      document.querySelectorAll('#stage h1, #stage h2, #stage h3, #stage h4, #stage p, #stage li, #stage span, #stage button, #stage figcaption, #stage svg text').forEach(text => {
+        if (text === bot || text.closest('.tpl-bot') || !visible(text)) return;
         if (intersects(botRect, text.getBoundingClientRect())) botIssues.push(`bot ${index + 1} overlaps text: ${text.textContent.trim().slice(0, 60)}`);
       });
     });
+    /* Touch targets: the day bar is a thin line by design and carries its own
+       41px hit area, so it is the one exception. */
+    const smallControls = [...document.querySelectorAll('button, .guide-link')]
+      .filter(el => visible(el) && !el.classList.contains('seg') && el.getBoundingClientRect().height < 40)
+      .map(el => (el.id || el.className || el.textContent || '').toString().trim().slice(0, 30));
     const desktopHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     const horizontalWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);
     const controls = ['#notes', '#prompt'].map(selector => {
@@ -137,11 +122,13 @@ async function inspectSlide(page, deck, slide, mode) {
       return { selector, present: !!element, visible: !!element && visible(element) };
     });
     return {
-      kind: document.querySelector('.slide-figure')?.dataset.kind || (document.querySelector('.widget') ? 'widget' : document.querySelector('.compare,.steps-wrap,.pillars,.recap-list') ? 'layout' : 'none'),
-      duplicateGeneratedCards: !!document.querySelector('#stage .slide-figure.generated') && !!document.querySelector('#stage .slide-main .card, #stage .slide-main .cards'),
+      kind: document.querySelector('.slide-body .tpl')?.dataset.template
+        || (document.querySelector('.widget') ? 'widget'
+          : document.querySelector('.phase-row') ? 'phases'
+          : document.querySelector('.diagram-layout') ? 'adoption' : 'none'),
+      smallControls,
       images,
       svgIssues,
-      textBoundsIssues,
       motionIssues,
       botIssues,
       desktopHeight,
@@ -151,26 +138,26 @@ async function inspectSlide(page, deck, slide, mode) {
       doOnSlide: !!document.querySelector('#stage .exercise-instructions'),
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     };
-  }, { mode, viewportWidth: mode === 'mobile' ? mobileViewport.width : desktopViewport.width });
+  }, { mode, viewportWidth: widthFor(mode) });
 
   const prefix = `${deck.id}#${slide}`;
   if (!info.reducedMotion) addError(`${prefix}: reduced-motion media query is not active`);
   if (info.doOnSlide) addError(`${prefix}: Do-this-now instructions leaked onto the slide`);
-  if (info.duplicateGeneratedCards) addError(`${prefix}: generated visual still has a duplicate slide-main card strip`);
+  if (info.kind === 'none') addError(`${prefix}: slide resolved to no template`);
+  if (mode !== 'desktop') info.smallControls.forEach(c => addError(`${prefix}: control under 40px: ${c}`));
   info.images.filter(image => !image.loaded).forEach(image => addError(`${prefix}: image failed to load: ${image.src}`));
   info.svgIssues.forEach(issue => addError(`${prefix}: ${issue}`));
-  info.textBoundsIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.motionIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.botIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.controls.filter(control => !control.present || !control.visible).forEach(control => addError(`${prefix}: ${control.selector} control is missing or hidden`));
   if (mode === 'desktop' && info.desktopHeight > desktopViewport.height + 4) {
     addError(`${prefix}: desktop document is ${info.desktopHeight}px tall (viewport ${desktopViewport.height}px)`);
   }
-  if (mode === 'mobile' && info.horizontalWidth > mobileViewport.width + 1) {
-    addError(`${prefix}: mobile document is ${info.horizontalWidth}px wide (viewport ${mobileViewport.width}px)`);
+  if (mode !== 'desktop' && info.horizontalWidth > widthFor(mode) + 1) {
+    addError(`${prefix}: ${mode} document is ${info.horizontalWidth}px wide (viewport ${widthFor(mode)}px)`);
   }
   report.viewportRenders[mode] += 1;
-  report.figureKinds[info.kind] = (report.figureKinds[info.kind] || 0) + 1;
+  report.templates[info.kind] = (report.templates[info.kind] || 0) + 1;
   return info;
 }
 
@@ -216,7 +203,7 @@ async function scanDeck(page, deck, mode) {
       if (!representativeKinds[mode].has(info.kind)) {
         representativeKinds[mode].add(info.kind);
         const screenshotPath = path.join(out, `${mode}-${info.kind}.png`);
-        await page.screenshot({ path: screenshotPath, fullPage: mode === 'mobile' });
+        await page.screenshot({ path: screenshotPath, fullPage: mode !== 'desktop' });
         report.representativeScreenshots.push({ mode, kind: info.kind, deck: deck.id, slide, path: screenshotPath });
       }
       if (mode === 'desktop') await exerciseControls(page, deck, slide);
@@ -248,23 +235,28 @@ async function main() {
     desktop.on('requestfailed', request => addError(`request failed: ${request.url()} (${request.failure()?.errorText || 'unknown'})`));
     for (const deck of decks) await scanDeck(desktop, deck, 'desktop');
 
-    const mobileContext = await browser.newContext({ reducedMotion: 'reduce', viewport: mobileViewport, deviceScaleFactor: 2 });
-    mobile = await mobileContext.newPage();
-    mobile.on('pageerror', error => addError(`mobile pageerror: ${error.message}`));
-    mobile.on('console', message => { if (message.type() === 'error') addError(`mobile console: ${message.text()}`); });
-    mobile.on('requestfailed', request => addError(`mobile request failed: ${request.url()} (${request.failure()?.errorText || 'unknown'})`));
-    for (const deck of decks) await scanDeck(mobile, deck, 'mobile');
+    for (const [mode, viewport] of [['mobile', mobileViewport], ['small', smallViewport]]) {
+      const phoneContext = await browser.newContext({ reducedMotion: 'reduce', viewport, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+      const phone = await phoneContext.newPage();
+      phone.on('pageerror', error => addError(`${mode} pageerror: ${error.message}`));
+      phone.on('console', message => { if (message.type() === 'error') addError(`${mode} console: ${message.text()}`); });
+      phone.on('requestfailed', request => addError(`${mode} request failed: ${request.url()} (${request.failure()?.errorText || 'unknown'})`));
+      for (const deck of decks) await scanDeck(phone, deck, mode);
+      if (mode === 'mobile') mobile = phone; else await phone.close().catch(() => {});
+    }
 
     const screenshots = [
       ['framework-01', decks[0], 1],
-      ['framework-hub', decks[0], 1],
-      ['s1d3-hero', decks[1], 1],
-      ['s1d3-layers', decks[1], 5],
-      ['s1d3-handoff-timer', decks[1], 13],
-      ['s1d3-02', decks[1], 2],
-      ['s1d3-12', decks[1], 12],
-      ['s2d2-09', decks[7], 9],
-      ['s1d1-proof-handoff', decks[4], 4]
+      ['s1d3-cover', decks[1], 1],
+      ['s1d3-columns', decks[1], 2],
+      ['s1d3-figure', decks[1], 3],
+      ['s1d3-stack', decks[1], 4],
+      ['s1d3-chain', decks[1], 11],
+      ['s1d3-list', decks[1], 12],
+      ['s1d3-gate', decks[1], 15],
+      ['s1d3-grid', decks[1], 19],
+      ['s1d5-arc', decks[3], 2],
+      ['s2d2-pause', decks[7], 9]
     ];
     for (const [name, deck, slide] of screenshots) await capture(desktop, name, deck, slide);
     await openSlide(desktop, decks[1], 12);
@@ -285,8 +277,8 @@ async function main() {
     report.finishedAt = new Date().toISOString();
     fs.writeFileSync(path.join(out, 'report.json'), `${JSON.stringify(report, null, 2)}\n`);
   }
-  const totalRenders = report.viewportRenders.desktop + report.viewportRenders.mobile;
-  console.log(`rendered ${report.uniqueSlides} unique slides in ${totalRenders} viewport renders · figure kinds ${JSON.stringify(report.figureKinds)}`);
+  const totalRenders = report.viewportRenders.desktop + report.viewportRenders.mobile + report.viewportRenders.small;
+  console.log(`rendered ${report.uniqueSlides} unique slides in ${totalRenders} viewport renders · templates ${JSON.stringify(report.templates)}`);
   console.log(`errors: ${errors.length}`);
   errors.forEach(error => console.log(` - ${error}`));
   process.exitCode = errors.length ? 1 : 0;
