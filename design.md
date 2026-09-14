@@ -1,91 +1,129 @@
 # Design — AetherLink training site
 
-Source of truth for how a slide looks and behaves. `intent.md` says what the deck must achieve; this file says how the UI delivers it. Change this file first, then `dist/styles.css` and `dist/app.js`.
+Source of truth for how a slide looks and behaves. `intent.md` says what the deck must achieve; this file says how the UI delivers it. Change this file first, then `dist/styles.css`, `dist/figures.js` and `dist/app.js`.
+
+The reference is the Canva deck **AetherMind · Worldline · Day 2 · From Model to Digital Colleague v2.0** and the **AetherMind Canva Style** sheet. The site reproduces that slide template in HTML; it does not invent a second visual language.
 
 ## Principles
 
-1. **Learn left, do right.** A slide is two columns on a presenter screen: the concept (cards, visual, widget) on the left, the "Do this now" panel on the right. Nothing a participant needs may sit below the fold at 1440×900.
-2. **The type is visible before the text.** Every slide carries one of six types, shown as a chip in the eyebrow and as a coloured segment in the footer. Participants should know "practice or concept?" before they read the title.
-3. **State belongs to the room, not the server.** Checklist and checkpoint state live in `sessionStorage`, keyed by squad, day and slide title. Closing the tab resets the room. Nothing is sent anywhere.
-4. **English on the slide, Dutch in the notes.** All participant-visible text is English. Only the facilitator `notes` field may be Dutch.
-5. **Concept cadence.** A concept is introduced as three slides: definition (three cards, kicker `CONCEPT DEFINITION · NAME`), visual (`image` layout with caption, kicker `VISUAL · NAME`) and how we use it (cards or a two-column compare, kicker `HOW WE USE IT · NAME`). Each slide has its own specific checkpoint. The triplets are generated from the course repo's `presentations/concepts.json`.
+1. **Every slide is a picture plus a claim.** Left: the content (cards, compare, steps). Right: one figure — a published diagram, an interactive widget, or a figure generated from the slide's own cards. No slide is text only.
+2. **The room sees the concept; the facilitator holds the instructions.** Since 2026-09-14 the "Do this now" checklist, expected result and checkpoint live in the **Facilitator notes** dialog, not on the slide. The footer button carries the progress badge (`2/4`, `✓`) so the facilitator sees the state without opening it.
+3. **The type is visible before the text.** Six types, shown as a chip in the eyebrow, as the accent colour of the whole slide (`--type`) and as a coloured segment in the footer.
+4. **AetherBOT works, he does not decorate.** He points at a concept, stops the room at a gate, thinks on a recap, waits during a break. He always sits in his own grid column inside the figure card, so he can never cover a label.
+5. **State belongs to the room, not the server.** Checklist and checkpoint state live in `sessionStorage`, keyed by squad, day and slide title. Closing the tab resets the room. Nothing is sent anywhere.
+6. **English on the slide, Dutch in the notes.** All participant-visible text is English. Only the facilitator `notes` field may be Dutch.
+7. **Concept cadence.** A concept is introduced as three slides: definition (`CONCEPT DEFINITION · NAME`), visual (`VISUAL · NAME`, `image` layout) and how we use it (`HOW WE USE IT · NAME`). Each slide gets its own figure kind, so the triplet reads as three different pictures.
+8. **Nothing a participant needs sits below the fold at 1440×900.**
 
-## Tokens (`dist/styles.css`)
+## The Day 2 slide template
 
-| Token | Value | Use |
-| --- | --- | --- |
-| `--purple` / `--concept` | `#5b3fff` | brand, concept chip and segment, primary buttons |
-| `--orange` / `--practice` | `#ff7a1a` | practice chip and segment, exercise panel border, timer late state |
-| `--review` | `#0f8a7a` | review and gate slides |
-| `--recap` | `#2b2a3d` (dark: `#c5c1d5`) | recap and close slides |
-| `--pause` | `#8a8599` | break and lunch |
-| `--context` | `#766a9d` | welcome, schedule, reference |
-| `--ok` | `#1f9d55` | checked step, passed checkpoint, all-done panel border |
-| `--ink` / `--page` / `--surface` | `#1f1e2e` / `#fbfafc` / `#fff` | text, page, cards; `body.dark` swaps them |
-| Font | Arial, Helvetica | AetherLink house style; no web fonts |
+The Canva master, top to bottom, and the element that carries it here:
 
-Chip text is white except on practice, recap-on-dark and pause, where it is `--ink` for contrast.
+| Day 2 deck | Site |
+| --- | --- |
+| Purple eyebrow `DAY 2 · B8 · DIGITAL COLLEAGUE`, top left | `.eyebrow` — type chip + kicker |
+| Grey `8 / 41` counter, top right | `.slide-count` |
+| Orange kicker line (`YOUR TURN · 12 MINUTES`) | absorbed into the type chip, which takes the kicker's head word |
+| Big ink title, 34–37 pt | `h1` |
+| Grey one-line subtitle | `p.subtitle` |
+| Centre: one diagram built from cards, circles, rails and pills | `.slide-figure` (published SVG/PNG, widget, or generated figure) |
+| Left/right supporting cards | `.cards` in `.slide-main` |
+| Orange all-caps takeaway band at the foot | `.tagline` — a full-width pill under the slide body |
+| AetherBOT in a corner, never over text | `.bot` in its own column of `.slide-figure` |
 
 ## Slide anatomy
 
 ```
 #stage
-  section.heading        eyebrow (type chip + kicker) · slide count · h1 · subtitle
-  div.slide-body[.with-side]
-    div.slide-main       cards | pillars | steps | compare | recap | image | widget (+ timer, tagline)
-    aside.exercise-instructions   (only when .with-side)
-  section.exercise-instructions   (when the layout is too wide for a side panel)
+  section.heading            eyebrow (type chip + kicker) · counter · h1 · subtitle
+  div.slide-body[.with-figure][.figure-right][.figure-only]
+    figure.slide-figure      published image | generated SVG | hero illustration
+      div.figure-canvas      the drawing
+      img.bot                AetherBOT, own grid column (hub/flow/cycle → left, others → right)
+    div.slide-main           cards | pillars | steps | compare | recap | widget (+ timer)
+  p.tagline                  orange takeaway band (day decks only)
 ```
 
-`with-side` is on for every day-deck slide except `widget` and `steps` layouts, which need the full width. Below 1100px the grid collapses to one column and the panel follows the content.
+`figure-right` puts the figure after the content for hub, close and hero figures, so consecutive slides alternate and the deck does not feel like one repeated layout. Below 1100 px the grid collapses to one column, figure first.
 
-## "Do this now" panel
+## Figures (`dist/figures.js`)
 
-- Heading row: `DO THIS NOW` + counter `n / total`.
-- Steps: custom checkboxes, numbered by CSS counter, struck through when done.
-- Expected result: small caps label + sentence.
-- Checkpoint: orange box with a `Mark passed` toggle; turns green when passed.
-- When all steps are checked the panel border turns green and a toast says `All steps done · check the checkpoint`.
+`FIGURES.forSlide(slide, ctx)` picks a kind from the slide type and kicker and draws an inline SVG from the slide's **own card titles** — the canonical JSON never changes for looks. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
 
-## Footer
+| Kind | Used for | Drawing | Bot |
+| --- | --- | --- | --- |
+| `hub` | `CONCEPT DEFINITION`, `REFERENCE`, `What is …` | concept in an orange-ringed navy circle, one card per node | pointing |
+| `rows` | `HOW WE USE IT` | one full-width row per card with a coloured rail (Day 2 memory slide) | — |
+| `flow` | demo, example, theory, transfer | numbered circles on a purple rail, ending at an orange "You decide" | pointing |
+| `cycle` | practice, individual, MOB | do → evidence → check around the block timer in minutes | pointing |
+| `gate` | review, human gate | three inputs meet the gate; exits accept / park / redirect | stop |
+| `arc` | welcome, schedule, route | the whole day as typed segments with "You are here" and a legend | neutral |
+| `close` | recap, close, reflection | made / learned / can do as three overlapping circles | thinking |
+| `pause` | break, lunch | a clock with the break wedge and the return time | neutral |
+| `hero` | slide 1 of a day deck | the AetherBOT block-stacking illustration | — |
 
-- Left: `nn / total`, then the day bar: one `button.seg` per slide, coloured by type, current one raised with `aria-current="step"`. Roving tabindex: only the current segment is in the tab order; arrow keys change slide and focus follows.
-- Below the bar: `← → navigate` keyboard hint (hidden on mobile).
-- Right: Participant lab, Workbook, Example prompts, Facilitator notes, prev/next.
+A slide that carries its own `image`, a `widget`, or a wide layout (`steps`, `pillars`, `compare`, `recap`) keeps that and gets no generated figure.
 
-## Slide types (`slideType()` in `dist/app.js`)
+Canvas sizes are 640×400 (`flow`, `rows`) and 640×440 (the rest), close to the card's aspect so the drawing fills it instead of floating in whitespace.
 
-Order of precedence: `layout: exercise` → practice; `layout: recap` → recap; kicker head word (`PRACTICE`, `CONCEPT`, `EXAMPLE`, `REVIEW`, `GATE`, `RECAP`, `CLOSE`, `BREAK`, `LUNCH`); `widget` or `image` layout → concept; title words; a timer or `MIN` in the kicker → practice; otherwise context. When adding slides, start the kicker with the type word and the chip absorbs it (`CONCEPT 1 · 10:15` renders as chip `CONCEPT 1`, kicker `10:15`).
+## AetherBOT
 
-## Motion and accessibility
+Five approved poses live in `dist/assets/`, keyed from the Canva illustration sheet: `bot-neutral.png`, `bot-pointing.png`, `bot-thinking.png`, `bot-stop.png` (backgrounds keyed to transparent) and the `bot-builder.jpg` hero. Keep the same face, proportions and colours; add a pose only by adding a file, never by recolouring one.
 
-- Entrance animations are short (`enter`, `pop`) and disabled under `prefers-reduced-motion`.
-- Focus rings are 3px `#a895ff`; segments use a 2px ring.
-- The mascot is decorative (`aria-hidden`), docked in the header, hidden below 1100px, and never overlaps content.
-- Dialogs are native `<dialog>` with focus return to the opener.
+Motion: a 0.8 s entrance, then a slow idle loop per pose (`bot-point`, `bot-alert`, `bot-think`, `bot-bob`). All of it is off under `prefers-reduced-motion`. He is `aria-hidden`; he never carries information the text does not.
 
-## Evidence
+## Facilitator notes dialog
 
-Every UI change ships with screenshots at 1440×900 and 390×844 from the local server, plus `node work/bundle-update/check_site_dom.cjs` and `node work/feedback-followup/check_routes.cjs` output.
+Opened from the footer button or the `N` key. Two columns on a wide screen:
 
-## Diagrams (`dist/assets/*.svg`)
+- **Left** — `NOTES` heading, the Dutch talk track, and an `Example prompt ↗` button.
+- **Right** — the `DO THIS NOW` panel: counter `n / total`, numbered checkboxes (struck through when done), `EXPECTED RESULT`, and the orange `CHECKPOINT` box with a `Mark passed` toggle that turns green.
 
-Concept diagrams are built from the same primitives as the slides, so a diagram never looks like it came from another tool:
+The footer button shows `Facilitator notes · 0/4` and a green `✓` once the checkpoint passes. When all steps are checked the panel border turns green and a toast says `All steps done · check the checkpoint`.
 
-- **Card**: white, 3px top border in `--purple` or `--orange`, rounded bottom corners, small uppercase heading (13px, letter-spacing 1) and 17px body. Same as `.card`.
-- **Step**: 64px circle, 3px `--purple` border with a purple number; the active step uses `--orange` with the `#aa4300` accent text. Steps sit on the 10px purple-tinted chain bar. Same as `.step-circle` and `.steps-chain`.
-- **Pill**: full-radius tab with the light purple border `#c9c0f7`; the selected pill is solid `--purple` with white text. Same as `.phase-tab`.
-- **Tint box**: purple 12% tint with `--line` border for agent/system nodes; orange tint with `--orange` border for the human node. Same as the agentic-loop widget.
-- **Callout**: ink pill with a 2px orange border, white uppercase text and a `▼`. Same as `.step-callout`.
-- **Eyebrow and tagline**: purple uppercase letter-spaced title at the top; `#aa4300` uppercase tagline at the bottom.
-- **Loop**: ink nodes, orange core with ink text, orange dashed ring. Same as the SDLC widget.
-- Background is plain white so the SVG sits inside `.concept-figure` without a second frame. Arial only, no shadows heavier than the card shadow. `robot.png` (mascot) and `adoption.png` (Anthropic source image) are third-party rasters and stay as they are.
+## Keyboard
+
+`←` `→` `PageUp` `PageDown` `Space` navigate · `Home` `End` jump · `N` notes · `P` prompt · `G` glossary · `C` chapters · `F` fullscreen · `?` shows the list as a toast. Keys are ignored while a dialog is open or a text field has focus.
+
+## Tokens (`dist/styles.css`)
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `--purple` / `--concept` | `#5b3fff` | brand, concept type, primary buttons, figure rails |
+| `--purple-soft` / `--purple-line` | `#eeeafe` / `#c9c0f7` | figure node fills and borders, chips |
+| `--orange` / `--practice` | `#ff7a1a` | practice type, decisions and warnings, takeaway band, gate exits |
+| `--accent-text` | `#aa4300` (dark `#ff9b53`) | orange text that must stay legible |
+| `--review` | `#0f8a7a` | review and gate slides |
+| `--recap` | `#2b2a3d` (dark `#c5c1d5`) | recap and close |
+| `--pause` | `#8a8599` | break and lunch |
+| `--context` | `#766a9d` | welcome, schedule, reference |
+| `--ok` | `#1f9d55` | checked step, passed checkpoint |
+| `--ink` / `--navy` / `--page` / `--surface` | `#1f1e2e` / `#232338` / `#fbfafc` / `#fff` | text, hub circles, page, cards |
+| `--type` | the current slide type | chip, figure top border, page glow |
+| Font | Arial, Helvetica | AetherLink house style; no web fonts |
+
+`body.dark` swaps page, ink, surface and the soft/line pairs; every `.fig-*` class is defined in terms of tokens, so no figure needs a dark-mode variant of its own.
 
 ## Cards are visual by default
 
-`renderCard()` in `dist/app.js` decorates every card without per-slide artwork:
+`renderCard()` decorates every card without per-slide artwork:
 
-- **Icon** per card title, chosen by keyword (`ICON_RULES`): goal and outcome get a target, boundary a shield, input and sources an inbox, result and check a tick, gate a gate, morning a sun, afternoon a moon, group and MOB people, evidence and packet a document, model and agent a chip, review a magnifier, learned a bulb, can do a flag. Odd cards tint orange, even cards purple, matching the card top border. Unknown titles get a dot; add a rule rather than a one-off icon.
-- **Pill chain** when a card body contains at least two arrows (`Theory → demo → review`): each step is a `.phase-tab`-style pill, the first one solid purple.
-- **Timeline** when a card body is a `·`-separated list of `HH:MM label` items (route and schedule slides): a purple rail with ink time chips.
-- Everything else stays a paragraph. The transforms are pure functions of the card text, so the canonical JSON never changes for looks.
+- **Icon** per card title, chosen by keyword (`ICON_RULES`). Odd cards purple, even cards orange, matching the card's left rail. Unknown titles get a dot; add a rule rather than a one-off icon.
+- **Pill chain** when a card body contains at least two arrows (`Theory → demo → review`).
+- **Timeline** when a card body is a `·`-separated list of `HH:MM label` items. Seven items or more break into two columns so a route slide still fits the fold.
+- Everything else stays a paragraph. The transforms are pure functions of the card text.
+
+## Motion and accessibility
+
+- Entrance animations are short (`enter`, `pop`, `bot-in`); idle loops are slow. Everything stops under `prefers-reduced-motion`.
+- Focus rings are 3 px `#a895ff`; footer segments use a 2 px ring.
+- Figures are `role="img"` with a generated `aria-label` describing the drawing; the bot is `aria-hidden`.
+- Dialogs are native `<dialog>` with focus return to the opener.
+
+## Diagram primitives (`dist/assets/*.svg`)
+
+Hand-drawn concept diagrams use the same primitives as the generated figures, so a diagram never looks like it came from another tool: card (white, coloured rail, small uppercase heading), step (64 px circle on the purple chain), pill (full-radius tab), tint box (purple 12 % for system nodes, orange for the human node), callout (ink pill with an orange border and a `▼`), loop (navy nodes, orange core, dashed orange ring). Background plain white, Arial only. `robot.png`, `bot-*.png` and `adoption.png` are third-party or licensed rasters and stay as they are.
+
+## Evidence
+
+Every UI change ships with `node work/shoot.js`: it renders all 190 slides of all eleven decks, fails on any console error, on any "Do this now" left on a slide, and on any slide taller than 900 px at 1440×900, then writes screenshots at 1440×900 and 390×844.
