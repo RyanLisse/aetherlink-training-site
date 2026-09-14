@@ -82,6 +82,30 @@ async function inspectSlide(page, deck, slide, mode) {
         svgIssues.push(`svg ${index + 1} getBBox failed: ${error.message}`);
       }
     });
+    const textBoundsIssues = [];
+    const boundedTextKinds = new Set(['comparison', 'layers', 'handoff']);
+    const kind = document.querySelector('.slide-figure')?.dataset.kind || '';
+    if (boundedTextKinds.has(kind)) {
+      [...document.querySelectorAll('svg')].filter(visible).forEach((svg, svgIndex) => {
+        const viewBox = svg.viewBox?.baseVal;
+        if (!viewBox || ![viewBox.x, viewBox.y, viewBox.width, viewBox.height].every(finite)) {
+          textBoundsIssues.push(`${kind} svg ${svgIndex + 1} has no finite viewBox`);
+          return;
+        }
+        const tolerance = 2;
+        [...svg.querySelectorAll('text')].filter(visible).forEach((text, textIndex) => {
+          try {
+            const box = text.getBBox();
+            const within = box.x >= viewBox.x - tolerance && box.y >= viewBox.y - tolerance &&
+              box.x + box.width <= viewBox.x + viewBox.width + tolerance &&
+              box.y + box.height <= viewBox.y + viewBox.height + tolerance;
+            if (!within) textBoundsIssues.push(`${kind} svg ${svgIndex + 1} text ${textIndex + 1} exceeds viewBox: ${text.textContent.trim().slice(0, 60)}`);
+          } catch (error) {
+            textBoundsIssues.push(`${kind} svg ${svgIndex + 1} text ${textIndex + 1} getBBox failed: ${error.message}`);
+          }
+        });
+      });
+    }
     const motionIssues = [];
     const nonZeroDuration = value => value.split(',').some(part => Number.parseFloat(part) > 0);
     [...document.querySelectorAll('.bot, .fig, .fig *')].filter(visible).forEach((element, index) => {
@@ -116,6 +140,7 @@ async function inspectSlide(page, deck, slide, mode) {
       kind: document.querySelector('.slide-figure')?.dataset.kind || (document.querySelector('.widget') ? 'widget' : document.querySelector('.compare,.steps-wrap,.pillars,.recap-list') ? 'layout' : 'none'),
       images,
       svgIssues,
+      textBoundsIssues,
       motionIssues,
       botIssues,
       desktopHeight,
@@ -132,6 +157,7 @@ async function inspectSlide(page, deck, slide, mode) {
   if (info.doOnSlide) addError(`${prefix}: Do-this-now instructions leaked onto the slide`);
   info.images.filter(image => !image.loaded).forEach(image => addError(`${prefix}: image failed to load: ${image.src}`));
   info.svgIssues.forEach(issue => addError(`${prefix}: ${issue}`));
+  info.textBoundsIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.motionIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.botIssues.forEach(issue => addError(`${prefix}: ${issue}`));
   info.controls.filter(control => !control.present || !control.visible).forEach(control => addError(`${prefix}: ${control.selector} control is missing or hidden`));
@@ -229,7 +255,8 @@ async function main() {
       ['framework-01', decks[0], 1],
       ['s1d3-02', decks[1], 2],
       ['s1d3-12', decks[1], 12],
-      ['s2d2-09', decks[7], 9]
+      ['s2d2-09', decks[7], 9],
+      ['s1d1-proof-handoff', decks[4], 4]
     ];
     for (const [name, deck, slide] of screenshots) await capture(desktop, name, deck, slide);
     await openSlide(desktop, decks[1], 12);

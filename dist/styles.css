@@ -127,8 +127,11 @@ body.dark .fig-venn{mix-blend-mode:screen;opacity:.35}
 .fig-venn-core{fill:var(--accent-text);font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
 .fig-compare-panel rect{fill:var(--purple-soft);stroke:var(--purple-line);stroke-width:1.8}
 .fig-compare-panel.alt rect{fill:var(--orange-soft);stroke:var(--orange-line)}
-.fig-panel-title{fill:var(--ink);font-size:17px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
-.fig-panel-body{fill:var(--muted);font-size:16px;font-weight:500}
+.fig-panel-title{fill:var(--ink);font-size:24px;font-weight:800;letter-spacing:.03em}
+.fig-compare-dot{fill:var(--purple);stroke:var(--purple-line);stroke-width:3}
+.fig-compare-panel.alt .fig-compare-dot{fill:var(--orange);stroke:var(--orange-line)}
+.fig-doc .fig-panel-title{font-size:24px;letter-spacing:.01em}
+.fig.kind-comparison .fig-caption,.fig.kind-layers .fig-caption,.fig.kind-handoff .fig-caption{font-size:18px;letter-spacing:.02em;text-transform:none}
 .fig-compare-mark circle{fill:var(--orange);stroke:var(--orange);stroke-width:2}
 .fig-compare-mark-label{fill:#1f1e2e;font-size:12px;font-weight:800;letter-spacing:.04em}
 .fig-compare-panel,.fig-layer,.fig-doc,.fig-compare-mark{animation:pop .5s both}
@@ -411,6 +414,11 @@ dialog::backdrop{background:#161324b8;backdrop-filter:blur(6px)}
   .timer{grid-template-columns:1fr;justify-items:center}
   .glossary-grid{grid-template-columns:1fr}
   dialog{padding:1.1rem;border-radius:16px}
+}
+@media(max-width:600px){
+  .slide-figure.with-bot:has(.kind-comparison),.slide-figure.with-bot:has(.kind-layers),.slide-figure.with-bot:has(.kind-handoff){grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:.35rem}
+  .slide-figure.with-bot:has(.kind-comparison) .bot,.slide-figure.with-bot:has(.kind-layers) .bot,.slide-figure.with-bot:has(.kind-handoff) .bot{grid-column:1;grid-row:1;width:64px;height:76px;min-height:0;max-height:80px;justify-self:start;align-self:start}
+  .slide-figure.with-bot:has(.kind-comparison) .figure-canvas,.slide-figure.with-bot:has(.kind-layers) .figure-canvas,.slide-figure.with-bot:has(.kind-handoff) .figure-canvas{grid-column:1;grid-row:2;width:100%}
 }
 @media(max-width:480px){.brand small{display:none}.brand{font-size:.85rem}.tools button{font-size:.72rem;padding:.45rem .6rem}.toolbar{gap:.4rem}h1{font-size:1.5rem}.tagline{font-size:.68rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

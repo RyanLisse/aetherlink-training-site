@@ -2,7 +2,7 @@
    Every slide gets a diagram, even when the deck carries no artwork for it.
    `window.FIGURES.forSlide(slide, ctx)` picks a figure kind from a small
    declarative topic registry plus the slide type, then draws an inline SVG
-   from the slide's own card titles and short facts,
+   from the slide's own card titles,
    so the canonical JSON never changes for looks. Colours come from the
    stylesheet through the `.fig-*` classes (see "Figures" in styles.css), so
    the same drawing works on the light and dark themes.
@@ -40,10 +40,9 @@
   const timeRange=s=>String(s.kicker||'').match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
   /* "What is intent.md?" → "intent.md"; otherwise the kicker tail ("SUBAGENTS"). */
   const conceptName=s=>{const t=clean(s.title);const m=t.match(/^what (?:is|are) (?:an? |the )?(.+?)\??$/i);if(m)return sentence(m[1]);const tail=kickerTail(s);if(tail&&!/\d/.test(tail))return sentence(tail);return sentence(t.split('·')[0]);};
-  /* Keep generated diagrams factual: use only a short fact from each source
-     card, and never turn an unordered set into a numbered sequence. */
-  const fact=t=>{const text=clean(t);if(!text)return'';const words=text.split(' ');return words.length>8?words.slice(0,8).join(' ').replace(/[ ,;:]+$/,'')+'…':text;};
-  const cardFacts=s=>(s.cards||[]).slice(0,4).map(c=>({title:sentence(c.title),body:fact(c.body)})).filter(c=>c.title||c.body);
+  /* Keep generated diagrams factual: show the source card titles and leave
+     their full explanations in the adjacent cards. */
+  const cardLabels=s=>(s.cards||[]).slice(0,4).map(c=>sentence(c.title)).filter(Boolean);
   const titleKey=t=>clean(t).toLowerCase();
   const cardTitleKeys=s=>(s.cards||[]).map(c=>titleKey(c.title));
   const titleSet=(s,expected)=>{const got=cardTitleKeys(s);return got.length===expected.length&&expected.every((t,i)=>got[i]===titleKey(t));};
@@ -130,21 +129,21 @@
     return svg;}
 
   /* ---- comparison: parallel facts, with no implied order ---------------- */
-  function comparison(s,ctx={}){const cards=cardFacts(s);const n=Math.max(cards.length,2),h=440;const topic=ctx.topic||{};const svg=svgRoot('comparison',topic.aria||'Comparison of '+cards.map(c=>c.title).join(', '),h);const gap=16,margin=24;
+  function comparison(s,ctx={}){const cards=cardLabels(s);const n=Math.max(cards.length,2),h=440;const topic=ctx.topic||{};const svg=svgRoot('comparison',topic.aria||'Comparison of '+cards.join(', '),h);const gap=16,margin=24;
     const cols=2,rows=Math.ceil(n/cols),pw=(W-margin*2-gap*(cols-1))/cols,ph=(h-104-gap*(rows-1))/rows;
-    cards.forEach((c,i)=>{const col=i%cols,row=Math.floor(i/cols);const x=margin+col*(pw+gap),y=52+row*(ph+gap);const panel=g('fig-compare-panel '+(i%2?'alt':''),[el('rect',{x,y,width:pw,height:ph,rx:16}),label(x+18,y+28,c.title,{anchor:'start',cls:'fig-panel-title',max:22,lines:2,lh:16}),c.body?label(x+18,y+ph/2+14,c.body,{anchor:'start',cls:'fig-panel-body',max:30,lines:3,lh:17}):null]);svg.append(panel);});
+    cards.forEach((c,i)=>{const col=i%cols,row=Math.floor(i/cols);const x=margin+col*(pw+gap),y=52+row*(ph+gap);const panel=g('fig-compare-panel '+(i%2?'alt':''),[el('rect',{x,y,width:pw,height:ph,rx:16}),el('circle',{class:'fig-compare-dot',cx:x+pw/2,cy:y+ph*.32,r:9}),label(x+pw/2,y+ph*.64,c,{cls:'fig-panel-title',max:18,lines:2,lh:28})]);svg.append(panel);});
     if(topic.id==='tests'){svg.append(g('fig-compare-mark',[el('circle',{cx:W/2,cy:27,r:18}),el('text',{class:'fig-compare-mark-label',x:W/2,y:33,'text-anchor':'middle'},'VS')]));}
-    svg.append(el('text',{class:'fig-caption',x:W/2,y:h-18,'text-anchor':'middle'},topic.caption||'Compare the relationships stated in the cards'));return svg;}
+    svg.append(label(W/2,h-20,topic.caption||'Compare the relationships stated in the cards',{cls:'fig-caption',max:50,lines:2,lh:18}));return svg;}
 
   /* ---- layers: source cards shown as a stack, useful for systems ---------- */
-  function layers(s,ctx={}){const cards=cardFacts(s);const n=Math.max(cards.length,2),h=440;const topic=ctx.topic||{};const svg=svgRoot('layers',topic.aria||'Layered view of '+cards.map(c=>c.title).join(', '),h);const top=42,lh=Math.min(82,(h-104)/n),x=54;
-    cards.forEach((c,i)=>{const y=top+i*(lh+8),w=532-i*26;const item=g('fig-layer l'+i,[el('rect',{x,y,width:w,height:lh,rx:14}),el('rect',{class:'fig-layer-index',x,y,width:10,height:lh,rx:5}),label(x+28,y+lh*.37,c.title,{anchor:'start',cls:'fig-panel-title',max:24,lines:1,lh:16}),c.body?label(x+28,y+lh*.69,c.body,{anchor:'start',cls:'fig-panel-body',max:54,lines:2,lh:15}):null]);svg.append(item);});
-    svg.append(el('text',{class:'fig-caption',x:W/2,y:h-18,'text-anchor':'middle'},topic.caption||'System parts named by the source cards'));return svg;}
+  function layers(s,ctx={}){const cards=cardLabels(s);const n=Math.max(cards.length,2),h=440;const topic=ctx.topic||{};const svg=svgRoot('layers',topic.aria||'Layered view of '+cards.join(', '),h);const top=42,lh=Math.min(82,(h-104)/n),x=54;
+    cards.forEach((c,i)=>{const y=top+i*(lh+8),w=532-i*26;const item=g('fig-layer l'+i,[el('rect',{x,y,width:w,height:lh,rx:14}),el('rect',{class:'fig-layer-index',x,y,width:10,height:lh,rx:5}),label(x+28,y+lh/2,c,{anchor:'start',cls:'fig-panel-title',max:30,lines:2,lh:28})]);svg.append(item);});
+    svg.append(label(W/2,h-20,topic.caption||'System parts named by the source cards',{cls:'fig-caption',max:50,lines:2,lh:18}));return svg;}
 
   /* ---- handoff: a document packet moving between named stages ------------ */
-  function handoff(s,ctx={}){const cards=cardFacts(s);const n=Math.max(cards.length,2),h=400;const topic=ctx.topic||{};const svg=svgRoot('handoff',topic.aria||'Document handoff through '+cards.map(c=>c.title).join(', '),h);const gap=18,margin=24,pw=Math.min(148,(W-margin*2-gap*(n-1))/n),y=86;
-    cards.forEach((c,i)=>{const x=margin+i*(pw+gap);if(i){svg.append(arrow('handoff',`M${x-12} ${y+72} H${x-3}`,'fig-line fig-handoff-line'));}const fold=Math.min(17,pw*.18);const doc=g('fig-doc '+(i%2?'alt':''),[el('rect',{x,y,width:pw,height:144,rx:12}),el('path',{class:'fig-doc-fold',d:`M${x+pw-fold} ${y} L${x+pw} ${y+fold} H${x+pw-fold} Z`}),label(x+12,y+28,c.title,{anchor:'start',cls:'fig-panel-title',max:17,lines:2,lh:15}),c.body?label(x+12,y+86,c.body,{anchor:'start',cls:'fig-panel-body',max:18,lines:3,lh:15}):null]);svg.append(doc);});
-    svg.append(el('text',{class:'fig-caption',x:W/2,y:h-22,'text-anchor':'middle'},topic.caption||'The named packet moves to the next stage'));return svg;}
+  function handoff(s,ctx={}){const cards=cardLabels(s);const n=Math.max(cards.length,2),h=400;const topic=ctx.topic||{};const svg=svgRoot('handoff',topic.aria||'Document handoff through '+cards.join(', '),h);const gap=18,margin=24,pw=(W-margin*2-gap*(n-1))/n,y=86;
+    cards.forEach((c,i)=>{const x=margin+i*(pw+gap);if(i){svg.append(arrow('handoff',`M${x-12} ${y+72} H${x-3}`,'fig-line fig-handoff-line'));}const fold=Math.min(17,pw*.18);const doc=g('fig-doc '+(i%2?'alt':''),[el('rect',{x,y,width:pw,height:144,rx:12}),el('path',{class:'fig-doc-fold',d:`M${x+pw-fold} ${y} L${x+pw} ${y+fold} H${x+pw-fold} Z`}),label(x+pw/2,y+72,c,{cls:'fig-panel-title',max:12,lines:3,lh:28})]);svg.append(doc);});
+    svg.append(label(W/2,h-23,topic.caption||'The named packet moves to the next stage',{cls:'fig-caption',max:50,lines:2,lh:18}));return svg;}
 
   /* ---- rows: one full-width row per card, left rail and a tag (Day 2 template) -- */
   function rows(s){const cards=(s.cards||[]).slice(0,3);const H2=400;const svg=svgRoot('rows',(s.title||'')+': '+cards.map(c=>clean(c.title)).join(', '),H2);

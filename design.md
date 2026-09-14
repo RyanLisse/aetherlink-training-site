@@ -48,7 +48,7 @@ The Canva master, top to bottom, and the element that carries it here:
 
 ## Figures (`dist/figures.js`)
 
-`FIGURES.forSlide(slide, ctx)` first checks a small declarative topic registry, then falls back to the slide type and kicker. Generated SVGs use the slide's **own card titles and one short fact per card** — the canonical JSON never changes for looks, and unordered cards are not presented as a sequence. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
+`FIGURES.forSlide(slide, ctx)` first checks a small declarative topic registry, then falls back to the slide type and kicker. Generated SVGs use the slide's **own card titles** — the canonical JSON never changes for looks, and unordered cards are not presented as a sequence. Full explanations stay in the adjacent cards. Colours come from `.fig-*` classes in the stylesheet, so every figure works on the light and dark themes.
 
 | Kind | Used for | Drawing | Bot |
 | --- | --- | --- | --- |
