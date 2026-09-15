@@ -180,6 +180,44 @@ body.dark .handoff-doc h2{color:#b9a9ff}body.dark .handoff-doc:nth-child(even) h
 /* The registry's one-line statement of what the drawing is allowed to claim. */
 .tpl-caption{text-align:center;font-size:.85rem;line-height:1.4;color:var(--muted)}
 
+/* -- bars: the stage blocks ARE the drawing, sized by the time they take -- */
+.tpl-bars{gap:.8rem}
+.bars-row{display:flex;gap:.35rem;min-height:58px}
+.bar{flex:var(--w,1) 1 0;display:flex;align-items:center;justify-content:center;border-radius:8px;background:var(--navy);color:#fff;font-weight:700;font-size:.85rem;padding:.4rem .2rem;text-align:center;overflow:hidden;animation:enter .45s both;animation-delay:calc(var(--i,0)*70ms)}
+body.dark .bar{background:#35324a}
+.bar.accent{background:var(--orange);color:#1f1e2e}
+.bar.ghost{background:transparent;border:2px dashed var(--line);color:var(--muted)}
+.bars-scale{font-size:.74rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+
+/* -- lanes: who holds the packet, and how often -------------------------- */
+.tpl-lanes{gap:.7rem}
+.lane-heads{display:none}
+.lane-track{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.lane-step{position:relative;padding-left:2.2rem;animation:enter .4s both;animation-delay:calc(var(--i,0)*60ms)}
+.lane-num{position:absolute;left:0;top:.05rem;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid var(--purple);color:var(--purple);font-weight:800;font-size:.8rem}
+.lane-step[style*="--lane:1"] .lane-num{border-color:var(--orange);color:var(--accent-text)}
+.lane-step.last .lane-num{background:var(--orange);border-color:var(--orange);color:#1f1e2e}
+.lane-step h2{font-size:.74rem;letter-spacing:.11em;text-transform:uppercase}
+.lane-caption{font-size:.85rem;color:var(--accent-text);font-weight:700}
+.lane-detail{font-size:.9rem;line-height:1.4;color:var(--muted);margin-top:.05rem}
+.tpl-caption{font-size:.88rem;line-height:1.45;color:var(--muted);text-align:center}
+
+/* -- keys: two conditions unlock one outcome (Day 2 · 35) ---------------- */
+.tpl-keys{gap:.8rem}
+.keys-col{display:grid;gap:.6rem}
+.key-card{position:relative;border:2px solid var(--purple);border-radius:var(--radius);background:var(--purple-soft);padding:.8rem 1rem .85rem 4.2rem;animation:enter .4s both;animation-delay:calc(var(--i,0)*70ms)}
+.key-card:nth-child(even){border-color:var(--orange);background:var(--orange-soft)}
+.key-badge{position:absolute;left:1rem;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--purple);color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.key-card:nth-child(even) .key-badge{background:var(--orange);color:#1f1e2e}
+.key-card h2{font-size:.8rem;letter-spacing:.11em;text-transform:uppercase;color:var(--purple)}
+.key-card:nth-child(even) h2{color:var(--accent-text)}
+body.dark .key-card h2{color:#b9a9ff}body.dark .key-card:nth-child(even) h2{color:var(--accent-text)}
+.key-card p{font-size:.98rem;line-height:1.45;margin-top:.2rem}
+.keys-out{border:2px solid var(--orange);border-radius:var(--radius);background:var(--navy);color:#fff;padding:1rem 1.1rem;text-align:center;animation:enter .5s both;animation-delay:.25s}
+body.dark .keys-out{background:var(--surface);color:var(--ink)}
+.keys-out h2{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:#ffb98a}
+.keys-out p{font-size:1rem;line-height:1.5;margin-top:.35rem}
+
 /* -- split: two panels, the second one dark ---------------------------- */
 .tpl-split{display:grid;gap:.7rem}
 .split-panel{background:var(--surface);border:2px solid var(--purple);border-radius:var(--radius);padding:.9rem 1.1rem;box-shadow:var(--shadow-sm);animation:enter .4s both;animation-delay:calc(var(--i,0)*80ms)}
@@ -200,22 +238,23 @@ body.dark .split-panel:nth-child(2){background:var(--surface);color:var(--ink);b
 body.dark .tile h2{color:#b9a9ff}body.dark .tile:nth-child(even) h2{color:var(--accent-text)}
 .tile p{font-size:.95rem;line-height:1.45;margin-top:.3rem}
 
-/* -- gate: inputs, the gate, the exits ---------------------------------- */
-.tpl-gate{display:grid;gap:.6rem}
-.gate-inputs{display:grid;gap:.5rem}
-.gate-input{background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:var(--radius-sm);padding:.6rem .85rem;animation:enter .4s both;animation-delay:calc(var(--i,0)*60ms)}
-.gate-input p{font-size:.95rem;line-height:1.4;margin-top:.15rem}
-.gate-post{display:flex;flex-direction:column;align-items:stretch;gap:.3rem;padding:.2rem 0}
-.gate-bar{flex:1;height:8px;border-radius:4px;background:var(--navy)}
+/* -- gate: what arrives, the posts, the three exits (Day 2 · 34) --------- */
+.tpl-gate{gap:.7rem}
+.gate-grid{display:grid;gap:.55rem}
+/* on a phone the posts are one horizontal bar between arrivals and exits */
+.gate-post{order:1;display:flex;align-items:center;gap:0;height:10px;margin:.35rem 0}
+.gate-bar{flex:1;height:10px;border-radius:5px;background:var(--navy)}
+.gate-cap{display:none}
 body.dark .gate-bar{background:#fff}
-.gate-label{flex:none;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text);text-align:center}
-.gate-exits{display:flex;flex-wrap:wrap;gap:.45rem}
-.gate-exit{flex:1 1 30%;text-align:center;padding:.55rem .6rem;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800;font-size:.85rem;animation:enter .4s both;animation-delay:calc(var(--i,0)*70ms)}
-.gate-exit.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok-text)}
-.gate-exit.warn{border-color:var(--orange);background:var(--orange-soft);color:var(--accent-text)}
+.gate-input{order:0;position:relative;border:2px solid var(--purple-line);background:var(--purple-soft);border-radius:var(--radius-sm);padding:.6rem .85rem;animation:enter .4s both;animation-delay:calc(var(--i,0)*60ms)}
+.gate-input p{font-size:.98rem;line-height:1.45;margin-top:.15rem}
+.gate-exit{order:2;justify-self:start;padding:.5rem 1.2rem;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;animation:enter .4s both;animation-delay:calc(var(--i,0)*70ms)}
+.gate-exit.ok{border-color:var(--ok);color:var(--ok-text);background:var(--ok-soft)}
+.gate-exit.warn{border-color:var(--orange);color:var(--accent-text);background:var(--orange-soft)}
+.gate-label{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);text-align:center}
 
 /* -- arc: the day as typed segments ------------------------------------- */
-.tpl-arc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:var(--shadow-sm);gap:.5rem}
+.tpl-arc{gap:.5rem}
 .arc-here{font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text)}
 .arc-bar{display:flex;gap:3px;height:34px}
 .arc-seg{flex:1;min-width:3px;border-radius:4px;background:var(--line);opacity:.5}
@@ -238,7 +277,8 @@ body.dark .clock-hand,body.dark .clock-pin{background:#fff}
 .clock-label{font-size:1rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text)}
 
 /* -- figure: a published diagram ---------------------------------------- */
-.tpl-figure{margin:0;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:.6rem;box-shadow:var(--shadow-sm)}
+/* No wrapper: the diagram and the image sit directly on the page. */
+.tpl-figure{margin:0;position:relative}
 .tpl-figure img{display:block;width:100%;max-height:52vh;object-fit:contain;margin:0 auto}
 .figure-caption{margin-top:.5rem;font-size:.85rem;line-height:1.4;color:var(--muted);text-align:center}
 .figure-zoom{position:absolute;right:.6rem;top:.6rem;min-height:40px;padding:.3rem .7rem;font-size:.74rem;border-radius:999px;background:var(--navy);color:#fff;border:0}
@@ -246,7 +286,7 @@ body.dark .figure-zoom{background:#fff;color:#1f1e2e}
 .figure-zoom:hover{background:var(--purple);color:#fff}
 
 /* -- steps and recap: the deck's own reveal layouts --------------------- */
-.steps-wrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:var(--shadow-sm)}
+.steps-wrap{padding:0}
 .steps-chain{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
 .step-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem .7rem;align-items:center;animation:enter .4s both;animation-delay:calc(var(--i,0)*70ms)}
 .step-btn{grid-row:span 3;background:none;border:0;padding:0;min-height:0}
@@ -284,7 +324,7 @@ body.dark .timer-face{color:#b9a9ff}
 body.dark .tagline{background:#fff;color:#1f1e2e}
 
 /* ---------- 8 · widgets and framework deck ---------- */
-.widget{padding:.7rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow-sm);overflow-x:auto}
+.widget{padding:0;overflow-x:auto}
 .widget svg{width:100%;min-width:520px;height:auto;display:block}
 .widget-sdlc svg{min-width:0}
 .widget-caption{margin-top:.7rem}.widget-caption h2{font-size:1.05rem}.widget-caption p{margin-top:.2rem;line-height:1.45}
@@ -329,7 +369,8 @@ body.dark .sdlc-seg{background:var(--surface);color:var(--ink)}
 .phase-panel button{color:var(--purple)}
 .loop-caption{color:var(--muted);font-size:.85rem;margin-top:.7rem}
 .diagram-layout{display:grid;gap:.8rem}
-.diagram-button{background:var(--surface);border:1px solid var(--line);padding:.7rem;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);position:relative;width:100%}
+
+.diagram-button{background:transparent;border:0;padding:0;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);position:relative;width:100%}
 .diagram-button img{max-width:100%;max-height:40vh;object-fit:contain}
 .zoom-label{position:absolute;bottom:.6rem;right:.6rem;background:var(--navy);color:#fff;padding:.35rem .6rem;font-size:.78rem;border-radius:6px}
 .source{font-size:.74rem;line-height:1.4;margin-top:.6rem;color:var(--muted)}.source a{color:inherit}
@@ -454,13 +495,37 @@ dialog::backdrop{background:#161324c0}
   .tpl-layers .layer>p,.tpl-layers .layer>.tl,.tpl-layers .layer>.pills{margin-top:0}
   .tpl-handoff .handoff-row{grid-auto-flow:column;grid-auto-columns:1fr;gap:1.6rem}
   .handoff-doc+.handoff-doc::before{content:'→';left:-1.1rem;top:50%;transform:translateY(-50%);font-size:1.1rem}
+  .tpl-keys{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:2.4rem;position:relative}
+  .tpl-keys .keys-col{position:relative}
+  .tpl-keys .keys-col::after{content:'';position:absolute;right:-1.6rem;top:50%;width:1rem;height:6px;border-radius:3px;background:var(--purple-line);transform:translateY(-50%)}
+  .keys-out{padding:1.6rem 1.4rem}
+  .bars-row{min-height:70px}.bar{font-size:.95rem}
+  /* the swimlane lies down: a row per role, the steps run across it */
+  .tpl-lanes .lane-heads{display:grid;grid-template-rows:repeat(var(--lanes,2),1fr);gap:.5rem;align-content:stretch}
+  .tpl-lanes{display:grid;grid-template-columns:minmax(120px,.18fr) minmax(0,1fr);gap:.5rem .9rem;align-items:stretch}
+  .tpl-lanes .lane-heads{grid-column:1}
+  .lane-name{display:flex;align-items:center;font-size:.66rem;padding:0 0 0 .1rem;border-bottom:0;border-left:3px solid var(--line)}
+  .lane-name:first-child{border-left-color:var(--purple);border-bottom-color:transparent}
+  .lane-name:last-child{border-left-color:var(--orange);border-bottom-color:transparent}
+  .tpl-lanes .lane-track{grid-column:2;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(var(--lanes,2),1fr);gap:.4rem}
+  .lane-step{grid-column:calc(var(--i) + 1);grid-row:calc(var(--lane) + 1);padding-left:0;padding-top:1.9rem}
+  .lane-num{top:0;left:0}
+  .lane-step h2{font-size:.68rem}
+  .lane-caption{font-size:.78rem}
+  .lane-detail{font-size:.8rem;line-height:1.3}
+  .tpl-lanes .tpl-caption{grid-column:1 / -1}
   .tpl-split{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
   .tpl-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}
-  .tpl-gate{grid-template-columns:minmax(0,1fr) auto minmax(0,.8fr);align-items:center;gap:1rem}
-  .gate-post{flex-direction:column;align-self:stretch;gap:.5rem}
-  .gate-bar{width:8px;height:auto;flex:1}
-  .gate-label{writing-mode:vertical-rl;transform:rotate(180deg)}
-  .gate-exits{flex-direction:column}
+  .gate-grid{grid-template-columns:minmax(0,1.15fr) 30px minmax(0,.72fr);align-items:center;gap:.7rem 1.8rem}
+  .gate-post{order:0;grid-column:2;grid-row:1 / span 3;display:block;position:relative;height:auto;align-self:stretch;min-height:170px;margin:0}
+  .gate-bar{position:absolute;top:10px;bottom:0;width:10px;border-radius:5px;flex:none;height:auto}
+  .gate-bar:first-child{left:0}.gate-bar:nth-child(2){right:0}
+  .gate-cap{display:block;position:absolute;left:-7px;right:-7px;top:0;height:10px;border-radius:5px;background:var(--navy)}
+  body.dark .gate-cap{background:#fff}
+  .gate-input{grid-column:1;grid-row:calc(var(--row) + 1)}
+  .gate-input::after{content:'';position:absolute;right:-1.5rem;top:50%;width:1.1rem;height:3px;background:var(--purple-line);transform:translateY(-50%)}
+  .gate-exit{grid-column:3;grid-row:calc(var(--row) + 1);justify-self:start;position:relative}
+  .gate-exit::before{content:'';position:absolute;left:-1.5rem;top:50%;width:1.1rem;height:3px;background:var(--purple-line);transform:translateY(-50%)}
   .arc-bar{height:52px}
   .clock{width:190px}
   .tpl-figure img{max-height:50vh}

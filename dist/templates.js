@@ -21,6 +21,8 @@
      comparison parallel facts, no implied order        (registry: tests, intent)
      layers   named system parts as a stack          (registry: subagents, SDLC)
      handoff  one packet moving between stages       (registry: roles, proof)
+     bars     stage blocks sized by the time they take (the bottleneck slides)
+     lanes    one packet moving between two named roles, with the round count
      split    two panels, the second one dark       (Day 2 · 17, 27)
      grid     2x2 tiles                             (Day 2 · 35, 36)
      gate     inputs, the gate, three exits         (Day 2 · 34 human-in-the-loop)
@@ -67,6 +69,21 @@
     {id:'agent-tools',template:'layers',types:['concept'],titleSets:[['The contract','The adapters','The checker']],aria:'Agent system parts shown as source cards: contract, adapters and checker',caption:'Contract → adapters → checker: the three named system parts.'},
     {id:'subagents',template:'layers',types:['concept'],titleSets:[['Parallel session','Subagent',"The engineer's job"]],aria:'Parallel session, subagent and engineer roles shown as source cards',caption:'Parallel session · subagent · engineer: three distinct scopes.'},
     {id:'sdlc-stages',template:'layers',types:['concept'],titleSets:[['Early','Middle','Later']],aria:'AI-native SDLC stages: early, middle and later evidence',caption:'Early → middle → later stages of the SDLC.'},
+    {id:'autonomy',template:'keys',priority:true,titleSets:[['Permission','Evidence','Autonomy'],['Permission','Evidence','Boundary']],aria:'Permission and evidence together allow more autonomy',caption:'Permission without evidence is freedom without proof.'},
+    /* Rows below match card sets that actually occur in these decks. */
+    {id:'goal-input-result',template:'keys',titleSets:[['Goal','Input','Result']],aria:'A goal and an input produce the result',caption:'Goal plus input; the result is what you can show afterwards.'},
+    {id:'evidence-rule',template:'keys',priority:true,titleSets:[['CLAIM','SOURCE + CHECK','REVIEWER']],aria:'A claim needs a source, a check and a named reviewer',caption:'A claim without a source and a named reviewer is not evidence.'},
+    {id:'gate-time',template:'chain',priority:true,titleSets:[['BEFORE THE GATE','AT THE GATE','AFTER THE GATE']],aria:'Before, at and after the gate, in order',caption:'The same packet, at three moments around the gate.'},
+    {id:'mob-rotation',template:'chain',priority:true,titleSets:[['START','ROTATE','PAUSE']],aria:'Start, rotate and pause, in that order',caption:'The rotation runs on the clock, not on who is loudest.'},
+    {id:'record-decide',template:'chain',priority:true,titleSets:[['Record','Decide','Then']],aria:'Record, then decide, then the next step',caption:'Record before you decide; the decision is what you can quote later.'},
+    {id:'bound-watch',template:'chain',titleSets:[['BOUND THE TASK','WATCH THE LOOP','INTERRUPT ON PURPOSE']],aria:'Bound the task, watch the loop, interrupt on purpose',caption:'Bound it first; interrupting is a decision, not a reflex.'},
+    {id:'security-example',template:'chain',titleSets:[['THE SECURITY EXAMPLE','WHAT WE CHANGE','WHAT WE DO THIS WEEK']],aria:'From the example, to the change, to this week',caption:'From the example to the change to what we do this week.'},
+    {id:'three-places',template:'comparison',titleSets:[['IN THE EVIDENCE LOG',"IN THE AGENT'S OUTPUT",'AT THE HUMAN GATE']],aria:'The same rule seen in three places',caption:'The same rule, checked in three separate places.'},
+    {id:'what-changed',template:'comparison',titleSets:[['WHAT CHANGED','WHY THE OLD SDLC LOOKS LIKE THIS','THE ASSUMPTION THAT BROKE']],aria:'What changed, why it looked like that, and the assumption that broke',caption:'Three parallel readings of the same shift.'},
+    {id:'scenario',template:'comparison',titleSets:[['Sources','Cutoff','Evidence'],['Outcome','Scenario','Boundary']],aria:'The framing facts of the scenario',caption:'The facts that bound today: what we use, when we stop, what we keep.'},
+    {id:'practices',template:'comparison',titleSets:[['SPLIT THE WORK','TURN REPEATS INTO SUBAGENTS','GOVERN FROM THE REPO']],aria:'Three practices that stand on their own',caption:'Three practices; each one holds without the others.'},
+    {id:'mob-setup',template:'layers',titleSets:[['GROUP','ROLES','AI IN THE MOB']],aria:'The group, the roles, and where AI sits in the mob',caption:'Group, roles, and where the agent sits inside them.'},
+    {id:'hook-parts',template:'layers',titleSets:[['SKILL VS HOOK','WHERE IT FIRES','WHAT IT DOES']],aria:'What a hook is, where it fires and what it does',caption:'What it is, where it fires, what it does.'},
     {id:'sdlc-principles',template:'layers',types:['concept'],titleSets:[['From line to loop','AI at every point','Same controls, new enforcement']],aria:'AI-native SDLC principles: line to loop, AI at every point, same controls',caption:'Line to loop · AI at every point · same controls.'}
   ];
   const topicFor=(s,type)=>TOPIC_REGISTRY.find(t=>(!t.types||t.types.includes(type))&&titleSetAny(s,t.titleSets));
@@ -199,6 +216,63 @@
     return box;
   }
 
+  /* ---- bars: stage blocks whose width is the time they take --------------- */
+  function bars(s){
+    const spec=s.bars||{};
+    const box=h('section','tpl tpl-bars');
+    const row=h('div','bars-row');
+    (spec.stages||[]).forEach((st,i)=>{
+      const bar=h('span','bar'+(st.accent?' accent':'')+(st.ghost?' ghost':''),st.name);
+      bar.style.setProperty('--w',String(st.w||1));
+      bar.style.setProperty('--i',i);
+      row.append(bar);
+    });
+    box.append(row);
+    if(spec.scale)box.append(h('p','bars-scale',spec.scale));
+    if(spec.caption)box.append(h('p','tpl-caption',spec.caption));
+    return box;
+  }
+
+  /* ---- lanes: the same packet moving between two named roles -------------- */
+  function lanes(s){
+    const items=(s.items||[]).filter(i=>clean(i.label));
+    const names=[...new Set(items.map(i=>i.lane).filter(Boolean))];
+    const box=h('section','tpl tpl-lanes');
+    box.style.setProperty('--lanes',String(names.length||1));
+    const head=h('div','lane-heads');
+    names.forEach((n,i)=>{const t=h('span','lane-name',n);t.style.setProperty('--lane',i);head.append(t);});
+    box.append(head);
+    const track=h('ol','lane-track');
+    items.forEach((it,i)=>{
+      const step=h('li','lane-step');
+      step.style.setProperty('--lane',String(Math.max(names.indexOf(it.lane),0)));
+      step.style.setProperty('--i',i);
+      if(it.last)step.classList.add('last');
+      step.append(h('span','lane-num',String(i+1)),h('h2',null,it.label));
+      if(clean(it.caption))step.append(h('p','lane-caption',it.caption));
+      if(clean(it.detail))step.append(h('p','lane-detail',it.detail));
+      track.append(step);
+    });
+    box.append(track);
+    if(s.detail)box.append(h('p','tpl-caption',s.detail));
+    return box;
+  }
+
+  /* ---- keys: two conditions unlock one outcome (Day 2 · 35) --------------- */
+  function keys(s){
+    const cards=cardsOf(s);
+    const conds=cards.slice(0,cards.length-1),out=cards[cards.length-1];
+    const box=h('section','tpl tpl-keys');
+    const col=h('div','keys-col');
+    conds.forEach((c,i)=>{const k=h('article','key-card');k.style.setProperty('--i',i);
+      k.append(h('span','key-badge','Key'),h('h2',null,c.title));
+      if(clean(c.body))k.append(h('p',null,c.body));col.append(k);});
+    const panel=h('article','keys-out');
+    if(out){panel.append(h('h2',null,out.title));if(clean(out.body))panel.append(h('p',null,out.body));}
+    box.append(col,panel);
+    return box;
+  }
+
   /* ---- split: two panels, the second one dark --------------------------- */
   function split(s){
     const cols=s.columns||[];
@@ -227,19 +301,28 @@
     return box;
   }
 
-  /* ---- gate: what arrives, the gate, the three exits -------------------- */
+  /* ---- gate: what arrives meets the posts, three exits (PR #4's shape) ---- */
   function gate(s){
-    const cards=cardsOf(s);
+    const cards=cardsOf(s).slice(0,3);
+    const inputs=cards.length?cards:[{title:'Output'},{title:'Evidence'},{title:'Contract'}];
+    const EXITS=[['Accept','ok'],['Park','hold'],['Redirect','warn']];
     const box=h('section','tpl tpl-gate');
-    const inputs=h('div','gate-inputs');
-    (cards.length?cards:[{title:'Output'},{title:'Evidence'},{title:'Contract'}]).slice(0,3)
-      .forEach((c,i)=>{const item=h('div','gate-input');item.style.setProperty('--i',i);
-        item.append(h('span','tag',c.title));if(clean(c.body))item.append(h('p',null,c.body));inputs.append(item);});
-    const post=h('div','gate-post');post.append(h('span','gate-bar'),h('span','gate-label','Human gate'));
-    const exits=h('div','gate-exits');
-    [['Accept','ok'],['Park','hold'],['Redirect','warn']].forEach(([t,cls],i)=>{
-      const e=h('span','gate-exit '+cls,t);e.style.setProperty('--i',i);exits.append(e);});
-    box.append(inputs,post,exits);
+    const grid=h('div','gate-grid');
+    /* the posts are one element spanning all rows, so the rows read through it */
+    const post=h('div','gate-post');
+    post.append(h('span','gate-bar'),h('span','gate-bar'),h('span','gate-cap'));
+    grid.append(post);
+    inputs.forEach((c,i)=>{
+      const item=h('article','gate-input');item.style.setProperty('--row',i);item.style.setProperty('--i',i);
+      item.append(h('span','tag',c.title));
+      if(clean(c.body))item.append(h('p',null,c.body));
+      grid.append(item);
+      const [t,cls]=EXITS[i]||EXITS[0];
+      const exit=h('span','gate-exit '+cls,t);exit.style.setProperty('--row',i);exit.style.setProperty('--i',i);
+      grid.append(exit);
+    });
+    box.append(grid,h('p','gate-label','Human gate'),
+      h('p','tpl-caption','Silence is not approval · quote the evidence, not the platform'));
     return box;
   }
 
@@ -301,6 +384,8 @@
     const head=String(s.kicker||'').split('·')[0].trim().toLowerCase();
     const title=String(s.title||'').toLowerCase();
     const topic=topicFor(s,type);
+    if(s.bars)return'bars';
+    if(s.lanes&&s.items?.length)return'lanes';
     if(s.layout==='image'&&s.image)return'figure';
     if(s.layout==='compare'&&s.columns?.length)return'split';
     if(s.layout==='pillars'&&s.items?.length)return'columns';
@@ -319,7 +404,7 @@
     return'columns';
   }
 
-  const BUILD={cover,columns,stack,chain,comparison,layers,handoff,split,grid,gate,arc,pause,figure};
+  const BUILD={cover,columns,stack,chain,comparison,layers,handoff,bars,lanes,keys,split,grid,gate,arc,pause,figure};
 
   /* columns, chain and grid take a normalised item list; the rest take ctx. */
   function itemsFor(name,s){

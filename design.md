@@ -7,8 +7,9 @@ The reference is the Canva deck **AetherMind · Worldline · Day 2 · From Model
 ## Principles
 
 1. **Mobile first.** The stylesheet is written for a phone. Two media queries widen it: `>=760px` (tablet) and `>=1100px` (presenter screen). A template never has its own mobile code — every arrangement is a column of blocks on a phone and spreads sideways when there is room.
-2. **One skeleton, thirteen bodies.** Every slide is eyebrow · counter · title · subtitle · **one body template** · orange takeaway band. That is the Day 2 master. Nothing else is invented per slide.
+2. **One skeleton, a body per relationship.** Every slide is eyebrow · counter · title · subtitle · **one body template** · orange takeaway band. That is the Day 2 master. Nothing else is invented per slide.
 3. **HTML, not SVG.** A diagram with a fixed `viewBox` shrinks on a phone until its labels are unreadable. Every Day 2 arrangement is blocks in a row, a column or a grid, so HTML reflows them for free.
+4. **No wrapper, but the shapes stay.** The drawing sits directly on the page — there is no card around the whole template. The elements inside it keep their shape (a tinted panel, a stage bar, a gate post, a numbered circle) because there the shape carries meaning. A box around the box carries none.
 4. **The room sees the concept; the facilitator holds the instructions.** The "Do this now" checklist, expected result and checkpoint live in the **Facilitator notes** dialog. The footer button carries the progress badge (`2/4`, `✓`).
 5. **The type is visible before the text.** Six types, shown as a chip in the eyebrow, as the slide's accent colour (`--type`) and as a coloured segment in the footer.
 6. **AetherBOT works, he does not decorate.** He points, stops, thinks or waits, always inside the template's own right-hand gutter, and only from 1100px up. He can never cover a label because he is never an overlay.
@@ -42,6 +43,9 @@ The reference is the Canva deck **AetherMind · Worldline · Day 2 · From Model
 | `comparison` | registry | parallel facts with no order (`What/Why/Boundaries`, positive vs negative tests) | one panel per row | side-by-side panels, optional `VS` badge | pointing |
 | `layers` | registry | named system parts (`contract/adapters/checker`, subagents, SDLC stages) | title above body | title column beside body, fading rail | pointing |
 | `handoff` | registry | one packet moving between named stages (`Analyst → Developer → Tester`) | documents stacked, ↓ between | documents in a row, → between | pointing |
+| `bars` | 3 (the bottleneck) | stage blocks whose width is the time the stage takes | full-width row | the same, taller | — |
+| `keys` | 35 | two conditions that together unlock one outcome (`Goal/Input/Result`, the evidence rule) | keys then the outcome | keys left, outcome right | — |
+| `lanes` | — | one packet moving between named roles, with the round count (evaluator-optimizer) | one step per row | a swimlane, a row per role | — |
 | `split` | 17, 27 | the deck's `compare` layout | stacked panels | two panels, the second dark | — |
 | `grid` | 35, 36 | recap and close | one tile per row | auto-fit tiles | thinking |
 
@@ -67,6 +71,8 @@ Day 2's numbered panel (slides 12, 14, 22) has no on-slide equivalent here on pu
 Two deck layouts keep their own interactive renderers in `app.js` because the interaction is the point: `steps` (reveal next / show all) and `recap` (reveal one by one). They still sit in a `.tpl` box so they inherit the same frame.
 
 Adding a template: add the builder to `BUILD`, a rule to `pick()`, one block of CSS in section 6, and a row to this table.
+
+Two Day 2 arrangements are deliberately **not** here: the escalation ladder (slide 32, least-permissive modes) and the failure branch (slide 36). Neither has content in these decks — the only fork we own is the human gate, which has its own template — and filling them from the slide's position in the deck would be the same lie as numbering unordered cards. They come back when the content does.
 
 ## Slide anatomy
 
