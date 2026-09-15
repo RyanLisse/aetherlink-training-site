@@ -74,11 +74,19 @@ Adding a template: add the builder to `BUILD`, a rule to `pick()`, one block of 
 
 Two Day 2 arrangements are deliberately **not** here: the escalation ladder (slide 32, least-permissive modes) and the failure branch (slide 36). Neither has content in these decks — the only fork we own is the human gate, which has its own template — and filling them from the slide's position in the deck would be the same lie as numbering unordered cards. They come back when the content does.
 
-## Both squads
+## Both squads, one source
 
-`dist/days.js` (squad 1) and `dist/squad2.js` (squad 2) are two sets of day decks over the same course. They share every template, so a change in `templates.js` or `styles.css` reaches both. Structure has to be ported deliberately, and `work/update-squad2.js` records the one migration that did it: the route slide at the start of the day and the same route again in front of the human gate, and the bottleneck as two bar charts plus the consequences slide instead of one flat SVG.
+`dist/days.js` (squad 1) and `dist/squad2.js` (squad 2) are generated. The canonical decks live in the course repo (`presentations/day-decks.json`, `squads/squad-2/presentations.json`) and the concepts in `presentations/concepts.json`; `python3 presentations/apply_concepts.py` regenerates both registries here when `AETHER_SITE` points at this `dist/`. Never edit the two registries by hand: the next regeneration overwrites them, and `apply_concepts.py --check` is the gate that says whether they still match.
 
-Each squad-2 route is derived from that deck's own kickers, so the schedule on the slide is the schedule the slides already claim. Two lines are not in any kicker and are named in the script: the hour before the human gate is lunch, and the day opens with theory and demo until the first timed block. Day 1 shows a second review where the other days show a break, because that is what its own slides say.
+What the register decides, and this site only renders:
+
+- **The route, twice.** Every day opens with `Day N route` on slide 2 and shows the same cards again in front of the afternoon (`presentations/add_routes.py`).
+- **Repeat in pictures.** Every day after the first opens with yesterday's concepts as `recap` slides: the concept's own picture and one sentence, no cards. The definition cards sit in the facilitator notes.
+- **Fewer words.** A concept card body is at most 18 words; what was cut is in the notes, verbatim.
+- **One storyline.** The daily payment reconciliation example (`FIN-001`) is written once, in the squad-2 block, and both squads place it — squad 1 on days 1, 3, 4 and 5 with the day counter rewritten.
+- **The bottleneck as bars.** The concept's visual is the two bar charts plus the consequences, so a recap of it draws bars too.
+
+The register maps squad 1 days 3, 4 and 5 onto squad 2 days 1, 3 and 4. Squad 2's extra feedback-loop day (2) is squad 1's own day 2.
 
 ## Slide anatomy
 
@@ -146,7 +154,7 @@ Poses in `dist/assets/`, from the Canva illustration sheet: `bot-neutral.png`, `
 
 ## Evidence
 
-`node work/shoot.js` runs against the local server and also runs in CI on every push and pull request (`.github/workflows/slide-check.yml`, Playwright pinned in `package.json`). It renders all 205 slides of all eleven decks — both squads — at three sizes: 1440×900 presenter, 390×844 phone, 360×740 small phone, 615 renders in total. It fails on:
+`node work/shoot.js` runs against the local server and also runs in CI on every push and pull request (`.github/workflows/slide-check.yml`, Playwright pinned in `package.json`). It renders all 229 slides of all eleven decks — both squads — at three sizes: 1440×900 presenter, 390×844 phone, 360×740 small phone, 687 renders in total. It fails on:
 
 - a page error, a console error or a failed request or image;
 - a slide that resolves to no template;
