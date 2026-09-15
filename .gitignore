@@ -4,3 +4,4 @@
 !.env.example
 *.log
 work/shots/
+node_modules/

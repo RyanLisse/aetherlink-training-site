@@ -32,7 +32,9 @@ Every concept ships as three slides, in this order: **definition** (what it is, 
 | Hooks | `hooks-guardrails.svg` | Day 5 | Day 4 |
 | Subagents | `parallel-sessions-subagents.svg` | Day 5 | Day 4 |
 
-Squad 2 also carries one worked example (daily payment reconciliation) from Day 1 to Day 5: six `EXAMPLE` slides generated from the `examples` block of the same register, typed as concept slides, with `worked-example-thread.svg` as the Day 1 visual. The example is documented in the course repo at `squads/squad-2/worked-example.md`.
+Every day after the first opens with yesterday's concepts as recap slides (the picture and one sentence, no cards), and every day shows its route twice: on slide 2 and again in front of the afternoon. A concept card body is at most 18 words; the cut text stays in the facilitator notes.
+
+Both squads carry the same worked example (daily payment reconciliation, `FIN-001`), written once in the register's squad-2 block and placed in squad 1 on days 1, 3, 4 and 5. Squad 2 carries it from Day 1 to Day 5: six `EXAMPLE` slides generated from the `examples` block of the same register, typed as concept slides, with `worked-example-thread.svg` as the Day 1 visual. The example is documented in the course repo at `squads/squad-2/worked-example.md`.
 
 The word "harness" is deliberately absent from participant material: the decks say "platform" (n8n, Claude Code). Keep it that way.
 
