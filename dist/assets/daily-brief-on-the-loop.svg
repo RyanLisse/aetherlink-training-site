@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">The daily brief agent on the AI-native SDLC loop</title><desc id="desc">Six phases on one loop, each with the artifact the daily brief agent leaves behind: intent.md, the brief.ts contract, the source tools and renderer, tests and the sample run, the pull request and schedule, the notes footnote that feeds tomorrow's brief. Orange marks are human gates; the purple mark is where hooks hold.</desc>
+  <defs><marker id="ao" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ff7a1a"/></marker></defs>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2.5" fill="#5b3fff">THE DAILY BRIEF ON THE LOOP</text>
+  <text x="500" y="72" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">one agent, six phases, one document or file per phase · the brief itself feeds the next plan</text>
+
+  <ellipse cx="500" cy="335" rx="320" ry="150" fill="none" stroke="#ff7a1a" stroke-width="9" stroke-dasharray="26 16" stroke-linecap="round" opacity=".9"/>
+  <path d="M820 318L820 352" stroke="#ff7a1a" stroke-width="9" marker-end="url(#ao)"/>
+  <path d="M180 352L180 318" stroke="#ff7a1a" stroke-width="9" marker-end="url(#ao)"/>
+
+  <!-- phases: name + the artifact this agent leaves behind -->
+  <rect x="400" y="157" width="200" height="56" rx="28" fill="#5b3fff" stroke="#5b3fff" stroke-width="1.5"/>
+  <text x="500" y="181" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#fff">PLAN</text>
+  <text x="500" y="200" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#e4dcff">intent.md · spec.md · plan.md</text>
+
+  <rect x="677" y="232" width="200" height="56" rx="28" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+  <text x="777" y="256" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#1f1e2e">DESIGN</text>
+  <text x="777" y="275" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">design.md · ADR · brief.ts</text>
+
+  <rect x="677" y="382" width="200" height="56" rx="28" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+  <text x="777" y="406" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#1f1e2e">BUILD</text>
+  <text x="777" y="425" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">render.ts · sources.ts · agent.ts</text>
+
+  <rect x="400" y="457" width="200" height="56" rx="28" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+  <text x="500" y="481" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#1f1e2e">TEST</text>
+  <text x="500" y="500" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">npm test · sample run · evidence.md</text>
+
+  <rect x="123" y="382" width="200" height="56" rx="28" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+  <text x="223" y="406" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#1f1e2e">DEPLOY</text>
+  <text x="223" y="425" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">gate.md · merged PR · schedule</text>
+
+  <rect x="123" y="232" width="200" height="56" rx="28" fill="#ffffff" stroke="#c9c0f7" stroke-width="1.5"/>
+  <text x="223" y="256" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#1f1e2e">MAINTAIN</text>
+  <text x="223" y="275" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#625d73">notes footnote · progress.md</text>
+
+  <!-- the engine in the middle -->
+  <text x="500" y="298" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#1f1e2e">Claude Agent SDK</text>
+  <text x="500" y="320" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">query() · read-only MCP tools · structured output</text>
+  <text x="500" y="350" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#5b3fff">AI does the first pass on every phase</text>
+  <text x="500" y="372" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#aa4300">humans set intent, read the diff, own the merge</text>
+
+  <!-- human gates (orange) and the hook point (purple) -->
+  <circle cx="340" cy="205" r="12" fill="#ff7a1a" stroke="#ffffff" stroke-width="3"/>
+  <text x="326" y="178" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#aa4300">HUMAN GATE · intent accepted</text>
+  <circle cx="340" cy="465" r="12" fill="#ff7a1a" stroke="#ffffff" stroke-width="3"/>
+  <text x="326" y="500" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#aa4300">HUMAN GATE · PR read against intent.md</text>
+  <circle cx="660" cy="465" r="12" fill="#5b3fff" stroke="#ffffff" stroke-width="3"/>
+  <text x="674" y="500" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#5b3fff">HOOKS · tools: [] · guarded() · esc()</text>
+
+  <text x="500" y="560" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">Same control objectives as the old line: quality, security, traceability.</text>
+  <text x="500" y="582" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#625d73">New enforcement: a schema instead of a checklist, a test instead of a sign-off, a PR instead of a meeting.</text>
+</svg>

@@ -86,6 +86,8 @@ What the register decides, and this site only renders:
 - **One storyline.** The daily payment reconciliation example (`FIN-001`) is written once, in the squad-2 block, and both squads place it — squad 1 on days 1, 3, 4 and 5 with the day counter rewritten.
 - **The bottleneck as bars.** The concept's visual is the two bar charts plus the consequences, so a recap of it draws bars too.
 
+`dist/lesson.js` is the third registry: the guided lesson around the daily brief agent (`?lesson=daily-brief`). Its source is `agents/daily-brief/` in this repository, not the course register, so it is written here — under the same rules: the route on slide 2 and again after lunch, at most 18 words per card with the cut text in the notes, the four course concepts shown with the course's own pictures (`human-gate.svg`, `agentic-loop.svg`, `hooks-guardrails.svg`) and the SDLC definition in the register's words, a recap in pictures before the close.
+
 The register maps squad 1 days 3, 4 and 5 onto squad 2 days 1, 3 and 4. Squad 2's extra feedback-loop day (2) is squad 1's own day 2.
 
 ## Slide anatomy
