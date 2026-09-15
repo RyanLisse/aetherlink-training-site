@@ -45,7 +45,7 @@ then open `http://localhost:8080/?squad=1&day=3#1`,
 `http://localhost:8080/?squad=2&day=2#1` or `http://localhost:8080/?lesson=daily-brief#1`. Stop the server with Ctrl-C afterward.
 No build or package install is required.
 
-With the server running, `node work/shoot.js` renders all 190 slides at three
+With the server running, `node work/shoot.js` renders all 229 slides of both squads at three
 viewport sizes and writes screenshots to `work/shots/`. It needs Playwright on
 `NODE_PATH`. See the Evidence section of `design.md` for what it fails on.
 
