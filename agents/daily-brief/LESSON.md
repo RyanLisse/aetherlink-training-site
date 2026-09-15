@@ -10,7 +10,7 @@ the "Day guide" button.
 
 ## Outcome
 
-Everyone has written an accepted `intent.md`, turned two reference PDFs into a
+Everyone — alone or as a MOB — has written an accepted `intent.md`, turned two reference PDFs into a
 spec and a zod contract test-first, planned in read-only mode, rendered the
 sample, taken the agent's loop and tools from the reference, added one
 read-only tool, recorded evidence with a reviewer, and decided a pull request
@@ -117,11 +117,19 @@ git checkout -q main
 
 ## Exercises
 
-Every exercise is individual, timed, and ends with a commit on `my/<name>`.
-Unrun checks are OPEN, never failures. Credentials are never typed into a
-prompt. Claude Code drafts; the participant cuts and decides.
+Every exercise is timed and ends with a commit. It runs in one of two modes,
+chosen per session and the same for the whole day:
 
-**10:45 Step 1, write the intent (15 min).** The interview prompt on the slide
+| Mode | Who types | Branch | Rhythm |
+| --- | --- | --- | --- |
+| Individual | everyone, at their own machine | `my/<name>` | the timebox on the slide |
+| MOB | groups of three or four, one driver, a navigator directs | `mob/<group>` | rotate driver and navigator every 5–7 minutes |
+
+The step, the tag to compare against and the human check do not change with
+the mode. Unrun checks are OPEN, never failures. Credentials are never typed
+into a prompt. Claude Code drafts; the participant cuts and decides.
+
+**10:45 Step 1, write the intent (15 min, individual or MOB).** The interview prompt on the slide
 asks one question at a time and fills `intent.md` in place. Cut it to one
 outcome and three verifiable checks; every unknown is an OPEN line.
 
