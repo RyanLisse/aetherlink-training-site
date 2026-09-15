@@ -24,6 +24,27 @@ built-ins, only the read-only source tools are allowed, and the output is
 validated against a JSON schema before our own renderer turns it into HTML.
 Everything the reader sees is HTML-escaped.
 
+## Documents and the lesson
+
+The agent is also the worked example of the site's guided lesson
+(`?lesson=daily-brief`, facilitator guide in `LESSON.md`). Its documents follow
+the course's document chain and live next to the code:
+
+| Document | Phase | What it holds |
+| --- | --- | --- |
+| `intent.md` | Plan | Outcome, success checks, boundary, owners, evidence contract, OPEN |
+| `docs/spec.md` | Plan | The brief's anatomy with one quoted example per field from the two reference PDFs, house style, acceptance examples |
+| `docs/design.md` | Design | The parts, the three boundaries in code (bound, watch, interrupt), the hooks table, risks |
+| `docs/decisions/ADR-001-in-process-tools.md` | Design | Why in-process read-only tools instead of community MCP servers |
+| `docs/plan.md` | Design | Seven ordered steps with a proof command each, rollback, the human gates |
+| `docs/evidence.md` | Test | The three commands with exit codes, the screenshot, the reviewer |
+| `docs/gate.md` | Deploy | The pull request read against `intent.md`: PASS / FAIL / OPEN and the handoff |
+
+`lab/build-lab.sh <dir>` builds the participant lab repository from this
+folder: `main` holds only the empty templates in `lab/steps/0-start`, and a
+`solution` branch carries one commit per step, tagged `step-1-intent` …
+`step-7-gate-deploy`. See `LESSON.md`.
+
 ## Files
 
 | File | Purpose |
@@ -32,10 +53,10 @@ Everything the reader sees is HTML-escaped.
 | `src/sources.ts` | GitLab, Jira, Confluence and Microsoft Graph as `createSdkMcpServer` tools, enabled by env vars |
 | `src/agent.ts` | The editorial system prompt and the single `query()` call |
 | `src/render.ts` | Pure `Brief -> HTML`, English and Dutch, light and dark, print-ready |
-| `src/artwork.ts` | Public-domain painting of the day (Art Institute of Chicago API), inlined as a data URI |
+| `src/artwork.ts` | Public-domain painting of the day, no API key: a local file (`BRIEF_ARTWORK_FILE`), else the Art Institute of Chicago API, else The Met, inlined as a data URI |
 | `src/main.ts` | CLI: dates, config, output files |
 | `sample/brief.sample.json` | A finished brief for dry runs and tests |
-| `test/brief.test.ts` | Schema, renderer, source wiring and prompt tests (`node:test`) |
+| `test/schema.test.ts`, `test/render.test.ts`, `test/agent.test.ts` | Contract, renderer, and wiring/prompt tests (`node:test`), one file per lesson step |
 | `gitlab-ci.example.yml` | A scheduled GitLab pipeline that publishes the brief as a job artifact and to Pages |
 
 ## Run it

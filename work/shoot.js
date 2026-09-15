@@ -28,7 +28,8 @@ const decks = [
   { id: 's2d2', label: 'squad 2/day 2', query: 'squad=2&day=2' },
   { id: 's2d3', label: 'squad 2/day 3', query: 'squad=2&day=3' },
   { id: 's2d4', label: 'squad 2/day 4', query: 'squad=2&day=4' },
-  { id: 's2d5', label: 'squad 2/day 5', query: 'squad=2&day=5' }
+  { id: 's2d5', label: 'squad 2/day 5', query: 'squad=2&day=5' },
+  { id: 'lesson-brief', label: 'lesson/daily-brief', query: 'lesson=daily-brief' }
 ];
 
 fs.mkdirSync(out, { recursive: true });

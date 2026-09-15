@@ -1,9 +1,10 @@
 'use strict';
 const params=new URLSearchParams(location.search);
 const dayKey=params.get('day');
+const lessonKey=params.get('lesson');
 const selectedSquad=Number(params.get('squad')??params.get('crew'))===2?2:1;
 const decks={1:window.DAYS,2:window.SQUAD2};
-const day=decks[selectedSquad]?.['day'+dayKey];
+const day=lessonKey?window.LESSONS?.[lessonKey]:decks[selectedSquad]?.['day'+dayKey];
 const slides=day?day.slides:window.TRAINING;
 const $=id=>document.getElementById(id);
 let current=0,phase=0,lastFocus=null,toastTimer;
@@ -35,7 +36,7 @@ function renderTimer(stage,s){const m=s.timer||Number((s.kicker||'').match(/(\d+
 /* ---- learning-experience layer: slide types, checklist memory, day progress ---- */
 const TYPE_LABEL={practice:'Practice',concept:'Concept',review:'Review',recap:'Recap',pause:'Break',context:'Context'};
 function slideType(s){const head=(s.kicker||'').split('·')[0].trim().toLowerCase();const title=(s.title||'').toLowerCase();const timed=!!s.timer||/\bmin\b/.test((s.kicker||'').toLowerCase());const byHead=h=>{if(/practice|individual|transfer|hands-on|^test$|^mob/.test(h))return'practice';if(/recap|close|wrap|check out/.test(h))return'recap';if(/break|lunch/.test(h))return'pause';if(/review|\bgate\b|comparison|compare/.test(h))return'review';if(/concept|beeld|theory|demo|definition|visual|how we use|example/.test(h))return"concept";return null;};const byTitle=t=>{if(/^welcome/.test(t))return'context';if(/^break|^lunch/.test(t))return'pause';if(/^recap|^close|wrap-up|check-out|reflection|transfer/.test(t))return'recap';if(/review|human gate|^gate|compar/.test(t))return'review';if(/practice|individual|hands-on|exercise|your turn|guided|group|\bpass\b|handoff/.test(t))return'practice';if(/demo|theory|concept|loop|sdlc|what is/.test(t))return'concept';return null;};if(s.layout==='exercise')return'practice';if(s.layout==='recap')return'recap';return byHead(head)||(s.widget||s.layout==='image'?'concept':null)||byTitle(title)||(timed?'practice':'context');}
-const stateKey=()=>{const t=slides[current].title;const nth=slides.slice(0,current).filter(x=>x.title===t).length;return'al:'+selectedSquad+':'+(dayKey||'fw')+':'+t+(nth?'#'+nth:'');};
+const stateKey=()=>{const t=slides[current].title;const nth=slides.slice(0,current).filter(x=>x.title===t).length;return'al:'+(lessonKey?'lesson:'+lessonKey:selectedSquad+':'+(dayKey||'fw'))+':'+t+(nth?'#'+nth:'');};
 function loadState(){try{return JSON.parse(sessionStorage.getItem(stateKey())||'{}')||{};}catch{return{};}}
 function saveState(st){try{sessionStorage.setItem(stateKey(),JSON.stringify(st));}catch{}}
 /* The "Do this now" checklist, expected result and checkpoint. Since 2026-09-14 this
@@ -106,7 +107,7 @@ document.addEventListener('fullscreenchange',()=>$('fullscreen').setAttribute('a
 /* Keys: arrows and Page keys navigate; N notes, P prompt, G glossary, C chapters, F fullscreen, ? help. */
 document.addEventListener('keydown',e=>{if(panel.open||e.altKey||e.ctrlKey||e.metaKey||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.closest('[role=tablist]'))return;const k=e.key.toLowerCase();if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(current+1);}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current-1);}else if(e.key==='Home'){e.preventDefault();go(0);}else if(e.key==='End'){e.preventDefault();go(slides.length-1);}else if(k==='n'){showNotes();}else if(k==='p'&&slides[current].prompt){showPrompt();}else if(k==='g'){showGlossary();}else if(k==='c'){$('chapters').click();}else if(k==='f'){$('fullscreen').click();}else if(e.key==='?'){notify('← → navigate · N notes · P prompt · G glossary · C chapters · F fullscreen');}});
 $('day-guide').href=day?day.guideUrl:'https://github.com/RyanLisse/aetherlink-training-template';
-$('presentations').textContent=day?'Squad '+selectedSquad+' · Day '+dayKey+' · Change':'Choose session';
-$('presentations').addEventListener('click',()=>{const list=node('nav','chapter-list');list.setAttribute('aria-label','Training presentations');const options=[[null,null,'Daily framework · reusable'],[1,'3','Wave 2 · Squad 1 · Day 3'],[1,'4','Wave 2 · Squad 1 · Day 4'],[1,'5','Wave 2 · Squad 1 · Day 5'],[1,'1','Squad 1 · Day 1 · Reference'],[1,'2','Squad 1 · Day 2 · Reference'],...['1','2','3','4','5'].map(key=>[2,key,'Squad 2 · New training · Day '+key])];for(const [squad,key,label] of options){const a=node('a','chapter-link',label);a.href=squad?'?squad='+squad+'&day='+key+'#1':'./#1';if((squad===selectedSquad&&key===dayKey)||(!squad&&!day))a.setAttribute('aria-current','page');list.append(a);}openPanel('Choose a presentation',list);});
+$('presentations').textContent=day?(lessonKey?'Guided lesson · '+lessonKey.replace(/-/g,' ')+' · Change':'Squad '+selectedSquad+' · Day '+dayKey+' · Change'):'Choose session';
+$('presentations').addEventListener('click',()=>{const list=node('nav','chapter-list');list.setAttribute('aria-label','Training presentations');const options=[[null,null,'Daily framework · reusable'],[1,'3','Wave 2 · Squad 1 · Day 3'],[1,'4','Wave 2 · Squad 1 · Day 4'],[1,'5','Wave 2 · Squad 1 · Day 5'],[1,'1','Squad 1 · Day 1 · Reference'],[1,'2','Squad 1 · Day 2 · Reference'],...['1','2','3','4','5'].map(key=>[2,key,'Squad 2 · New training · Day '+key]),['lesson','daily-brief','Guided lesson · Daily brief agent']];for(const [squad,key,label] of options){const a=node('a','chapter-link',label);a.href=squad==='lesson'?'?lesson='+key+'#1':squad?'?squad='+squad+'&day='+key+'#1':'./#1';if((squad==='lesson'&&key===lessonKey)||(squad!=='lesson'&&squad===selectedSquad&&key===dayKey&&!lessonKey)||(!squad&&!day))a.setAttribute('aria-current','page');list.append(a);}openPanel('Choose a presentation',list);});
 window.addEventListener('pagehide',()=>{slideController?.abort();stopTimer();});
 window.addEventListener('hashchange',fromHash);fromHash();
