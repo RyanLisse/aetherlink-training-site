@@ -227,7 +227,10 @@ async function main() {
   let desktop;
   let mobile;
   try {
-    browser = await chromium.launch({ headless: true });
+    /* CI pins Playwright, so it looks for its own browser build. A sandbox may
+       ship a different one; PW_CHROMIUM points at it without unpinning CI. */
+    const executablePath = process.env.PW_CHROMIUM || undefined;
+    browser = await chromium.launch({ headless: true, executablePath });
     const context = await browser.newContext({ reducedMotion: 'reduce', viewport: desktopViewport });
     desktop = await context.newPage();
     desktop.on('pageerror', error => addError(`pageerror: ${error.message}`));

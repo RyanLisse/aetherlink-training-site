@@ -74,6 +74,12 @@ Adding a template: add the builder to `BUILD`, a rule to `pick()`, one block of 
 
 Two Day 2 arrangements are deliberately **not** here: the escalation ladder (slide 32, least-permissive modes) and the failure branch (slide 36). Neither has content in these decks — the only fork we own is the human gate, which has its own template — and filling them from the slide's position in the deck would be the same lie as numbering unordered cards. They come back when the content does.
 
+## Both squads
+
+`dist/days.js` (squad 1) and `dist/squad2.js` (squad 2) are two sets of day decks over the same course. They share every template, so a change in `templates.js` or `styles.css` reaches both. Structure has to be ported deliberately, and `work/update-squad2.js` records the one migration that did it: the route slide at the start of the day and the same route again in front of the human gate, and the bottleneck as two bar charts plus the consequences slide instead of one flat SVG.
+
+Each squad-2 route is derived from that deck's own kickers, so the schedule on the slide is the schedule the slides already claim. Two lines are not in any kicker and are named in the script: the hour before the human gate is lunch, and the day opens with theory and demo until the first timed block. Day 1 shows a second review where the other days show a break, because that is what its own slides say.
+
 ## Slide anatomy
 
 ```
@@ -140,7 +146,7 @@ Poses in `dist/assets/`, from the Canva illustration sheet: `bot-neutral.png`, `
 
 ## Evidence
 
-`node work/shoot.js` runs against the local server and also runs in CI on every push and pull request (`.github/workflows/slide-check.yml`, Playwright pinned in `package.json`). It renders all 190 slides of all eleven decks at three sizes — 1440×900 presenter, 390×844 phone, 360×740 small phone, 570 renders in total — and fails on:
+`node work/shoot.js` runs against the local server and also runs in CI on every push and pull request (`.github/workflows/slide-check.yml`, Playwright pinned in `package.json`). It renders all 205 slides of all eleven decks — both squads — at three sizes: 1440×900 presenter, 390×844 phone, 360×740 small phone, 615 renders in total. It fails on:
 
 - a page error, a console error or a failed request or image;
 - a slide that resolves to no template;
@@ -150,5 +156,7 @@ Poses in `dist/assets/`, from the Canva illustration sheet: `bot-neutral.png`, `
 - a control under 40px tall on a phone (the day bar excepted — it carries its own 41px hit area);
 - unreduced motion, or AetherBOT touching any text;
 - a notes or prompt dialog that opens empty, checked on every desktop slide.
+
+Set `PW_CHROMIUM` to a browser binary when the sandbox ships a different Chromium than the pinned Playwright expects; CI leaves it unset and uses the pinned build.
 
 Measurement runs with reduced motion on, because the entrance animation starts each block 10px low and would read as 6px of page overflow. One screenshot per template per size, a set of named desktop screenshots and `report.json` land in `work/shots/`.
