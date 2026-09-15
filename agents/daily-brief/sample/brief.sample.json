@@ -1,0 +1,59 @@
+{
+  "greeting": "Tuesday, and the morning is yours until the squad stand-up at eleven. One afternoon call with Robbie, then a clear runway to the end of the day.",
+  "pushForward": {
+    "title": "Turn the ticket-agent runbook into a go/no-go call",
+    "body": "The runbook page was rewritten yesterday by Sanne and now waits on three decisions only you can make: the n8n host (the shared instance or a squad-owned one), where the Anthropic key lives, and whether Day 4 ships with the Claude Code rebuild or the n8n flow alone. MR !142 carries the matching pipeline change and has been green since 17:40.",
+    "offer": "I can pull the page, the MR and the two open tickets into one prioritized readiness brief.",
+    "link": { "source": "confluence", "url": "https://confluence.example.com/display/AL/Ticket+agent+runbook" }
+  },
+  "todos": [
+    {
+      "title": "Review and merge MR !142, the verify-skill sync",
+      "body": "Your only open review request, waiting since yesterday 17:40. Pipeline green, two threads still unresolved: Robert asks for a Playwright recording of the job-detail flow and for the executable bit on control.mjs to come back.",
+      "link": { "source": "gitlab", "url": "https://gitlab.example.com/aetherlink/agent-lab/-/merge_requests/142" }
+    },
+    {
+      "title": "Unblock AL-231, the Mollie sandbox keys",
+      "body": "Marked High and labeled blocked, but Anouk's last comment says the test keys are free and instant. It is the fastest path to the first verified vendor adapter, and it covers the money path in the Squad 2 worked example.",
+      "link": { "source": "jira", "url": "https://jira.example.com/browse/AL-231" }
+    },
+    {
+      "title": "Fix the failing slide-check pipeline on main",
+      "body": "The scheduled run hard-failed at 06:13 this morning on the deprecated download-artifact v3 action. It will keep failing every run until the job is bumped to v4.",
+      "link": { "source": "gitlab", "url": "https://gitlab.example.com/aetherlink/training-site/-/pipelines/98211" }
+    }
+  ],
+  "updates": [
+    {
+      "title": "Postgres test-isolation fix merged, with loose ends",
+      "tag": "Agent lab",
+      "body": "AL-229 landed on main: per-process throwaway databases and a slightly faster suite. Robert flagged two edge cases after the merge, orphaned test databases when setup aborts and a partial-config path that can still write the shared database.",
+      "link": { "source": "gitlab", "url": "https://gitlab.example.com/aetherlink/agent-lab/-/merge_requests/139" }
+    },
+    {
+      "title": "Day 4 decision page rewritten by Sanne",
+      "tag": "Curriculum",
+      "body": "The page now lists the three open decisions as a table with owners, and drops the old hosting section entirely. Nobody has commented yet.",
+      "link": { "source": "confluence", "url": "https://confluence.example.com/display/AL/Day+4+decisions" }
+    }
+  ],
+  "day": [
+    {
+      "start": "11:00",
+      "end": "11:15",
+      "title": "Squad stand-up",
+      "description": "Daily stand-up over Teams with both squads; Sanne is out today."
+    },
+    {
+      "start": "14:00",
+      "end": "15:00",
+      "title": "Ryan / Robbie (Catapulze)",
+      "description": "External call over Microsoft Teams with Robbie from Catapulze.",
+      "url": "https://outlook.office365.com/calendar/item/example",
+      "prep": "Robbie's invite asks about the payment adapter timeline, so AL-231 above is the one ticket to have an answer for."
+    }
+  ],
+  "notes": [
+    "Sample data: the names, keys and links here are illustrative and do not come from a live run."
+  ]
+}
