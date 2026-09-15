@@ -59,6 +59,11 @@ async function openSlide(page, deck, slide) {
   await page.goto(urlFor(deck, slide), { waitUntil: 'networkidle' });
   await page.waitForSelector('#stage h1');
   await page.waitForFunction(expected => document.querySelector('#count')?.textContent.startsWith(expected), String(slide).padStart(2, '0'));
+  // networkidle says the bytes arrived, not that the image is decoded. On a cold
+  // single-threaded http.server the first figure slides of a run could still be
+  // decoding when measured, and read as "failed to load". Wait until every image
+  // has settled (bounded); a real 404 still ends complete with naturalWidth 0.
+  await page.waitForFunction(() => [...document.images].every(image => image.complete), null, { timeout: 5000 }).catch(() => {});
   await page.waitForTimeout(50);
 }
 
