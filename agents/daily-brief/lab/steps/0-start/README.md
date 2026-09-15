@@ -1,7 +1,7 @@
 # Daily brief agent — lab
 
 You are going to build one agent around the whole AI-native SDLC: an agent
-that reads GitLab, Jira, Confluence and the Outlook calendar every morning and
+that reads GitLab, Jira, Confluence and the Outlook calendar (or your own GitHub, Linear and Notion) every morning and
 writes a one-page brief. `main` is empty on purpose: templates, a package
 skeleton and nothing else. Every step of the lesson leaves one artifact here.
 
@@ -50,3 +50,5 @@ on GitLab or GitHub.
 
 Put the two source PDFs (the Dia "Tuesday Brief" and "Wednesday Brief") in
 `reference/` so step 2 can quote them. They are not part of this repository.
+
+Walking it alone, with your own GitHub, Linear and Notion: `SOLO.md`.

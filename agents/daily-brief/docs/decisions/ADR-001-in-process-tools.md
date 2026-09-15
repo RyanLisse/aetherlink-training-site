@@ -8,7 +8,7 @@ Decision owner: Ryan
 
 ## Context
 
-The agent must run headless every morning against GitLab, Jira, Confluence and Microsoft Graph. Community MCP servers exist for all four, but the ones for Atlassian and Microsoft 365 assume a browser OAuth flow on first start, their environment variables differ per package and version, and each adds a process and a dependency tree the team does not own. The Claude Agent SDK can host tools in-process with `createSdkMcpServer` + `tool`, and every read the brief needs is a plain token-authenticated GET.
+The agent must run headless every morning against GitLab, Jira, Confluence and Microsoft Graph, and, for a person walking the lesson alone, against their own GitHub, Linear and Notion. Community MCP servers exist for all four, but the ones for Atlassian and Microsoft 365 assume a browser OAuth flow on first start, their environment variables differ per package and version, and each adds a process and a dependency tree the team does not own. The Claude Agent SDK can host tools in-process with `createSdkMcpServer` + `tool`, and every read the brief needs is a plain token-authenticated GET.
 
 ## Decision
 
@@ -32,3 +32,13 @@ Implement the four sources as in-process SDK tools in one file, `src/sources.ts`
 
 - Evidence links: `test/agent.test.ts` → *sources are enabled purely by environment*; `docs/evidence.md`.
 - Follow-up owner and due date: Ryan, after the first live run: confirm the Jira Cloud `search/jql` endpoint and the Graph `calendarView` window against a real tenant, or mark `OPEN`.
+
+## Addendum · the personal stack (2026-09-15)
+
+GitHub, Linear and Notion follow the same decision: one in-process server each,
+token in an environment variable, every tool read-only and wrapped in
+`guarded()`. Two of them cannot be plain GETs by protocol — Linear is GraphQL
+and Notion's search is a POST — so "read-only" is held by the query text and
+the token scope (Linear personal keys read by default; a Notion internal
+integration only sees pages shared with it), not by the HTTP verb. The
+allow-list `mcp__<source>__*` and `tools: []` are unchanged.

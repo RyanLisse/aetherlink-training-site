@@ -2,7 +2,7 @@
 #
 # 1. Copy this into the repository's .gitlab-ci.yml (or `include:` it).
 # 2. Add the variables from .env.example as masked CI/CD variables
-#    (ANTHROPIC_API_KEY, GITLAB_TOKEN, JIRA_TOKEN, MS_CLIENT_SECRET, ...).
+#    (ANTHROPIC_API_KEY, GITLAB_TOKEN, JIRA_TOKEN, MS_CLIENT_SECRET, or GITHUB_TOKEN, LINEAR_API_KEY, NOTION_TOKEN ...).
 # 3. CI/CD -> Schedules -> New: "30 6 * * 1-5", timezone Europe/Amsterdam.
 #
 # The brief lands as a job artifact (out/) and, with the pages job, at

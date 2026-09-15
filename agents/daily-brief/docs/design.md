@@ -12,6 +12,7 @@ cron / GitLab schedule
                      │                         │  reads through
                      │             src/sources.ts (in-process MCP tools)
                      │              gitlab_* · jira_* · confluence_* · outlook_*
+                     │              github_* · linear_* · notion_*
                      │                         │
                      │◄── structured output: Brief JSON (src/brief.ts)
                      ▼

@@ -11,7 +11,7 @@
  */
 import { z } from "zod";
 
-export const SOURCES = ["gitlab", "jira", "confluence", "outlook"] as const;
+export const SOURCES = ["gitlab", "jira", "confluence", "outlook", "github", "linear", "notion"] as const;
 export type SourceName = (typeof SOURCES)[number];
 export const SourceSchema = z.enum(SOURCES);
 

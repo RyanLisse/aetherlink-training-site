@@ -1,9 +1,10 @@
 # Daily brief agent
 
 A scheduled agent, built on the Claude Agent SDK, that reads the team's
-GitLab, Jira, Confluence and Outlook calendar every morning and writes a
-one-page brief in the style of Dia's "Tuesday Brief": one thing to push, a
-few to-dos, what changed, your day, a painting on top.
+GitLab, Jira, Confluence and Outlook calendar — or your own GitHub, Linear and
+Notion — every morning and writes a one-page brief in the style of Dia's
+"Tuesday Brief": one thing to push, a few to-dos, what changed, your day, a
+painting on top.
 
 ```
 cron / GitLab schedule
@@ -13,6 +14,7 @@ cron / GitLab schedule
                      │                         │  reads through
                      │             src/sources.ts (in-process MCP tools)
                      │              gitlab_* · jira_* · confluence_* · outlook_*
+                     │              github_* · linear_* · notion_*
                      │                         │
                      │◄── structured output: Brief JSON (src/brief.ts)
                      ▼
@@ -50,7 +52,7 @@ folder: `main` holds only the empty templates in `lab/steps/0-start`, and a
 | File | Purpose |
 | --- | --- |
 | `src/brief.ts` | The `Brief` contract (zod) and its JSON schema for structured output |
-| `src/sources.ts` | GitLab, Jira, Confluence and Microsoft Graph as `createSdkMcpServer` tools, enabled by env vars |
+| `src/sources.ts` | GitLab, Jira, Confluence, Microsoft Graph, GitHub, Linear and Notion as `createSdkMcpServer` tools, enabled by env vars |
 | `src/agent.ts` | The editorial system prompt and the single `query()` call |
 | `src/render.ts` | Pure `Brief -> HTML`, English and Dutch, light and dark, print-ready |
 | `src/artwork.ts` | Public-domain painting of the day, no API key: a local file (`BRIEF_ARTWORK_FILE`), else the Art Institute of Chicago API, else The Met, inlined as a data URI |
@@ -58,6 +60,8 @@ folder: `main` holds only the empty templates in `lab/steps/0-start`, and a
 | `sample/brief.sample.json` | A finished brief for dry runs and tests |
 | `test/schema.test.ts`, `test/render.test.ts`, `test/agent.test.ts` | Contract, renderer, and wiring/prompt tests (`node:test`), one file per lesson step |
 | `gitlab-ci.example.yml` | A scheduled GitLab pipeline that publishes the brief as a job artifact and to Pages |
+| `github-actions.example.yml` | The same schedule on GitHub Actions, with the tokens as repository secrets |
+| `SOLO.md` | The seven steps for one person with their own GitHub, Linear and Notion |
 
 ## Run it
 
@@ -79,6 +83,9 @@ Flags: `--date 2026-09-15` (brief for another day), `--no-artwork`, `--out DIR`.
 | Source | Variables | Token type |
 | --- | --- | --- |
 | GitLab | `GITLAB_URL`, `GITLAB_TOKEN`, optional `GITLAB_PROJECTS` | Personal access token with `read_api` |
+| GitHub | `GITHUB_TOKEN`, optional `GITHUB_REPOS`, `GITHUB_API_URL` | Fine-grained token, read-only: Contents, Issues, Pull requests, Metadata, Notifications |
+| Linear | `LINEAR_API_KEY`, optional `LINEAR_TEAMS` | Personal API key (Settings → API); GraphQL, queries only |
+| Notion | `NOTION_TOKEN`, optional `NOTION_VERSION` | Internal integration token; share the pages it may read with the integration |
 | Jira | `JIRA_URL`, `JIRA_TOKEN`, `ATLASSIAN_KIND=cloud\|server`, cloud also `JIRA_EMAIL` | Cloud API token or Data Center personal access token |
 | Confluence | `CONFLUENCE_URL` (falls back to the Jira token and email), optional `CONFLUENCE_SPACES` | Same as Jira |
 | Outlook | `MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET`, `MS_USER` | Entra app registration with application permission `Calendars.Read` (`Mail.Read` if `OUTLOOK_INCLUDE_MAIL=true`), admin-consented |
@@ -121,7 +128,7 @@ downstream, such as a Teams message or a Confluence page.
 | Top to-dos | Two to four imperative titles naming the artifact (MR !142, AL-231), evidence in the body, source chip |
 | New updates | Numbered, past tense, outcome in the title, an italic area tag, loose ends named |
 | Your day | Compact agenda, then a detail per meeting with a "Prep me →" starburst |
-| Footer | "Made for you by {brand} using your GitLab, Jira, Confluence and Outlook." and circled initials |
+| Footer | "Made for you by {brand} using your GitLab, Jira, Confluence and Outlook." (or GitHub, Linear and Notion — whichever is connected) and circled initials |
 
 Set `BRIEF_LANGUAGE=nl` for a Dutch brief; the copy, the title ("De dinsdagbrief")
 and the time format follow.

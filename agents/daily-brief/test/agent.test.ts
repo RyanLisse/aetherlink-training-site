@@ -14,6 +14,9 @@ test("sources are enabled purely by environment", () => {
   assert.deepEqual(some.enabled, ["gitlab", "jira", "outlook"]);
   assert.deepEqual(some.allowedTools, ["mcp__gitlab__*", "mcp__jira__*", "mcp__outlook__*"]);
   assert.deepEqual(Object.keys(some.servers), ["gitlab", "jira", "outlook"]);
+  const personal = buildSources({ GITHUB_TOKEN: "g", LINEAR_API_KEY: "l", NOTION_TOKEN: "n" }, "Europe/Amsterdam");
+  assert.deepEqual(personal.enabled, ["github", "linear", "notion"]);
+  assert.deepEqual(personal.allowedTools, ["mcp__github__*", "mcp__linear__*", "mcp__notion__*"]);
 });
 
 test("prompts carry the day, the language and the connected sources", () => {

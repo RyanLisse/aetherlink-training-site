@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Daily brief agent: reads GitLab, Jira, Confluence and Outlook and writes a Dia-style brief as a self-contained HTML artifact.",
+  "description": "Daily brief agent: reads GitLab, Jira, Confluence and Outlook (or GitHub, Linear and Notion) and writes a Dia-style brief as a self-contained HTML artifact.",
   "scripts": {
     "brief": "tsx src/main.ts",
     "brief:sample": "tsx src/main.ts --sample",

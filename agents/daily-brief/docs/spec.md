@@ -26,7 +26,7 @@ The contract is `src/brief.ts`; this table is its reading guide. A field not in 
 | `pushForward.title` | string | Imperative, at most nine words, names the artifact | "Close out the admin-image CI fix with Robert" |
 | `pushForward.body` | string | Two to four sentences of evidence: who, since when, who waits, why today | "Robert did steps 1 and 2 (the GHCR package access) and asked how to verify it works." |
 | `pushForward.offer` | string, optional | One sentence starting "I can …" naming the concrete thing to prepare next | "I can draft the exact verification steps and a reply back to him" |
-| `pushForward.link` | `{source, url}`, optional | The artifact's own URL; `source` is one of gitlab, jira, confluence, outlook | the PR, the runbook page |
+| `pushForward.link` | `{source, url}`, optional | The artifact's own URL; `source` is one of gitlab, jira, confluence, outlook, github, linear, notion | the PR, the runbook page |
 | `todos[]` | 2–4 items, same shape as the push item | Most leverage first, never repeats the push item | "Sandbox-verify the Mollie payment adapter" |
 | `updates[]` | 0–6 items, item shape plus `tag` | Past tense, outcome in the title, loose ends in the body; `tag` is the project or area, two words max | "Migration-rollback CI breakage fixed for good" · tag "CI/CD" |
 | `day[]` | events: `start` HH:MM, `end` HH:MM optional, `title`, `description` optional, `url` optional, `prep` optional | Every event today, in order; description names the medium and the people in one sentence; `prep` only when the sources reveal something worth reading first | "External call over Microsoft Teams with Robbie from Catapulze." |

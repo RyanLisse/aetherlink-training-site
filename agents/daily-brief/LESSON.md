@@ -8,6 +8,19 @@ solution for every step is one `git diff` away. The deck is the site's
 `?lesson=daily-brief` presentation; this file is the facilitator guide behind
 the "Day guide" button.
 
+## Where it fits, and running it alone
+
+In the course this is a one-day guided lesson. It also fits as an alternative
+Squad 1 Day 5: it covers the Day 5 concepts hooks and human gate, plus the
+agentic loop and the AI-native SDLC, on one agent the squad builds themselves.
+It does not cover subagents or the evaluator-optimizer pattern; keep the
+regular Day 5 when those are the point. On the site both are listed under
+Squad 1 · Day 5.
+
+`SOLO.md` walks the same seven steps for one person with their own GitHub,
+Linear and Notion; the lab repository is
+<https://github.com/RyanLisse/aetherlink-daily-brief-lab>.
+
 ## Outcome
 
 Everyone — alone or as a MOB — has written an accepted `intent.md`, turned two reference PDFs into a

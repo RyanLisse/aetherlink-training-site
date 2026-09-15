@@ -81,6 +81,7 @@ copy package-lock.json
 copy tsconfig.json
 copy .gitignore
 copy .env.example
+copy SOLO.md
 progress 0
 commit "Step 0 — empty lab: templates and package skeleton"
 mark 0 start
@@ -139,6 +140,7 @@ mark 6 evidence
 # ---- step 7: deploy, gate + schedule -------------------------------------------
 copy docs/gate.md
 copy gitlab-ci.example.yml
+copy github-actions.example.yml
 copy README.md docs/agent-readme.md
 progress 7
 commit "Step 7 — gate.md and the schedule"

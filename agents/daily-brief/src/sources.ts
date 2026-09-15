@@ -2,7 +2,7 @@
  * Sources: GitLab, Jira, Confluence, Outlook (Microsoft Graph).
  *
  * Each source is an in-process MCP server built with the Agent SDK's
- * `createSdkMcpServer` + `tool`. The tools are small, read-only REST calls with
+ * `createSdkMcpServer` + `tool`. The tools are small, read-only calls with
  * bounded output, so the model can survey everything in a handful of turns and
  * then drill into the two or three items that matter.
  *
@@ -654,6 +654,325 @@ const outlookServer = (env: Env, timeZone: string): McpServerConfig => {
   });
 };
 
+/* ---------- GitHub ---------- */
+/* The personal stack (GitHub, Linear, Notion) mirrors the team stack (GitLab,
+   Jira, Confluence): same questions, same read-only shape, so the brief reads
+   the same whichever side is connected. */
+
+type GhRepo = { full_name: string; html_url: string; pushed_at?: string };
+type GhIssue = {
+  number: number;
+  title: string;
+  html_url: string;
+  state: string;
+  updated_at: string;
+  created_at: string;
+  draft?: boolean;
+  pull_request?: { url: string; merged_at?: string | null };
+  user?: { login?: string };
+  labels?: Array<{ name?: string }>;
+  repository_url?: string;
+  comments?: number;
+};
+type GhPull = GhIssue & {
+  merged_at?: string | null;
+  mergeable_state?: string;
+  requested_reviewers?: Array<{ login?: string }>;
+  review_comments?: number;
+  head?: { sha?: string };
+  body?: string | null;
+};
+type GhNotification = {
+  reason: string;
+  updated_at: string;
+  subject?: { title?: string; type?: string; url?: string };
+  repository?: { full_name?: string };
+};
+type GhCheckRuns = { check_runs?: Array<{ name?: string; conclusion?: string | null; status?: string; html_url?: string }> };
+type GhReviewComment = { user?: { login?: string }; created_at: string; body?: string; path?: string };
+
+const ghRepoOf = (i: GhIssue): string | undefined => i.repository_url?.split("/repos/")[1];
+const ghView = (i: GhIssue) => ({
+  ref: `${ghRepoOf(i) ?? ""}#${i.number}`,
+  title: i.title,
+  url: i.html_url,
+  kind: i.pull_request ? "pull request" : "issue",
+  draft: i.draft,
+  by: i.user?.login,
+  labels: (i.labels ?? []).map((l) => l.name).filter(Boolean),
+  comments: i.comments,
+  updated_at: i.updated_at,
+});
+
+const githubServer = (env: Env): McpServerConfig => {
+  const base = trimSlash(env.GITHUB_API_URL ?? "https://api.github.com");
+  const headers = {
+    Authorization: `Bearer ${need(env, "GITHUB_TOKEN")}`,
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  const repos = list(env.GITHUB_REPOS);
+  const gh = <T>(path: string, params: Record<string, string | number | boolean | undefined> = {}): Promise<T> =>
+    http<T>(`${base}${path}?${qs({ per_page: 50, ...params })}`, { headers });
+  const me = (): Promise<{ login: string; name?: string }> => gh("/user");
+  const repoScope = async (): Promise<string[]> =>
+    repos.length ? repos : (await gh<GhRepo[]>("/user/repos", { sort: "pushed", affiliation: "owner,collaborator,organization_member" })).slice(0, 8).map((r) => r.full_name);
+
+  return createSdkMcpServer({
+    name: "github",
+    version: "1.0.0",
+    instructions: "Read-only GitHub. Start with github_notifications and github_my_pull_requests; drill into one PR with github_pull_request when its state matters.",
+    tools: [
+      tool(
+        "github_notifications",
+        "Unread GitHub notifications for the recipient: review requests, mentions, assignments, failed workflows.",
+        SINCE,
+        guarded(async ({ since_hours }) =>
+          (await gh<GhNotification[]>("/notifications", { since: hoursAgoIso(since_hours) })).map((n) => ({
+            reason: n.reason,
+            type: n.subject?.type,
+            title: n.subject?.title,
+            repo: n.repository?.full_name,
+            updated_at: n.updated_at,
+          })),
+        ),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "github_my_pull_requests",
+        "Open pull requests the recipient authored, plus open ones where their review is requested.",
+        {},
+        guarded(async () => {
+          const user = await me();
+          const search = (q: string) => gh<{ items: GhIssue[] }>("/search/issues", { q, sort: "updated", order: "desc" });
+          const [authored, reviewing] = await Promise.all([
+            search(`is:pr is:open author:${user.login}`),
+            search(`is:pr is:open review-requested:${user.login}`),
+          ]);
+          return { user: user.name ?? user.login, authored: authored.items.map(ghView), reviewing: reviewing.items.map(ghView) };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "github_pull_request",
+        "Detail for one pull request: description, check runs on its head, and recent review comments.",
+        { repo: z.string().describe("owner/name"), number: z.number().int().describe("The pull request number (#123 -> 123).") },
+        guarded(async ({ repo, number }) => {
+          const pr = await gh<GhPull>(`/repos/${repo}/pulls/${number}`);
+          const [checks, comments] = await Promise.all([
+            pr.head?.sha ? gh<GhCheckRuns>(`/repos/${repo}/commits/${pr.head.sha}/check-runs`) : Promise.resolve({ check_runs: [] }),
+            gh<GhReviewComment[]>(`/repos/${repo}/pulls/${number}/comments`, { sort: "updated", direction: "desc", per_page: 20 }),
+          ]);
+          return {
+            ...ghView({ ...pr, repository_url: `${base}/repos/${repo}` }),
+            description: clip(pr.body, 1500),
+            mergeable_state: pr.mergeable_state,
+            reviewers_requested: (pr.requested_reviewers ?? []).map((r) => r.login),
+            checks: (checks.check_runs ?? []).map((c) => ({ name: c.name, status: c.status, conclusion: c.conclusion, url: c.html_url })),
+            review_comments: comments.slice(0, 12).map((c) => ({ by: c.user?.login, at: c.created_at, path: c.path, text: clip(c.body, 400) })),
+          };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "github_repo_activity",
+        "What changed in the recipient's repositories since the look-back window: merged and closed pull requests and issues. Uses GITHUB_REPOS when set, otherwise the most recently pushed repositories.",
+        SINCE,
+        guarded(async ({ since_hours }) => {
+          const since = hoursAgoIso(since_hours);
+          const scope = await repoScope();
+          const q = `${scope.map((r) => `repo:${r}`).join(" ")} updated:>=${dateOnly(since)}`;
+          const items = (await gh<{ items: GhIssue[] }>("/search/issues", { q, sort: "updated", order: "desc" })).items;
+          return {
+            repos: scope,
+            merged_or_closed: items.filter((i) => i.state === "closed").map(ghView),
+            still_open: items.filter((i) => i.state === "open").map(ghView),
+          };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+    ],
+  });
+};
+
+/* ---------- Linear ---------- */
+/* Linear speaks GraphQL, so every call is a POST by protocol; every query here
+   only reads. The allow-list and the token scope keep it that way. */
+
+type LnIssue = {
+  identifier: string;
+  title: string;
+  url: string;
+  updatedAt: string;
+  createdAt: string;
+  dueDate?: string | null;
+  priorityLabel?: string;
+  state?: { name?: string; type?: string };
+  assignee?: { name?: string };
+  project?: { name?: string };
+  team?: { key?: string };
+};
+type LnComment = { createdAt: string; body?: string; user?: { name?: string } };
+
+const lnView = (i: LnIssue) => ({
+  ref: i.identifier,
+  title: i.title,
+  url: i.url,
+  state: i.state?.name,
+  priority: i.priorityLabel,
+  project: i.project?.name,
+  team: i.team?.key,
+  assignee: i.assignee?.name,
+  due: i.dueDate ?? undefined,
+  updated_at: i.updatedAt,
+});
+
+const LN_FIELDS = "identifier title url updatedAt createdAt dueDate priorityLabel state { name type } assignee { name } project { name } team { key }";
+
+const linearServer = (env: Env): McpServerConfig => {
+  const token = need(env, "LINEAR_API_KEY");
+  const teams = list(env.LINEAR_TEAMS);
+  const gql = async <T>(query: string, variables: Record<string, unknown> = {}): Promise<T> => {
+    const res = await http<{ data?: T; errors?: Array<{ message: string }> }>("https://api.linear.app/graphql", {
+      method: "POST",
+      headers: { Authorization: token, "Content-Type": "application/json" },
+      body: JSON.stringify({ query, variables }),
+    });
+    if (res.errors?.length) throw new Error(res.errors.map((e) => e.message).join("; "));
+    return res.data as T;
+  };
+  const teamFilter = teams.length ? `team: { key: { in: ${JSON.stringify(teams)} } },` : "";
+
+  return createSdkMcpServer({
+    name: "linear",
+    version: "1.0.0",
+    instructions: "Read-only Linear. Start with linear_my_issues; use linear_recent_activity for what moved; drill into one issue with linear_issue when a comment decides the ranking.",
+    tools: [
+      tool(
+        "linear_my_issues",
+        "Open issues assigned to the recipient, most recently updated first, with state, priority and due date.",
+        {},
+        guarded(async () => {
+          const data = await gql<{ viewer: { name: string }; issues: { nodes: LnIssue[] } }>(
+            `query { viewer { name } issues(first: 50, orderBy: updatedAt, filter: { ${teamFilter} assignee: { isMe: { eq: true } }, state: { type: { nin: ["completed", "canceled"] } } }) { nodes { ${LN_FIELDS} } } }`,
+          );
+          return { user: data.viewer.name, issues: data.issues.nodes.map(lnView) };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "linear_recent_activity",
+        "Issues that changed since the look-back window in the recipient's teams (LINEAR_TEAMS when set): completed, started, or newly created.",
+        SINCE,
+        guarded(async ({ since_hours }) => {
+          const data = await gql<{ issues: { nodes: LnIssue[] } }>(
+            `query($since: DateTimeOrDuration!) { issues(first: 50, orderBy: updatedAt, filter: { ${teamFilter} updatedAt: { gte: $since } }) { nodes { ${LN_FIELDS} } } }`,
+            { since: hoursAgoIso(since_hours) },
+          );
+          const nodes = data.issues.nodes;
+          return {
+            completed: nodes.filter((i) => i.state?.type === "completed").map(lnView),
+            in_progress: nodes.filter((i) => i.state?.type === "started").map(lnView),
+            new_or_moved: nodes.filter((i) => !["completed", "started"].includes(i.state?.type ?? "")).map(lnView),
+          };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "linear_issue",
+        "Detail for one issue: description and the latest comments.",
+        { identifier: z.string().describe("Issue identifier like AL-123.") },
+        guarded(async ({ identifier }) => {
+          const data = await gql<{ issue: LnIssue & { description?: string | null; comments: { nodes: LnComment[] } } }>(
+            `query($id: String!) { issue(id: $id) { ${LN_FIELDS} description comments(last: 10) { nodes { createdAt body user { name } } } } }`,
+            { id: identifier },
+          );
+          return {
+            ...lnView(data.issue),
+            description: clip(data.issue.description, 1500),
+            comments: data.issue.comments.nodes.map((c) => ({ by: c.user?.name, at: c.createdAt, text: clip(c.body, 400) })),
+          };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+    ],
+  });
+};
+
+/* ---------- Notion ---------- */
+/* Notion's search is a POST by protocol and reads only; the integration token
+   decides which pages exist for the agent at all (share them with it). */
+
+type NtRich = { plain_text?: string };
+type NtPage = {
+  id: string;
+  object: "page" | "database";
+  url?: string;
+  last_edited_time: string;
+  created_time: string;
+  last_edited_by?: { id?: string };
+  properties?: Record<string, { type?: string; title?: NtRich[] }>;
+  title?: NtRich[];
+};
+type NtBlock = { type: string; has_children?: boolean; [k: string]: unknown };
+
+const ntTitle = (p: NtPage): string => {
+  const prop = Object.values(p.properties ?? {}).find((v) => v.type === "title");
+  const rich = prop?.title ?? p.title ?? [];
+  return rich.map((r) => r.plain_text ?? "").join("") || "(untitled)";
+};
+const ntView = (p: NtPage) => ({ id: p.id, kind: p.object, title: ntTitle(p), url: p.url, updated_at: p.last_edited_time, created_at: p.created_time });
+const ntBlockText = (b: NtBlock): string => {
+  const inner = b[b.type] as { rich_text?: NtRich[]; title?: string } | undefined;
+  return (inner?.rich_text ?? []).map((r) => r.plain_text ?? "").join("") || inner?.title || "";
+};
+
+const notionServer = (env: Env): McpServerConfig => {
+  const headers = { Authorization: `Bearer ${need(env, "NOTION_TOKEN")}`, "Notion-Version": env.NOTION_VERSION ?? "2022-06-28", "Content-Type": "application/json" };
+  const nt = <T>(path: string, init: RequestInit = {}): Promise<T> => http<T>(`https://api.notion.com/v1${path}`, { ...init, headers });
+  const search = (body: Record<string, unknown>) =>
+    nt<{ results: NtPage[] }>("/search", { method: "POST", body: JSON.stringify({ sort: { direction: "descending", timestamp: "last_edited_time" }, page_size: 30, ...body }) });
+
+  return createSdkMcpServer({
+    name: "notion",
+    version: "1.0.0",
+    instructions: "Read-only Notion. Start with notion_recent_pages; drill into one page with notion_page when its text decides the ranking.",
+    tools: [
+      tool(
+        "notion_recent_pages",
+        "Pages and databases shared with the integration that were edited since the look-back window, newest first.",
+        SINCE,
+        guarded(async ({ since_hours }) => {
+          const since = hoursAgoIso(since_hours);
+          const { results } = await search({});
+          return results.filter((p) => p.last_edited_time >= since).map(ntView);
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "notion_search",
+        "Search page titles shared with the integration.",
+        { query: z.string().min(1).describe("Words from the page title.") },
+        guarded(async ({ query }) => (await search({ query, filter: { property: "object", value: "page" } })).results.map(ntView)),
+        { annotations: { readOnlyHint: true } },
+      ),
+      tool(
+        "notion_page",
+        "The text of one page: its top-level blocks, clipped.",
+        { page_id: z.string().describe("The page id from notion_recent_pages or notion_search.") },
+        guarded(async ({ page_id }) => {
+          const [page, blocks] = await Promise.all([nt<NtPage>(`/pages/${page_id}`), nt<{ results: NtBlock[] }>(`/blocks/${page_id}/children?page_size=60`)]);
+          return {
+            ...ntView(page),
+            text: clip(blocks.results.map(ntBlockText).filter(Boolean).join("\n"), 3000),
+          };
+        }),
+        { annotations: { readOnlyHint: true } },
+      ),
+    ],
+  });
+};
+
 /* ---------- assembly ---------- */
 
 const hasAll = (env: Env, keys: string[]): boolean => keys.every((k) => Boolean(env[k]));
@@ -672,6 +991,9 @@ export const buildSources = (env: Env, timeZone: string): Sources => {
       Boolean(env.MS_USER && (env.MS_ACCESS_TOKEN || hasAll(env, ["MS_TENANT_ID", "MS_CLIENT_ID", "MS_CLIENT_SECRET"]))),
       () => outlookServer(env, timeZone),
     ],
+    ["github", hasAll(env, ["GITHUB_TOKEN"]), () => githubServer(env)],
+    ["linear", hasAll(env, ["LINEAR_API_KEY"]), () => linearServer(env)],
+    ["notion", hasAll(env, ["NOTION_TOKEN"]), () => notionServer(env)],
   ];
   const enabled = candidates.filter(([, on]) => on);
   return {
