@@ -211,6 +211,9 @@ async function scanDeck(page, deck, mode) {
         await page.screenshot({ path: screenshotPath, fullPage: mode !== 'desktop' });
         report.representativeScreenshots.push({ mode, kind: info.kind, deck: deck.id, slide, path: screenshotPath });
       }
+      if (mode === 'desktop' && deck.id === 's1d5') {
+        await page.screenshot({ path: path.join(out, `s1d5-${String(slide).padStart(2, '0')}.png`) });
+      }
       if (mode === 'desktop') await exerciseControls(page, deck, slide);
     } catch (error) {
       addError(`${deck.id}#${slide}: render failed: ${error.message}`);

@@ -58,6 +58,15 @@ in this repository. GitHub and Sites must contain the same commit when published
 
 ## Participant entry
 
+For the 17 September Squad 1 workshop, open [Day 5](https://aetherlink-training.ryanlisse.chatgpt.site/?squad=1&day=5#1)
+and the [support-triage participant guide](https://github.com/RyanLisse/aetherlink-agent-lab/tree/main/scenarios/support-triage).
+It translates the group's supplied n8n workflow through Plan, Design, Build,
+Test, Deploy and Maintain. Deployment in the exercise is a local colleague
+handoff; routing produces drafts, never customer messages or payment writes.
+An optional [chat frontend template](https://github.com/RyanLisse/aetherlink-agent-chat-starter)
+provides a labelled offline demo and a local Claude Agent SDK connection. Follow
+its README after the core exercise; the frontend does not send customer actions.
+
 The participant lab starts with the same ticket agent in n8n, then rebuilds it
 in Claude Code. Workflows require participant-provided credentials. Synthetic
 examples and static checks do not prove a live model run succeeded.
