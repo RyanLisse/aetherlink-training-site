@@ -63,6 +63,9 @@ and the [support-triage participant guide](https://github.com/RyanLisse/aetherli
 It translates the group's supplied n8n workflow through Plan, Design, Build,
 Test, Deploy and Maintain. Deployment in the exercise is a local colleague
 handoff; routing produces drafts, never customer messages or payment writes.
+An optional [chat frontend template](https://github.com/RyanLisse/aetherlink-agent-chat-starter)
+provides a labelled offline demo and a local Claude Agent SDK connection. Follow
+its README after the core exercise; the frontend does not send customer actions.
 
 The participant lab starts with the same ticket agent in n8n, then rebuilds it
 in Claude Code. Workflows require participant-provided credentials. Synthetic
