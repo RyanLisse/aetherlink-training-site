@@ -8,12 +8,12 @@ A participant who opens any day deck can see, on one screen, what the concept is
 
 ## Success checks
 
-- [x] Every slide fits a 1440×900 presenter screen without scrolling: cards or visual on the left, "Do this now" on the right.
+- [x] Every slide fits a 1440×900 presenter screen without scrolling, with one concept visual. Participant steps are available in Facilitator notes, without a duplicate right-hand panel.
 - [x] Steps are checkable and remembered for the tab session; the checkpoint has a "Mark passed" state.
 - [x] The footer shows the day as typed segments (practice, concept, review, recap, break, context); each segment jumps to its slide.
 - [x] All slide text that participants see is English. Facilitator `notes` may stay Dutch.
 - [x] Every concept ships as definition → visual → how we use it in both squads, generated from `concepts.json` (see the concept register below).
-- [x] `check_site_dom.cjs` (jsdom, 185 renders) and `check_routes.cjs` pass before every publish.
+- [ ] Run the current `work/shoot.js` regression in GitHub Actions before publishing this revision; record its actual slide count and results.
 
 ## Concept register
 
@@ -34,7 +34,7 @@ Every concept ships as three slides, in this order: **definition** (what it is, 
 
 Every day after the first opens with yesterday's concepts as recap slides (the picture and one sentence, no cards), and every day shows its route twice: on slide 2 and again in front of the afternoon. A concept card body is at most 18 words; the cut text stays in the facilitator notes.
 
-Both squads carry the same worked example (daily payment reconciliation, `FIN-001`), written once in the register's squad-2 block and placed in squad 1 on days 1, 3, 4 and 5. Squad 2 carries it from Day 1 to Day 5: six `EXAMPLE` slides generated from the `examples` block of the same register, typed as concept slides, with `worked-example-thread.svg` as the Day 1 visual. The example is documented in the course repo at `squads/squad-2/worked-example.md`.
+The register carries a daily payment-reconciliation example (`FIN-001`), documented in the course repo at `squads/squad-2/worked-example.md`. Squad 1 Day 5 instead follows the group's supplied support-triage workflow (`WL-1026`), with a coordinator and two specialists. Its agent-native SDLC exercise follows Plan → Design → Build → Test → Deploy → Maintain. The canonical register must preserve this day-specific example when regenerating.
 
 The word "harness" is deliberately absent from participant material: the decks say "platform" (n8n, Claude Code). Keep it that way.
 
@@ -54,4 +54,4 @@ The word "harness" is deliberately absent from participant material: the decks s
 
 ## Evidence contract
 
-A UI claim needs a screenshot from the running site (`python3 -m http.server 8080 --directory dist`) at 1440×900 and 390×844, plus the two gate commands with exit codes. A content claim needs the canonical JSON and `days.js` to be byte-equivalent (`JSON.stringify` equality) before the site is published.
+A UI claim needs screenshots from the running site at 1440×900 and 390×844, plus a passing `work/shoot.js` report from GitHub Actions. A content claim needs the canonical JSON and `days.js` to be byte-equivalent (`JSON.stringify` equality) before the site is published.
