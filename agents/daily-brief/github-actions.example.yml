@@ -1,0 +1,37 @@
+# Scheduled daily brief on GitHub Actions — the GitHub twin of gitlab-ci.example.yml.
+#
+# 1. Copy this to .github/workflows/daily-brief.yml.
+# 2. Add the variables from .env.example as repository secrets
+#    (ANTHROPIC_API_KEY and GITHUB_TOKEN_READONLY, LINEAR_API_KEY, NOTION_TOKEN …).
+#    The workflow's own GITHUB_TOKEN can read this repository only; for other
+#    repositories use a fine-grained token stored as GITHUB_TOKEN_READONLY.
+# 3. The brief lands as a job artifact; publish out/ to Pages if you want a URL.
+name: daily-brief
+on:
+  schedule:
+    - cron: "0 6 * * 1-5"   # 06:00 UTC on weekdays; 08:00 in Amsterdam in summer
+  workflow_dispatch:
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run brief
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BRIEF_RECIPIENT: ${{ vars.BRIEF_RECIPIENT }}
+          BRIEF_TIMEZONE: Europe/Amsterdam
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_READONLY }}
+          GITHUB_REPOS: ${{ vars.GITHUB_REPOS }}
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: daily-brief
+          path: out/

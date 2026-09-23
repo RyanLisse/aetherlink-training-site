@@ -23,6 +23,8 @@ Clone this repository and edit the files directly, or use GitHub's file editor.
 | `dist/days.js` | Squad 1 day decks (`window.DAYS`) |
 | `dist/squad2.js` | Squad 2 day decks (`window.SQUAD2`) |
 | `dist/assets/` | Images: concept diagrams, the AetherBOT poses (`bot-*.png`, `bot-builder.jpg`) and the standalone `ai-native-sdlc-line-and-loop.png` reference |
+| `dist/lesson.js` | Guided lessons (`window.LESSONS`), opened with `?lesson=<key>`; today `daily-brief`, the seven-step lesson around `agents/daily-brief` |
+| `agents/daily-brief/` | The daily brief agent (Claude Agent SDK), its documents under `docs/`, the facilitator guide `LESSON.md` and the lab builder `lab/build-lab.sh` |
 | `work/shoot.js` | Gate, also run by `.github/workflows/slide-check.yml`: renders every slide of every deck at 1440x900, 390x844 and 360x740 and fails on console errors, a missing template, a slide past the presenter fold, horizontal overflow on a phone or a tap target under 40px |
 
 The day registries are JavaScript assignments containing JSON data. Preserve the
@@ -39,8 +41,8 @@ that registry, so carry direct slide edits back to the canonical course JSON.
 ## Preview
 
 From this repository root, run `python3 -m http.server 8080 --directory dist`,
-then open `http://localhost:8080/?squad=1&day=3#1` or
-`http://localhost:8080/?squad=2&day=2#1`. Stop the server with Ctrl-C afterward.
+then open `http://localhost:8080/?squad=1&day=3#1`,
+`http://localhost:8080/?squad=2&day=2#1` or `http://localhost:8080/?lesson=daily-brief#1`. Stop the server with Ctrl-C afterward.
 No build or package install is required.
 
 With the server running, `node work/shoot.js` renders all 229 slides of both squads at three

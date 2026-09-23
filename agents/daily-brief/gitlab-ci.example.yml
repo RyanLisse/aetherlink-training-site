@@ -1,0 +1,40 @@
+# Scheduled daily brief on GitLab CI.
+#
+# 1. Copy this into the repository's .gitlab-ci.yml (or `include:` it).
+# 2. Add the variables from .env.example as masked CI/CD variables
+#    (ANTHROPIC_API_KEY, GITLAB_TOKEN, JIRA_TOKEN, MS_CLIENT_SECRET, or GITHUB_TOKEN, LINEAR_API_KEY, NOTION_TOKEN ...).
+# 3. CI/CD -> Schedules -> New: "30 6 * * 1-5", timezone Europe/Amsterdam.
+#
+# The brief lands as a job artifact (out/) and, with the pages job, at
+# https://<group>.gitlab.io/<project>/latest.html
+
+stages: [brief, deploy]
+
+daily-brief:
+  stage: brief
+  image: node:22
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  variables:
+    BRIEF_OUT_DIR: $CI_PROJECT_DIR/agents/daily-brief/out
+  script:
+    - cd agents/daily-brief
+    - npm ci
+    - npm run brief
+  artifacts:
+    paths:
+      - agents/daily-brief/out/
+    expire_in: 30 days
+
+pages:
+  stage: deploy
+  image: alpine:3
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  needs: [daily-brief]
+  script:
+    - mkdir -p public
+    - cp agents/daily-brief/out/*.html public/
+    - cp public/latest.html public/index.html
+  artifacts:
+    paths: [public]
