@@ -1,5 +1,7 @@
 'use strict';
 window.GLOSSARY = [
+  {term:'AI-native SDLC', definition:'Plan → Design → Build → Test → Deploy → Maintain as a feedback loop, with AI at each phase and human control over decisions.'},
+  {term:'Agent-native SDLC', definition:'Our application of the AI-native SDLC: agents help produce each phase’s artifact; people review the evidence and decide what happens next.'},
   {term:'Model', definition:'Predicts and generates language. By itself it is not an agent.'},
   {term:'Chat', definition:'A model with a conversation and context, usually waiting for your next message.'},
   {term:'Agent', definition:'A model in a loop with a goal, tools, feedback and a boundary.'},

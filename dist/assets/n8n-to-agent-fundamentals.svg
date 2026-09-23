@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">From n8n to intent.md to agent</title>
+  <desc id="desc">Four agent fundamentals — system message, prompt, tools and memory — shown in three places: the n8n node, the intent.md section that translates it, and the Claude Agent SDK query() option that implements it. Memory becomes one markdown file per ticket.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#625d73"/></marker>
+  <filter id="shadow" x="-10%" y="-15%" width="120%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f1e2e" flood-opacity=".06"/></filter></defs>
+  <rect width="1200" height="620" fill="#ffffff"/>
+  <text x="600" y="40" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700" letter-spacing="2.5" fill="#5b3fff">SAME FUNDAMENTALS · THREE PLACES</text>
+  <text x="600" y="68" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#625d73">translate the boxes, don’t copy them · every rule traces back to intent.md</text>
+  <text x="340.0" y="112" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#625d73">n8n NODE</text>
+  <rect x="190" y="120" width="300" height="3" fill="#625d73"/>
+  <text x="690.0" y="112" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#ff7a1a">intent.md</text>
+  <rect x="540" y="120" width="300" height="3" fill="#ff7a1a"/>
+  <text x="1030.0" y="112" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#5b3fff">CLAUDE AGENT SDK</text>
+  <rect x="890" y="120" width="280" height="3" fill="#5b3fff"/>
+  <text x="30" y="190.0" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">SYSTEM</text>
+  <text x="30" y="212.0" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">MESSAGE</text>
+  <g filter="url(#shadow)"><rect x="190" y="138" width="300" height="104" rx="14" fill="#f6f5f9" stroke="#dedbea"/></g>
+  <text x="340.0" y="182" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">AI Agent → System Message</text>
+  <text x="340.0" y="212" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">“Always talk with …” (1 line)</text>
+  <g filter="url(#shadow)"><rect x="540" y="138" width="300" height="104" rx="14" fill="#fff4ec" stroke="#dedbea"/></g>
+  <text x="690.0" y="182" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Boundaries + stop rules</text>
+  <text x="690.0" y="212" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">data ≠ instructions</text>
+  <g filter="url(#shadow)"><rect x="890" y="138" width="280" height="104" rx="14" fill="#eeeafe" stroke="#dedbea"/></g>
+  <text x="1030.0" y="182" text-anchor="middle" font-family="Menlo,Consolas,monospace" font-size="17" font-weight="700" fill="#1f1e2e">options.systemPrompt</text>
+  <text x="1030.0" y="212" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">src/prompts.ts</text>
+  <line x1="494" y1="190.0" x2="534" y2="190.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="844" y1="190.0" x2="884" y2="190.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="30" y="311.0" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">PROMPT</text>
+  <g filter="url(#shadow)"><rect x="190" y="252" width="300" height="104" rx="14" fill="#f6f5f9" stroke="#dedbea"/></g>
+  <text x="340.0" y="296" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Prompt (User Message)</text>
+  <text x="340.0" y="326" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">{{ $json.customer }} · message</text>
+  <g filter="url(#shadow)"><rect x="540" y="252" width="300" height="104" rx="14" fill="#fff4ec" stroke="#dedbea"/></g>
+  <text x="690.0" y="296" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Input · incl. ticket_id</text>
+  <text x="690.0" y="326" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">[gap] n8n forgot it</text>
+  <g filter="url(#shadow)"><rect x="890" y="252" width="280" height="104" rx="14" fill="#eeeafe" stroke="#dedbea"/></g>
+  <text x="1030.0" y="296" text-anchor="middle" font-family="Menlo,Consolas,monospace" font-size="17" font-weight="700" fill="#1f1e2e">prompt</text>
+  <text x="1030.0" y="326" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">buildTriagePrompt(ticket)</text>
+  <line x1="494" y1="304.0" x2="534" y2="304.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="844" y1="304.0" x2="884" y2="304.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="30" y="425.0" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">TOOLS</text>
+  <g filter="url(#shadow)"><rect x="190" y="366" width="300" height="104" rx="14" fill="#f6f5f9" stroke="#dedbea"/></g>
+  <text x="340.0" y="410" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Customer Reply Agent</text>
+  <text x="340.0" y="440" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">Risk Agent · ai_tool</text>
+  <g filter="url(#shadow)"><rect x="540" y="366" width="300" height="104" rx="14" fill="#fff4ec" stroke="#dedbea"/></g>
+  <text x="690.0" y="410" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Success check 2</text>
+  <text x="690.0" y="440" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">each exactly once, traced</text>
+  <g filter="url(#shadow)"><rect x="890" y="366" width="280" height="104" rx="14" fill="#eeeafe" stroke="#dedbea"/></g>
+  <text x="1030.0" y="410" text-anchor="middle" font-family="Menlo,Consolas,monospace" font-size="17" font-weight="700" fill="#1f1e2e">options.agents + Agent</text>
+  <text x="1030.0" y="440" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">2 subagents · src/tools.ts</text>
+  <line x1="494" y1="418.0" x2="534" y2="418.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="844" y1="418.0" x2="884" y2="418.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="30" y="539.0" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.5" fill="#1f1e2e">MEMORY</text>
+  <g filter="url(#shadow)"><rect x="190" y="480" width="300" height="104" rx="14" fill="#f6f5f9" stroke="#dedbea"/></g>
+  <text x="340.0" y="524" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Simple Memory × 3</text>
+  <text x="340.0" y="554" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">static keys 1 · 2 · 1</text>
+  <g filter="url(#shadow)"><rect x="540" y="480" width="300" height="104" rx="14" fill="#fff4ec" stroke="#dedbea"/></g>
+  <text x="690.0" y="524" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#1f1e2e">Success check 7</text>
+  <text x="690.0" y="554" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">per ticket, human-readable</text>
+  <g filter="url(#shadow)"><rect x="890" y="480" width="280" height="104" rx="14" fill="#eeeafe" stroke="#dedbea"/></g>
+  <text x="1030.0" y="524" text-anchor="middle" font-family="Menlo,Consolas,monospace" font-size="17" font-weight="700" fill="#1f1e2e">memory/WL-1026.md</text>
+  <text x="1030.0" y="554" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">+ memory/MEMORY.md</text>
+  <line x1="494" y1="532.0" x2="534" y2="532.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="844" y1="532.0" x2="884" y2="532.0" stroke="#625d73" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="600" y="608" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#625d73">git diff step-2-design → step-3a (system + prompt) → step-3b (tools) → step-3c (memory)</text>
+</svg>
