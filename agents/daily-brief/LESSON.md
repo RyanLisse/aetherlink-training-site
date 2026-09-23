@@ -19,7 +19,7 @@ Squad 1 · Day 5.
 
 `SOLO.md` walks the same seven steps for one person with their own GitHub,
 Linear and Notion; the lab repository is
-<https://github.com/RyanLisse/aetherlink-daily-brief-lab>.
+<https://github.com/RyanLisse/aetherlink-daily-brief-lab-s1>.
 
 ## Outcome
 
@@ -35,8 +35,8 @@ Build it once from this folder and push it to a repository participants can
 clone ("Use this template" on GitHub, or a plain GitLab project):
 
 ```bash
-agents/daily-brief/lab/build-lab.sh /tmp/aetherlink-daily-brief-lab
-cd /tmp/aetherlink-daily-brief-lab
+agents/daily-brief/lab/build-lab.sh /tmp/aetherlink-daily-brief-lab-s1
+cd /tmp/aetherlink-daily-brief-lab-s1
 git remote add origin <your lab remote>
 git push -u origin --all --tags
 ```
@@ -84,7 +84,7 @@ save one: `npm run brief 2> demo.log`. To replay it slowly:
 ### Verifying the lab
 
 ```bash
-cd /tmp/aetherlink-daily-brief-lab
+cd /tmp/aetherlink-daily-brief-lab-s1
 for tag in step-2-spec step-4-build-render step-5-build-agent step-7-gate-deploy; do
   git checkout -q "$tag" && npm ci --silent && npm run typecheck && npm test
 done

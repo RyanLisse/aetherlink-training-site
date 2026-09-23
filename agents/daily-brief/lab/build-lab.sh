@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build the participant lab repository from this agent, one commit per lesson step.
 #
-#   agents/daily-brief/lab/build-lab.sh /path/to/aetherlink-daily-brief-lab
+#   agents/daily-brief/lab/build-lab.sh /path/to/aetherlink-daily-brief-lab-s1
 #
 # Result: a fresh git repository where
 #   main            = step 0: templates, package skeleton, nothing else (participants start here)

@@ -13,8 +13,8 @@ Budget: one working day, or two half days with the break after step 4.
 2. Clone the lab and start from `main`:
 
    ```bash
-   git clone https://github.com/RyanLisse/aetherlink-daily-brief-lab
-   cd aetherlink-daily-brief-lab
+   git clone https://github.com/RyanLisse/aetherlink-daily-brief-lab-s1
+   cd aetherlink-daily-brief-lab-s1
    git switch -c my/<your-name>
    npm ci
    ```
